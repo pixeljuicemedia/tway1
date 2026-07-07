@@ -173,30 +173,20 @@ function Index() {
           ))}
           <Link
             to="/shop"
-            className="lg:col-span-4 relative overflow-hidden rounded-xl bg-surface aspect-[4/5] lg:aspect-[3/4] hairline-t border border-border p-8 md:p-10 flex flex-col justify-between hover:border-race-red/60 transition-colors"
+            className="group lg:col-span-4 relative overflow-hidden rounded-xl bg-surface aspect-[4/5] lg:aspect-[3/4]"
           >
-            <p className="eyebrow">Data · Wideband · CAN</p>
-            <div>
-              <h3 className="font-display text-2xl md:text-3xl font-semibold">Electronics</h3>
-              <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-                MoTeC, AiM, Holley Terminator. Wired, mapped and validated in-shop.
-              </p>
-              <div className="mt-6 eyebrow text-race-red">Explore →</div>
-            </div>
             <img
               src={catElectronics}
               alt="Motorsport electronics"
-              className="absolute inset-0 h-full w-full object-cover opacity-70"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
-            <div className="relative flex flex-col h-full justify-between">
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+            <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
               <p className="eyebrow">Data · Wideband · CAN</p>
-              <div>
-                <h3 className="font-display text-2xl md:text-3xl font-semibold">Electronics</h3>
-                <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-                  MoTeC, AiM, Holley Terminator. Wired, mapped and validated in-shop.
-                </p>
+              <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold">Electronics</h3>
+              <div className="mt-4 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground group-hover:text-race-red transition-colors">
+                Explore <span aria-hidden>→</span>
               </div>
             </div>
           </Link>
