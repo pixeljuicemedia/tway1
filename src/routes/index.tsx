@@ -29,8 +29,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
       { name: "description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
-      { property: "og:title", content: "Tway Motorsports — Race-Proven Performance" },
-      { property: "og:description", content: "Family-owned Corvette race shop. Engineering, fabrication, tuning and trackside support." },
+      { property: "og:title", content: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
+      { property: "og:description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
     ],
   }),
   component: Index,
