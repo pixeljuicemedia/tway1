@@ -249,9 +249,10 @@
 }
 
 @keyframes hero-crossfade {
-  0%   { opacity: 0; }
-  50%  { opacity: 1; }
-  100% { opacity: 0; }
+  0%      { opacity: 0; }
+  16.666% { opacity: 1; }
+  33.333% { opacity: 0; }
+  100%    { opacity: 0; }
 }
 
 .hero-crossfade-slide {
