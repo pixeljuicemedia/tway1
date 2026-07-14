@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import hero from "@/assets/hero-corvette.jpg";
+import heroTrackAsset from "@/assets/hero-track.png.asset.json";
+import corvetteAsset from "@/assets/corvette-side.png.asset.json";
+const hero = heroTrackAsset.url;
+const corvette = corvetteAsset.url;
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
 import catC6 from "@/assets/cat-c6.jpg";
@@ -85,13 +88,26 @@ function Index() {
       <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-end overflow-hidden">
         <img
           src={hero}
-          alt="Corvette C7 ZR1 on the race track at dusk"
+          alt="Illustrated race track with grandstands at dusk"
           className="absolute inset-0 h-full w-full object-cover"
           width={1920}
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
+
+        {/* Animated Corvette driving across the track */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[18%] md:bottom-[22%] z-[1] flex justify-center overflow-hidden">
+          <div className="animate-drive">
+            <div className="animate-bounce-subtle">
+              <img
+                src={corvette}
+                alt="Corvette illustration"
+                className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto drop-shadow-[0_18px_18px_rgba(0,0,0,0.55)]"
+              />
+            </div>
+          </div>
+        </div>
 
         <div className="relative container-wide pb-20 md:pb-28 lg:pb-32 pt-40 w-full">
           <div className="max-w-3xl">
