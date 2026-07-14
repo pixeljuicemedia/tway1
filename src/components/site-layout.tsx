@@ -14,48 +14,68 @@ const nav = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-background/70 backdrop-blur-xl hairline-b">
-      <div className="container-wide grid grid-cols-[auto_1fr_auto] items-center gap-6 h-16 md:h-20">
-        <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo} alt="Tway Motorsports" className="h-8 md:h-9 w-auto" />
-        </Link>
-        <nav className="hidden lg:flex items-center justify-center gap-10">
-          {nav.slice(1).map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              className="font-display text-[11px] tracking-[0.24em] uppercase text-muted-foreground hover:text-foreground transition-colors"
-              activeProps={{ className: "text-foreground" }}
-            >
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-3 justify-end">
-          <Link to="/contact" className="hidden md:inline-flex btn-ghost !py-2.5 !px-4 !text-[10px]">
+    <header className="fixed top-0 inset-x-0 z-50">
+      <div className="container-wide pt-4 md:pt-5 flex items-center gap-3">
+        {/* Floating pill: logo + nav */}
+        <div className="flex-1 min-w-0 flex items-center gap-6 md:gap-10 rounded-full bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-5 pr-6 md:pl-6 md:pr-8 h-14 md:h-16">
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <img src={logo} alt="Tway Motorsports" className="h-7 md:h-8 w-auto" />
+          </Link>
+          <nav className="hidden lg:flex items-center justify-center gap-10 flex-1">
+            {nav.slice(1).map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
+                activeProps={{ className: "text-white" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Search + Quote */}
+        <div className="hidden md:flex items-center gap-2 shrink-0">
+          <div className="relative">
+            <svg aria-hidden viewBox="0 0 24 24" className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+            </svg>
+            <input
+              type="search"
+              placeholder="Search parts…"
+              className="h-14 md:h-16 w-44 lg:w-56 rounded-full bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-11 pr-4 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-white/30 transition-colors"
+            />
+          </div>
+          <Link
+            to="/contact"
+            className="h-14 md:h-16 inline-flex items-center rounded-full bg-foreground text-background px-6 font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors"
+          >
             Request Quote
           </Link>
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setOpen((o) => !o)}
-            className="lg:hidden h-10 w-10 grid place-items-center border border-border rounded-md"
-          >
-            <div className="flex flex-col gap-1">
-              <span className="block h-px w-4 bg-foreground" />
-              <span className="block h-px w-4 bg-foreground" />
-            </div>
-          </button>
         </div>
+
+        <button
+          aria-label="Toggle menu"
+          onClick={() => setOpen((o) => !o)}
+          className="md:hidden h-12 w-12 grid place-items-center rounded-full bg-background/60 backdrop-blur-xl border border-white/10"
+        >
+          <div className="flex flex-col gap-1">
+            <span className="block h-px w-4 bg-white" />
+            <span className="block h-px w-4 bg-white" />
+          </div>
+        </button>
       </div>
       {open && (
-        <div className="lg:hidden hairline-t bg-background">
-          <div className="container-wide py-6 flex flex-col gap-4">
+        <div className="md:hidden mt-3 mx-4 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/10">
+          <div className="p-6 flex flex-col gap-4">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="font-display text-sm tracking-[0.18em] uppercase text-foreground"
+                className="font-display text-sm font-semibold tracking-[0.18em] uppercase text-white"
               >
                 {n.label}
               </Link>
@@ -155,7 +175,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <SiteHeader />
-      <main className="flex-1 pt-16 md:pt-20">{children}</main>
+      <main className="flex-1 pt-24 md:pt-28">{children}</main>
       <SiteFooter />
     </div>
   );
