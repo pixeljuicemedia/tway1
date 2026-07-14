@@ -98,11 +98,8 @@ function Index() {
             key={frame.url}
             src={frame.url}
             alt={i === 0 ? "Black Corvette head-on doing a burnout with smoke filling the frame" : ""}
-            className="hero-crossfade-slide absolute inset-0 h-full w-full object-cover"
-            style={{
-              animationDelay: `${(-CROSSFADE_CYCLE_S / burnoutFrames.length) * i}s`,
-              objectPosition: "center 60%",
-            }}
+            className="hero-crossfade-slide absolute inset-0 h-full w-full object-contain md:object-cover object-center"
+            style={{ animationDelay: `${(-CROSSFADE_CYCLE_S / burnoutFrames.length) * i}s` }}
             width={1920}
             height={1280}
             loading={i === 0 ? "eager" : "lazy"}
