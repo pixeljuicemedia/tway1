@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import heroBurnoutAsset from "@/assets/hero-burnout.jpg.asset.json";
 const hero = heroBurnoutAsset.url;
+import twayLogoDark from "@/assets/tway-logo-dark.png.asset.json";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
 import catC6 from "@/assets/cat-c6.jpg";
@@ -114,8 +115,12 @@ function Index() {
 
         <div className="relative container-wide pb-20 md:pb-28 lg:pb-32 pt-40 w-full">
           <div className="max-w-3xl">
-            <Eyebrow accent>Est. 1999 · Race Shop</Eyebrow>
-            <h1 className="mt-8 font-display font-bold tracking-tight text-[clamp(2.75rem,7vw,6rem)] leading-[0.95]">
+            <img
+              src={twayLogoDark.url}
+              alt="Tway Motorsports"
+              className="w-[clamp(16rem,38vw,32rem)] h-auto"
+            />
+            <h1 className="mt-8 font-display font-bold tracking-tight text-[clamp(2rem,4.5vw,4rem)] leading-[0.95]">
               Race-Proven<br />Performance.<br />
               <span className="text-muted-foreground">Built by racers.</span>
             </h1>
