@@ -17,7 +17,7 @@ export function SiteHeader() {
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="container-wide pt-4 md:pt-5 flex items-center gap-3">
         {/* Floating pill: logo + nav */}
-        <div className="flex-1 min-w-0 flex items-center gap-6 md:gap-10 rounded-full bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-5 pr-6 md:pl-6 md:pr-8 h-14 md:h-16">
+        <div className="flex-1 min-w-0 flex items-center gap-6 md:gap-10 rounded-lg bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-5 pr-6 md:pl-6 md:pr-8 h-11 md:h-12">
           <Link to="/" className="flex items-center gap-3 shrink-0">
             <img src={logo} alt="Tway Motorsports" className="h-7 md:h-8 w-auto" />
           </Link>
@@ -38,19 +38,19 @@ export function SiteHeader() {
         {/* Search + Quote */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
           <div className="relative">
-            <svg aria-hidden viewBox="0 0 24 24" className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg aria-hidden viewBox="0 0 24 24" className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" strokeLinecap="round" />
             </svg>
             <input
               type="search"
               placeholder="Search parts…"
-              className="h-14 md:h-16 w-44 lg:w-56 rounded-full bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-11 pr-4 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-white/30 transition-colors"
+              className="h-11 md:h-12 w-44 lg:w-56 rounded-lg bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-10 pr-4 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-white/30 transition-colors"
             />
           </div>
           <Link
             to="/contact"
-            className="h-14 md:h-16 inline-flex items-center rounded-full bg-foreground text-background px-6 font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors"
+            className="h-11 md:h-12 inline-flex items-center rounded-lg bg-foreground text-background px-5 font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors"
           >
             Request Quote
           </Link>
@@ -59,7 +59,7 @@ export function SiteHeader() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((o) => !o)}
-          className="md:hidden h-12 w-12 grid place-items-center rounded-full bg-background/60 backdrop-blur-xl border border-white/10"
+          className="md:hidden h-11 w-11 grid place-items-center rounded-lg bg-background/60 backdrop-blur-xl border border-white/10"
         >
           <div className="flex flex-col gap-1">
             <span className="block h-px w-4 bg-white" />
