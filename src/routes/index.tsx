@@ -87,12 +87,30 @@ function Index() {
         <img
           src={hero}
           alt="Black Corvette head-on doing a burnout with smoke filling the frame"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover animate-hero-breathe"
           width={1920}
           height={1280}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/20 to-transparent" />
+        {/* Animated smoke plumes drifting on either side */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-[10%] top-[20%] h-[80%] w-[55%] blur-2xl mix-blend-screen animate-smoke-l"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(220,220,225,0.55) 0%, rgba(200,200,210,0.25) 35%, rgba(0,0,0,0) 70%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-[10%] top-[15%] h-[85%] w-[55%] blur-2xl mix-blend-screen animate-smoke-r"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(230,230,235,0.5) 0%, rgba(200,200,210,0.22) 38%, rgba(0,0,0,0) 72%)",
+          }}
+        />
+        {/* Subtle overlays — reduced for a punchier hero */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
 
         <div className="relative container-wide pb-20 md:pb-28 lg:pb-32 pt-40 w-full">
           <div className="max-w-3xl">
