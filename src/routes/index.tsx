@@ -82,7 +82,7 @@ function Index() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="relative isolate min-h-[92vh] flex items-end overflow-hidden">
+      <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-end overflow-hidden">
         <img
           src={hero}
           alt="Corvette C7 ZR1 on the race track at dusk"
