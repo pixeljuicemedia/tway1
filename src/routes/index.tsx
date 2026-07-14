@@ -185,7 +185,7 @@ function Index() {
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
               <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
                 <p className="eyebrow">{c.meta}</p>
                 <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold">{c.title}</h3>
@@ -205,7 +205,7 @@ function Index() {
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
             <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
               <p className="eyebrow">Data · Wideband · CAN</p>
               <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold">Electronics</h3>
