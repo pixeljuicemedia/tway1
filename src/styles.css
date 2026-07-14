@@ -218,6 +218,27 @@
   50% { transform: translateY(-3px); }
 }
 
+@keyframes smoke-drift-l {
+  0%   { transform: translate3d(-6%, 0, 0) scale(1);   opacity: 0.55; }
+  50%  { transform: translate3d(4%, -3%, 0) scale(1.15); opacity: 0.85; }
+  100% { transform: translate3d(-6%, 0, 0) scale(1);   opacity: 0.55; }
+}
+
+@keyframes smoke-drift-r {
+  0%   { transform: translate3d(6%, 0, 0) scale(1.1);  opacity: 0.6; }
+  50%  { transform: translate3d(-4%, -4%, 0) scale(1); opacity: 0.9; }
+  100% { transform: translate3d(6%, 0, 0) scale(1.1);  opacity: 0.6; }
+}
+
+@keyframes hero-breathe {
+  0%, 100% { transform: scale(1.02); }
+  50%      { transform: scale(1.06); }
+}
+
+.animate-smoke-l { animation: smoke-drift-l 12s ease-in-out infinite; will-change: transform, opacity; }
+.animate-smoke-r { animation: smoke-drift-r 14s ease-in-out infinite; will-change: transform, opacity; }
+.animate-hero-breathe { animation: hero-breathe 18s ease-in-out infinite; will-change: transform; }
+
 .animate-drive {
   animation: drive-across 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: transform;
