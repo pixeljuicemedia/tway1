@@ -110,7 +110,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
 
         <div className="relative container-wide pb-20 md:pb-28 lg:pb-32 pt-40 w-full">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
             <img
               src={twayLogoDark.url}
               alt="Tway Motorsports"
@@ -124,7 +124,7 @@ function Index() {
               Real racing experience. Professional engineering. Premium performance parts,
               custom fabrication and trackside support — all under one roof.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center justify-center md:justify-start gap-3">
               <Link to="/shop" className="btn-primary">Shop Performance Parts</Link>
               <Link to="/services" className="btn-ghost">Explore Services →</Link>
             </div>
