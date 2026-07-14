@@ -109,7 +109,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
 
-        <div className="relative container-wide pt-24 pb-10 md:pt-40 md:pb-28 lg:pb-32 w-full">
+        <div className="relative container-wide pt-24 pb-20 md:pt-40 md:pb-28 lg:pb-32 w-full min-h-screen md:min-h-0 flex flex-col md:block">
           <div className="max-w-3xl flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
             <img
               src={twayLogoDark.url}
@@ -120,6 +120,8 @@ function Index() {
               Race-Proven<br />Performance.<br />
               <span className="font-bold">Built by racers.</span>
             </h1>
+          </div>
+          <div className="max-w-3xl mt-auto md:mt-0 flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
             <p className="mt-8 max-w-xl text-base md:text-lg text-white font-semibold leading-relaxed">
               Real racing experience. Professional engineering. Premium performance parts,
               custom fabrication and trackside support — all under one roof.
