@@ -2,8 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import heroBurnoutAsset from "@/assets/hero-burnout.jpg.asset.json";
 const hero = heroBurnoutAsset.url;
-import corvetteCutoutAsset from "@/assets/corvette-cutout.png.asset.json";
-const corvetteCutout = corvetteCutoutAsset.url;
 import twayLogoDark from "@/assets/tway-logo-dark.png.asset.json";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
@@ -87,67 +85,30 @@ function Index() {
     <SiteShell>
       {/* HERO */}
       <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-end overflow-hidden">
-        {/* Base hero photo — darkened so the animated smoke reads clearly behind the car */}
         <img
           src={hero}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover opacity-70 saturate-75"
+          alt="Black Corvette head-on doing a burnout with smoke filling the frame"
+          className="absolute inset-0 h-full w-full object-cover animate-hero-breathe"
           width={1920}
           height={1280}
         />
-
-        {/* Animated billowing smoke plumes — sit BEHIND the static car */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div
-            aria-hidden
-            className="absolute left-[8%] bottom-[8%] h-[70%] w-[55%] blur-3xl mix-blend-screen animate-billow-l"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(230,230,235,0.7) 0%, rgba(200,200,210,0.35) 35%, rgba(0,0,0,0) 70%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute left-[-5%] bottom-[15%] h-[60%] w-[45%] blur-3xl mix-blend-screen animate-billow-l2"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(215,215,220,0.65) 0%, rgba(190,190,200,0.3) 40%, rgba(0,0,0,0) 72%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute right-[8%] bottom-[8%] h-[70%] w-[55%] blur-3xl mix-blend-screen animate-billow-r"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(235,235,240,0.7) 0%, rgba(205,205,215,0.35) 35%, rgba(0,0,0,0) 70%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute right-[-5%] bottom-[15%] h-[60%] w-[45%] blur-3xl mix-blend-screen animate-billow-r2"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(220,220,225,0.6) 0%, rgba(195,195,205,0.28) 40%, rgba(0,0,0,0) 72%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[5%] h-[55%] w-[60%] blur-3xl mix-blend-screen animate-billow-c"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(240,240,245,0.55) 0%, rgba(210,210,220,0.25) 40%, rgba(0,0,0,0) 72%)",
-            }}
-          />
-        </div>
-
-        {/* Static car cutout on top of the animated smoke */}
-        <img
-          src={corvetteCutout}
-          alt="Black Corvette head-on doing a burnout with smoke filling the frame"
-          className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[85%] w-auto max-w-none object-contain object-bottom select-none"
+        {/* Animated smoke plumes drifting on either side */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-[10%] top-[20%] h-[80%] w-[55%] blur-2xl mix-blend-screen animate-smoke-l"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(220,220,225,0.55) 0%, rgba(200,200,210,0.25) 35%, rgba(0,0,0,0) 70%)",
+          }}
         />
-
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-[10%] top-[15%] h-[85%] w-[55%] blur-2xl mix-blend-screen animate-smoke-r"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(230,230,235,0.5) 0%, rgba(200,200,210,0.22) 38%, rgba(0,0,0,0) 72%)",
+          }}
+        />
         {/* Subtle overlays — reduced for a punchier hero */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
