@@ -204,3 +204,25 @@
   border: 1px solid var(--hairline);
   border-radius: 12px;
 }
+
+@keyframes drive-across {
+  0% { transform: translateX(-40vw) translateY(0) scaleX(1); }
+  48% { transform: translateX(55vw) translateY(-2px) scaleX(1); }
+  50% { transform: translateX(55vw) translateY(-2px) scaleX(-1); }
+  98% { transform: translateX(-40vw) translateY(0) scaleX(-1); }
+  100% { transform: translateX(-40vw) translateY(0) scaleX(1); }
+}
+
+@keyframes wheel-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.animate-drive {
+  animation: drive-across 14s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform;
+}
+
+.animate-bounce-subtle {
+  animation: wheel-bounce 0.35s ease-in-out infinite;
+}
