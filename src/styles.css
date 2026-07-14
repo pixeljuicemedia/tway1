@@ -247,3 +247,14 @@
 .animate-bounce-subtle {
   animation: wheel-bounce 0.35s ease-in-out infinite;
 }
+
+@keyframes hero-crossfade {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hero-crossfade-slide {
+  animation: hero-crossfade 18s linear infinite;
+  will-change: opacity;
+}
