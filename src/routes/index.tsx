@@ -37,11 +37,11 @@ export const Route = createFileRoute("/")({
 });
 
 const categories = [
-  { title: "C8 Corvette", meta: "Mid-Engine Era", img: catC8, span: "lg:col-span-6" },
-  { title: "C7 Corvette", meta: "Stingray · Z06 · ZR1", img: catC7, span: "lg:col-span-6" },
-  { title: "C6 Corvette", meta: "Z06 · ZR1 · Grand Sport", img: catC6, span: "lg:col-span-4" },
-  { title: "C5 Corvette", meta: "The Track Weapon", img: catC5, span: "lg:col-span-4" },
-  { title: "Safety Equipment", meta: "SFI · FIA · SA2020", img: catSafety, span: "lg:col-span-4" },
+  { title: "C8 Corvette", meta: "Mid-Engine Era", img: catC8 },
+  { title: "C7 Corvette", meta: "Stingray · Z06 · ZR1", img: catC7 },
+  { title: "C6 Corvette", meta: "Z06 · ZR1 · Grand Sport", img: catC6 },
+  { title: "C5 Corvette", meta: "The Track Weapon", img: catC5 },
+  { title: "Safety Equipment", meta: "SFI · FIA · SA2020", img: catSafety },
 ];
 
 const services = [
@@ -148,12 +148,12 @@ function Index() {
           <Link to="/shop" className="btn-ghost">View Full Catalog →</Link>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {categories.map((c) => (
             <Link
               to="/shop"
               key={c.title}
-              className={`group relative overflow-hidden rounded-xl bg-surface aspect-[4/5] lg:aspect-[3/4] ${c.span}`}
+              className="group relative overflow-hidden rounded-xl bg-surface aspect-[3/4]"
             >
               <img
                 src={c.img}
@@ -173,7 +173,7 @@ function Index() {
           ))}
           <Link
             to="/shop"
-            className="group lg:col-span-4 relative overflow-hidden rounded-xl bg-surface aspect-[4/5] lg:aspect-[3/4]"
+            className="group relative overflow-hidden rounded-xl bg-surface aspect-[3/4]"
           >
             <img
               src={catElectronics}
