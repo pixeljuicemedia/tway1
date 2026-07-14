@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import heroBurnoutAsset from "@/assets/hero-burnout.jpg.asset.json";
-const hero = heroBurnoutAsset.url;
+import burnout1 from "@/assets/burnout1.jpg.asset.json";
+import burnout2 from "@/assets/burnout2.jpg.asset.json";
+import burnout3 from "@/assets/burnout3.jpg.asset.json";
+import burnout4 from "@/assets/burnout4.jpg.asset.json";
+import burnout5 from "@/assets/burnout5.jpg.asset.json";
+import burnout6 from "@/assets/burnout6.jpg.asset.json";
+const burnoutFrames = [burnout1, burnout2, burnout3, burnout4, burnout5, burnout6];
+const CROSSFADE_CYCLE_S = 18;
 import twayLogoDark from "@/assets/tway-logo-dark.png.asset.json";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
@@ -85,30 +91,20 @@ function Index() {
     <SiteShell>
       {/* HERO */}
       <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-end overflow-hidden">
-        <img
-          src={hero}
-          alt="Black Corvette head-on doing a burnout with smoke filling the frame"
-          className="absolute inset-0 h-full w-full object-cover animate-hero-breathe"
-          width={1920}
-          height={1280}
-        />
-        {/* Animated smoke plumes drifting on either side */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -left-[10%] top-[20%] h-[80%] w-[55%] blur-2xl mix-blend-screen animate-smoke-l"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(220,220,225,0.55) 0%, rgba(200,200,210,0.25) 35%, rgba(0,0,0,0) 70%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-[10%] top-[15%] h-[85%] w-[55%] blur-2xl mix-blend-screen animate-smoke-r"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(230,230,235,0.5) 0%, rgba(200,200,210,0.22) 38%, rgba(0,0,0,0) 72%)",
-          }}
-        />
+        {/* Crossfading burnout frames — continuous smoke animation via image sequence */}
+        <div aria-hidden className="absolute inset-0 bg-background" />
+        {burnoutFrames.map((frame, i) => (
+          <img
+            key={frame.url}
+            src={frame.url}
+            alt={i === 0 ? "Black Corvette head-on doing a burnout with smoke filling the frame" : ""}
+            className="hero-crossfade-slide absolute inset-0 h-full w-full object-cover"
+            style={{ animationDelay: `${(-CROSSFADE_CYCLE_S / burnoutFrames.length) * i}s` }}
+            width={1920}
+            height={1280}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
         {/* Subtle overlays — reduced for a punchier hero */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
