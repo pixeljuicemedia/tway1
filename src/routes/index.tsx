@@ -90,7 +90,7 @@ function Index() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-end overflow-hidden">
+      <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-start md:items-end overflow-hidden">
         {/* Crossfading burnout frames — continuous smoke animation via image sequence */}
         <div aria-hidden className="absolute inset-0 bg-background" />
         {burnoutFrames.map((frame, i) => (
@@ -109,7 +109,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
 
-        <div className="relative container-wide pb-20 md:pb-28 lg:pb-32 pt-40 w-full">
+        <div className="relative container-wide pt-24 pb-10 md:pt-40 md:pb-28 lg:pb-32 w-full">
           <div className="max-w-3xl flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
             <img
               src={twayLogoDark.url}
