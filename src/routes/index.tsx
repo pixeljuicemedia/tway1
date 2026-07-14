@@ -120,11 +120,11 @@ function Index() {
               alt="Tway Motorsports"
               className="w-[clamp(16rem,38vw,32rem)] h-auto"
             />
-            <h1 className="mt-8 font-display font-bold tracking-tight text-[clamp(2rem,4.5vw,4rem)] leading-[0.95]">
+            <h1 className="mt-8 font-display tracking-tight text-white text-[clamp(2rem,4.5vw,4rem)] leading-[0.95] font-medium">
               Race-Proven<br />Performance.<br />
-              <span className="text-muted-foreground">Built by racers.</span>
+              <span className="font-bold">Built by racers.</span>
             </h1>
-            <p className="mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-8 max-w-xl text-base md:text-lg text-white font-semibold leading-relaxed">
               Real racing experience. Professional engineering. Premium performance parts,
               custom fabrication and trackside support — all under one roof.
             </p>
