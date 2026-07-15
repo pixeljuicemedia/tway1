@@ -7,6 +7,7 @@ import build1 from "@/assets/build-1.jpg";
 import build3 from "@/assets/build-3.jpg";
 import whyTrack from "@/assets/why-track.jpg";
 import userShop from "@/assets/tway-user-photo.jpg";
+import servicesHero from "@/assets/services-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -36,8 +37,15 @@ function ServicesPage() {
     <SiteShell>
       {/* HERO */}
       <section className="relative overflow-hidden hairline-b">
-        <img src={svcDyno} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
+        <img src={servicesHero.url} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.2) 0%, oklch(0.14 0.005 260 / 0.4) 60%, oklch(0.14 0.005 260) 100%)",
+          }}
+          aria-hidden
+        />
         <div className="relative container-wide pt-24 md:pt-40 pb-24 md:pb-32">
           <Eyebrow accent>Services · Seven Disciplines</Eyebrow>
           <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] max-w-4xl">
