@@ -72,7 +72,7 @@
   --surface-2: oklch(0.22 0.008 260);        /* gunmetal */
   --gunmetal: oklch(0.32 0.01 260);
   --hairline: oklch(1 0 0 / 8%);
-  --race-red: oklch(0.62 0.24 25);           /* Tway race red */
+  --race-red: oklch(0.82 0.22 135);          /* Tway logo green (accent) */
 
   --card: var(--surface);
   --card-foreground: var(--foreground);
@@ -141,7 +141,7 @@
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--race-red);
 }
 
 @utility hairline-t {
