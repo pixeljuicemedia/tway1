@@ -95,6 +95,15 @@ const testimonials = [
   { rating: 5, name: "Derek Chen",     vehicle: "GT4 Corvette",   quote: "Trackside at 6am, in the pit box by qualifying. Real racers." },
 ];
 
+const instagramPosts: { url: string; img: string }[] = [
+  { url: "https://www.instagram.com/p/DZLgP7NknMk/?img_index=1", img: social1 },
+  { url: "https://www.instagram.com/p/DYP_6aaj_c1/?img_index=1", img: social2 },
+  { url: "https://www.instagram.com/p/C7IlpECu9SG/",             img: social3 },
+  { url: "https://www.instagram.com/p/C7uquXeyxmP/?img_index=1", img: social4 },
+  { url: "https://www.instagram.com/p/CyyPbH-riUn/?img_index=1", img: whyTrack },
+  { url: "https://www.instagram.com/p/CyoTg3EPxTY/?img_index=1", img: build1 },
+];
+
 const stats = [
   ["20+",       "Years Experience"],
   ["500+",      "Track Cars Built"],
