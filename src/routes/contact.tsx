@@ -29,7 +29,7 @@ function ContactPage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, oklch(0.14 0.005 260 / 0.75) 0%, oklch(0.14 0.005 260 / 0.55) 40%, oklch(0.14 0.005 260 / 0.7) 70%, oklch(0.14 0.005 260) 100%)",
+                "linear-gradient(180deg, oklch(0.14 0.005 260 / 0.55) 0%, oklch(0.14 0.005 260 / 0.15) 40%, oklch(0.14 0.005 260 / 0.35) 70%, oklch(0.14 0.005 260) 100%)",
             }}
           />
         </div>
