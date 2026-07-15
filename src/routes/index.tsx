@@ -150,7 +150,7 @@ function Index() {
             ["Track", "Tested Parts"],
             ["Engineering", "Driven"],
           ].map(([big, label]) => (
-            <div key={label} className="flex flex-col items-start md:items-center text-left md:text-center">
+            <div key={label} className="flex flex-col items-center text-center">
               <div className="font-display text-2xl md:text-3xl font-semibold tracking-tight">{big}</div>
               <div className="mt-2 eyebrow">{label}</div>
             </div>
@@ -161,9 +161,9 @@ function Index() {
       {/* FEATURED CATEGORIES */}
       <section className="container-wide py-24 md:py-36">
         <div className="grid gap-8 md:gap-12 lg:grid-cols-[1fr_auto] items-end">
-          <div>
-            <Eyebrow>01 · Shop by Platform</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">
+          <div className="text-center md:text-left">
+            <Eyebrow className="justify-center md:justify-start">01 · Shop by Platform</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
               Parts built around the car — not the catalog.
             </h2>
           </div>
@@ -219,9 +219,9 @@ function Index() {
       <section className="hairline-t">
         <div className="container-wide py-24 md:py-36">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-            <div>
-              <Eyebrow>02 · Services</Eyebrow>
-              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl">
+            <div className="text-center md:text-left">
+              <Eyebrow className="justify-center md:justify-start">02 · Services</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
                 Everything a race car needs — under one roof.
               </h2>
             </div>
@@ -256,9 +256,9 @@ function Index() {
       {/* FEATURED PRODUCTS */}
       <section className="container-wide py-24 md:py-36 hairline-t">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div>
-            <Eyebrow>03 · Featured Products</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl">
+          <div className="text-center md:text-left">
+            <Eyebrow className="justify-center md:justify-start">03 · Featured Products</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
               Engineered. Fabricated. Track-validated.
             </h2>
           </div>
@@ -290,12 +290,12 @@ function Index() {
             <img src={whyTrack} alt="Corvette on track" className="h-full w-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent" />
           </div>
-          <div>
-            <Eyebrow accent>04 · Why Tway</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-lg">
+          <div className="text-center md:text-left">
+            <Eyebrow accent className="justify-center md:justify-start">04 · Why Tway</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-lg mx-auto md:mx-0">
               Our experience comes from actually racing — <span className="text-muted-foreground">not reading forums.</span>
             </h2>
-            <p className="mt-8 max-w-md text-muted-foreground leading-relaxed">
+            <p className="mt-8 max-w-md text-muted-foreground leading-relaxed mx-auto md:mx-0">
               Three generations of racers, engineers and fabricators. Every recommendation
               we make has been beaten on by a driver we trained, on a car we built.
             </p>
@@ -320,13 +320,13 @@ function Index() {
       {/* RACE BUILDS — MAGAZINE */}
       <section className="container-wide py-24 md:py-36">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div>
-            <Eyebrow>05 · Featured Race Builds</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">
+          <div className="text-center md:text-left">
+            <Eyebrow className="justify-center md:justify-start">05 · Featured Race Builds</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
               From the build book.
             </h2>
           </div>
-          <p className="max-w-sm text-sm text-muted-foreground">
+          <p className="max-w-sm text-sm text-muted-foreground text-center md:text-left mx-auto md:mx-0">
             A selection of the machines currently living in our race bay — each one designed, fabricated and calibrated in-house.
           </p>
         </div>
@@ -342,10 +342,12 @@ function Index() {
       {/* TESTIMONIALS */}
       <section className="hairline-t">
         <div className="container-wide py-24 md:py-36">
-          <Eyebrow>06 · Customers</Eyebrow>
-          <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl">
+          <div className="text-center md:text-left">
+          <Eyebrow className="justify-center md:justify-start">06 · Customers</Eyebrow>
+          <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
             The paddock talks. We listen.
           </h2>
+          </div>
 
           <div className="mt-16 grid gap-6 md:gap-8 md:grid-cols-3">
             {testimonials.map((t) => (
@@ -365,9 +367,9 @@ function Index() {
       {/* SOCIAL / MASONRY */}
       <section className="container-wide py-24 md:py-36 hairline-t">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div>
-            <Eyebrow>07 · @tway.motorsports</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">
+          <div className="text-center md:text-left">
+            <Eyebrow className="justify-center md:justify-start">07 · @tway.motorsports</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
               From the shop floor & the paddock.
             </h2>
           </div>
