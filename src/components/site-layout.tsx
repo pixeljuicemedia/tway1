@@ -182,9 +182,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
   );
 }
 
-export function Eyebrow({ children, accent = false }: { children: ReactNode; accent?: boolean }) {
+export function Eyebrow({ children, accent = false, className = "" }: { children: ReactNode; accent?: boolean; className?: string }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className={`flex items-center gap-3 ${className}`}>
       <span className={accent ? "h-px w-8 bg-race-red" : "h-px w-8 bg-foreground/40"} />
       <span className="eyebrow">{children}</span>
     </div>
