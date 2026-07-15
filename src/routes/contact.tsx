@@ -22,8 +22,8 @@ function ContactPage() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+      <section className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 z-0">
           <img
             src={contactHero}
             alt=""
@@ -38,7 +38,7 @@ function ContactPage() {
             }}
           />
         </div>
-        <div className="container-wide pt-20 md:pt-32 pb-16 md:pb-20 grid gap-12 lg:grid-cols-[1.2fr_1fr] items-end">
+        <div className="container-wide relative z-10 pt-20 md:pt-32 pb-16 md:pb-20 grid gap-12 lg:grid-cols-[1.2fr_1fr] items-end">
           <div>
             <Eyebrow accent>Get in touch</Eyebrow>
             <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight">
