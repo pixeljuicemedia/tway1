@@ -35,69 +35,105 @@ import social4 from "@/assets/social-4.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
-      { name: "description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
-      { property: "og:title", content: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
-      { property: "og:description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
+      { title: "Tway Motorsports — Performance Parts, Track-Proven. Shop Now." },
+      { name: "description", content: "Shop track-tested performance parts, aero, suspension, brakes and drivetrain — plus professional installation from a 20+ year race shop." },
+      { property: "og:title", content: "Tway Motorsports — Performance Parts, Track-Proven. Shop Now." },
+      { property: "og:description", content: "Shop track-tested performance parts, aero, suspension, brakes and drivetrain — plus professional installation from a 20+ year race shop." },
     ],
   }),
   component: Index,
 });
 
-const categories = [
-  { title: "C8 Corvette", meta: "Mid-Engine Era", img: catC8 },
-  { title: "C7 Corvette", meta: "Stingray · Z06 · ZR1", img: catC7 },
-  { title: "C6 Corvette", meta: "Z06 · ZR1 · Grand Sport", img: catC6 },
-  { title: "C5 Corvette", meta: "The Track Weapon", img: catC5 },
-  { title: "Safety Equipment", meta: "SFI · FIA · SA2020", img: catSafety },
+// -----------------------------------------------------------------------------
+// Data — conversion-focused homepage. Content lives here so the JSX stays clean.
+// -----------------------------------------------------------------------------
+
+const featuredProducts = [
+  { name: "Track-Spec Intake Manifold", price: "$1,895", meta: "Intake · LT4 / LT2", img: prod1, badge: "Best Seller", rating: 5 },
+  { name: "Forged Race Wheel 18×11", price: "$1,240", meta: "Wheel · Forged", img: prod2, badge: "In Stock", rating: 5 },
+  { name: "Carbon Front Splitter — C7", price: "$2,450", meta: "Aero · Carbon", img: prod3, badge: "New Arrival", rating: 5 },
+  { name: "Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Exhaust · 304 SS", img: prod4, badge: "Ships Today", rating: 5 },
 ];
 
-const services = [
-  {
-    n: "01",
-    title: "Custom Fabrication",
-    desc: "TIG-welded stainless headers, roll cages, splitters and one-off race components. If it doesn't exist, we build it.",
-    img: svcFab,
-  },
-  {
-    n: "02",
-    title: "Dyno Tuning",
-    desc: "In-house Mustang chassis dyno. Every calibration is validated with data before it leaves the building.",
-    img: svcDyno,
-  },
-  {
-    n: "03",
-    title: "Race Engine Building",
-    desc: "Blueprinted LT and LS assemblies with balanced rotating assemblies and CNC-ported heads.",
-    img: svcEngine,
-  },
+const productCategories: { title: string; img: string; count: string }[] = [
+  { title: "Aero",              img: build2,         count: "48 products" },
+  { title: "Suspension",        img: catC7,          count: "62 products" },
+  { title: "Brakes",            img: catC6,          count: "37 products" },
+  { title: "Drivetrain",        img: svcEngine,      count: "54 products" },
+  { title: "Safety",            img: catSafety,      count: "29 products" },
+  { title: "Wheels",            img: prod2,          count: "41 products" },
+  { title: "Engine Performance", img: svcDyno,       count: "76 products" },
 ];
 
-const products = [
-  { name: "Track-Spec Intake Manifold", price: "$1,895", meta: "Billet · LT4 / LT2", img: prod1 },
-  { name: "Forged Race Wheel — 18×11", price: "$1,240", meta: "Track weight · gunmetal", img: prod2 },
-  { name: "Carbon Front Splitter", price: "$2,450", meta: "C7 · pre-preg carbon", img: prod3 },
-  { name: "Long-Tube Headers", price: "$1,780", meta: "1⅞\" 304 stainless", img: prod4 },
+const bestSellers = [
+  { name: "C8 Cold Air Intake",         price: "$780",   meta: "C8 · Intake",        img: catC8,   rating: 5, badge: "Best Seller" },
+  { name: "Track-Ready Corner Package", price: "$8,450", meta: "Suspension · Full",  img: build3,  rating: 5, badge: "Popular" },
+  { name: "MoTeC C127 Dash Logger",     price: "$4,995", meta: "Electronics · Data", img: catElectronics, rating: 5, badge: "Pro" },
+  { name: "Stilo ST5F Carbon Helmet",   price: "$1,899", meta: "Safety · SA2020",    img: catSafety, rating: 5, badge: "Popular" },
+];
+
+const brands = ["AP Racing", "Verus Engineering", "MCS", "StopTech", "Sparco", "OMP", "Moton"];
+
+const whyCards = [
+  { big: "20+", label: "Years Experience" },
+  { big: "★",   label: "Track Tested" },
+  { big: "⚙",   label: "Professional Installation" },
+  { big: "◆",   label: "Engineering Expertise" },
+  { big: "▲",   label: "Race Proven" },
+  { big: "●",   label: "Performance Focused" },
+];
+
+const recentBuilds = [
+  { title: "Porsche GT3 · Roll Cage",           tag: "Fabrication",    img: build1 },
+  { title: "GR Corolla · Suspension Overhaul",  tag: "Suspension",     img: build3 },
+  { title: "Civic Type R · Brake Upgrade",      tag: "Brakes",         img: userShop },
+  { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
 ];
 
 const testimonials = [
-  { quote: "Tway built the engine that carried us to the class championship. Two full seasons, zero rebuilds.", name: "Marcus Reilly", role: "SCCA T1 · Corvette Racing" },
-  { quote: "Their fabrication is on another level. Every weld, every bracket — done like an OEM.", name: "Elena Vasquez", role: "Trans Am · TA2 Team Principal" },
-  { quote: "You call, they answer. Trackside at 6am, in the pit box by qualifying. That's who they are.", name: "Derek Chen", role: "GT4 America · Bronze Driver" },
+  { rating: 5, name: "Marcus Reilly",  vehicle: "C7 Z06",         quote: "Championship-winning engine build. Two seasons, zero rebuilds." },
+  { rating: 5, name: "Elena Vasquez",  vehicle: "TA2 Camaro",     quote: "Fabrication is OEM-grade. Every weld, every bracket, dialed." },
+  { rating: 5, name: "Derek Chen",     vehicle: "GT4 Corvette",   quote: "Trackside at 6am, in the pit box by qualifying. Real racers." },
 ];
+
+const stats = [
+  ["20+",       "Years Experience"],
+  ["500+",      "Track Cars Built"],
+  ["10,000+",   "Parts Installed"],
+  ["100%",      "Performance Focused"],
+];
+
+function Stars({ n }: { n: number }) {
+  return (
+    <div className="flex gap-0.5 text-race-red text-xs tracking-widest" aria-label={`${n} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span key={i} aria-hidden>{i < n ? "★" : "☆"}</span>
+      ))}
+    </div>
+  );
+}
+
+function Badge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="rounded-full bg-background/80 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest text-foreground border border-white/10">
+      {children}
+    </span>
+  );
+}
 
 function Index() {
   return (
     <SiteShell>
-      {/* HERO */}
+      {/* ============================================================
+          1 · HERO — conversion-focused messaging, shop-first CTAs
+         ============================================================ */}
       <section className="relative isolate min-h-screen -mt-24 md:-mt-28 flex items-start md:items-end overflow-hidden">
-        {/* Crossfading burnout frames — continuous smoke animation via image sequence */}
         <div aria-hidden className="absolute inset-0 bg-background" />
         {burnoutFrames.map((frame, i) => (
           <img
             key={frame.url}
             src={frame.url}
-            alt={i === 0 ? "Black Corvette head-on doing a burnout with smoke filling the frame" : ""}
+            alt={i === 0 ? "Corvette on-track kicking up tire smoke" : ""}
             className="hero-crossfade-slide absolute inset-0 h-full w-full object-contain md:object-cover object-center"
             style={{ animationDelay: `${(-CROSSFADE_CYCLE_S / burnoutFrames.length) * i}s` }}
             width={1920}
@@ -105,146 +141,159 @@ function Index() {
             loading={i === 0 ? "eager" : "lazy"}
           />
         ))}
-        {/* Subtle overlays — reduced for a punchier hero */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/10 to-transparent" />
 
-        <div className="relative container-wide pt-24 pb-20 md:pt-40 md:pb-28 lg:pb-32 w-full min-h-screen md:min-h-0 flex flex-col md:block">
+        <div className="relative container-wide pt-24 pb-24 md:pt-40 md:pb-32 w-full min-h-screen md:min-h-0 flex flex-col md:block">
           <div className="max-w-3xl flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
-            <img
-              src={twayLogoDark.url}
-              alt="Tway Motorsports"
-              className="w-[clamp(16rem,38vw,32rem)] h-auto"
-            />
-            <h1 className="mt-8 font-display tracking-tight text-white text-[clamp(2rem,4.5vw,4rem)] leading-[0.95] font-medium">
-              Race-Proven<br />Performance.<br />
-              <span className="font-bold">Built by racers.</span>
+            <img src={twayLogoDark.url} alt="Tway Motorsports" className="w-[clamp(14rem,32vw,28rem)] h-auto" />
+            <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-2">
+              <Badge>Performance Parts</Badge>
+              <Badge>Track-Proven</Badge>
+              <Badge>Pro Installation</Badge>
+            </div>
+            <h1 className="mt-6 font-display tracking-tight text-white text-[clamp(2rem,4.5vw,4rem)] leading-[0.95] font-medium">
+              Race-Proven Parts.<br />
+              <span className="font-bold">Ready to Ship.</span>
             </h1>
           </div>
           <div className="max-w-3xl mt-auto md:mt-0 flex flex-col items-center text-center md:items-start md:text-left mx-auto md:mx-0">
             <p className="mt-8 max-w-xl text-base md:text-lg text-white font-semibold leading-relaxed">
-              Real racing experience. Professional engineering. Premium performance parts,
-              custom fabrication and trackside support — all under one roof.
+              Aero, suspension, brakes and drivetrain — engineered, installed and validated by a shop that races every weekend.
             </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <Link to="/shop" className="btn-primary">Shop Performance Parts</Link>
-              <Link to="/services" className="btn-ghost">Explore Services →</Link>
-            </div>
-          </div>
-        </div>
 
-        {/* Corner metadata */}
-        <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 hidden md:flex flex-col items-end gap-2 text-right">
-          <span className="eyebrow">Feature Build · N°07</span>
-          <span className="font-display text-xs text-muted-foreground">C7 · Twin-Turbo · 1,140 whp</span>
-        </div>
-      </section>
-
-      {/* TRUST BAR */}
-      <section className="hairline-b">
-        <div className="container-wide py-10 md:py-14 grid grid-cols-2 md:grid-cols-5 gap-y-10 gap-x-6 [&>*:nth-child(5)]:col-span-2 md:[&>*:nth-child(5)]:col-span-1">
-          {[
-            ["25+", "Years Racing"],
-            ["100%", "Family Owned"],
-            ["Authorized", "Race Shop"],
-            ["Track", "Tested Parts"],
-            ["Engineering", "Driven"],
-          ].map(([big, label]) => (
-            <div key={label} className="flex flex-col items-center text-center">
-              <div className="font-display text-2xl md:text-3xl font-semibold tracking-tight">{big}</div>
-              <div className="mt-2 eyebrow">{label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FEATURED CATEGORIES */}
-      <section className="container-wide py-24 md:py-36">
-        <div className="grid gap-8 md:gap-12 lg:grid-cols-[1fr_auto] items-end">
-          <div className="text-center md:text-left">
-            <Eyebrow className="justify-center md:justify-start">01 · Shop by Platform</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
-              Parts built around the car — not the catalog.
-            </h2>
-          </div>
-          <Link to="/shop" className="btn-ghost">View Full Catalog →</Link>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {categories.map((c) => (
-            <Link
-              to="/shop"
-              key={c.title}
-              className="group relative overflow-hidden rounded-xl bg-surface aspect-[3/4]"
+            {/* Prominent search — vehicle / brand / part number */}
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="mt-8 w-full max-w-xl flex items-center rounded-lg bg-background/70 backdrop-blur-xl border border-white/15 shadow-lg shadow-black/30 h-12 md:h-14 pl-4 pr-2"
+              role="search"
             >
-              <img
-                src={c.img}
-                alt={c.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                loading="lazy"
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-white/70 shrink-0" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                placeholder="Search by vehicle, brand, part name or number…"
+                className="flex-1 bg-transparent px-3 text-sm md:text-base text-white placeholder:text-white/60 focus:outline-none"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
-              <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
-                <p className="eyebrow">{c.meta}</p>
-                <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold">{c.title}</h3>
-                <div className="mt-4 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground group-hover:text-race-red transition-colors">
-                  Explore <span aria-hidden>→</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-          <Link
-            to="/shop"
-            className="group relative overflow-hidden rounded-xl bg-surface aspect-[3/4]"
-          >
-            <img
-              src={catElectronics}
-              alt="Motorsport electronics"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
-            <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-end">
-              <p className="eyebrow">Data · Wideband · CAN</p>
-              <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold">Electronics</h3>
-              <div className="mt-4 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground group-hover:text-race-red transition-colors">
-                Explore <span aria-hidden>→</span>
-              </div>
+              <button type="submit" className="h-9 md:h-10 rounded-md bg-foreground text-background px-4 font-display text-[11px] uppercase tracking-[0.18em] hover:bg-race-red hover:text-foreground transition-colors">
+                Search
+              </button>
+            </form>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <Link to="/shop" className="btn-primary">Shop Performance Parts</Link>
+              <Link to="/services" className="btn-ghost">Book Services →</Link>
             </div>
-          </Link>
+          </div>
         </div>
       </section>
 
-      {/* FEATURED SERVICES */}
-      <section className="hairline-t bg-carbon-texture">
-        <div className="container-wide py-24 md:py-36">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-            <div className="text-center md:text-left">
-              <Eyebrow className="justify-center md:justify-start">02 · Services</Eyebrow>
-              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
-                Everything a race car needs — under one roof.
-              </h2>
+      {/* ============================================================
+          2 · FEATURED PRODUCTS — real cards above the fold
+         ============================================================ */}
+      <section className="hairline-t">
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow accent>Featured Products</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">Shop what wins races.</h2>
             </div>
-            <Link to="/services" className="btn-ghost">All Services →</Link>
+            <Link to="/shop" className="btn-ghost">View All Products →</Link>
           </div>
 
-          <div className="mt-20 space-y-24 md:space-y-32">
-            {services.map((s, i) => (
-              <div
-                key={s.title}
-                className={`grid gap-10 lg:gap-16 items-center ${
-                  i % 2 === 0 ? "lg:grid-cols-[1.15fr_1fr]" : "lg:grid-cols-[1fr_1.15fr] lg:[&>*:first-child]:order-2"
-                }`}
-              >
-                <div className="relative aspect-[16/11] overflow-hidden rounded-xl bg-surface">
-                  <img src={s.img} alt={s.title} className="h-full w-full object-cover" loading="lazy" />
+          <div className="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredProducts.map((p) => (
+              <div key={p.name} className="group flex flex-col">
+                <Link to="/product" className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface block">
+                  <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                  <span className="absolute top-4 left-4"><Badge>{p.badge}</Badge></span>
+                  <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <div className="flex gap-2">
+                      <button className="flex-1 h-10 rounded-md bg-foreground text-background font-display text-[11px] uppercase tracking-[0.18em] hover:bg-race-red hover:text-foreground transition-colors">Quick Add</button>
+                      <Link to="/product" className="h-10 px-3 grid place-items-center rounded-md border border-white/20 bg-background/70 backdrop-blur font-display text-[11px] uppercase tracking-[0.18em] text-white hover:border-race-red transition-colors">View</Link>
+                    </div>
+                  </div>
+                </Link>
+                <div className="mt-4">
+                  <Stars n={p.rating} />
+                  <p className="mt-2 eyebrow">{p.meta}</p>
+                  <div className="mt-2 flex items-start justify-between gap-3">
+                    <h3 className="font-display text-base font-medium leading-snug">{p.name}</h3>
+                    <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
+                  </div>
                 </div>
-                <div className="max-w-lg">
-                  <div className="font-display text-race-red text-xs tracking-[0.3em]">{s.n} / 07</div>
-                  <h3 className="mt-6 font-display text-3xl md:text-5xl font-semibold leading-[1.05]">{s.title}</h3>
-                  <p className="mt-6 text-muted-foreground leading-relaxed">{s.desc}</p>
-                  <Link to="/services" className="mt-8 inline-flex items-center gap-2 eyebrow text-foreground hover:text-race-red transition-colors">
-                    Learn more <span aria-hidden>→</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          3 · PRODUCT CATEGORIES — bold "movie poster" cards
+         ============================================================ */}
+      <section className="hairline-t bg-carbon-texture">
+        <div className="container-wide py-24 md:py-32">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow>Shop by Category</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">Pick your platform. Pick your podium.</h2>
+            </div>
+            <Link to="/shop" className="btn-ghost">Full Catalog →</Link>
+          </div>
+
+          <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {productCategories.map((c, i) => (
+              <Link
+                to="/shop"
+                key={c.title}
+                className={`group relative overflow-hidden rounded-xl bg-surface ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
+              >
+                <img src={c.img} alt={c.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                  <p className="eyebrow">{c.count}</p>
+                  <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold leading-tight">{c.title}</h3>
+                  <div className="mt-3 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground group-hover:text-race-red transition-colors">
+                    Shop {c.title} <span aria-hidden>→</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          4 · BEST SELLERS
+         ============================================================ */}
+      <section className="hairline-t">
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow accent>Best Sellers</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">What our customers keep buying.</h2>
+            </div>
+            <Link to="/shop" className="btn-ghost">Shop Best Sellers →</Link>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {bestSellers.map((p) => (
+              <div key={p.name} className="group flex flex-col">
+                <Link to="/product" className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface block">
+                  <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+                  <span className="absolute top-4 left-4"><Badge>{p.badge}</Badge></span>
+                </Link>
+                <div className="mt-4">
+                  <Stars n={p.rating} />
+                  <p className="mt-2 eyebrow">{p.meta}</p>
+                  <div className="mt-2 flex items-start justify-between gap-3">
+                    <h3 className="font-display text-base font-medium leading-snug">{p.name}</h3>
+                    <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
+                  </div>
+                  <Link to="/product" className="mt-4 inline-flex h-9 items-center rounded-md border border-white/15 px-3 font-display text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-race-red hover:text-race-red transition-colors">
+                    Quick Shop →
                   </Link>
                 </div>
               </div>
@@ -253,110 +302,142 @@ function Index() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS */}
-      <section className="container-wide py-24 md:py-36 hairline-t">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div className="text-center md:text-left">
-            <Eyebrow className="justify-center md:justify-start">03 · Featured Products</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
-              Engineered. Fabricated. Track-validated.
-            </h2>
+      {/* ============================================================
+          5 · SHOP BY BRAND — logo wall (typographic)
+         ============================================================ */}
+      <section className="hairline-t bg-surface/40">
+        <div className="container-wide py-16 md:py-20">
+          <div className="text-center">
+            <Eyebrow className="justify-center">Shop by Brand</Eyebrow>
+            <p className="mt-4 text-sm text-muted-foreground">Trusted names we install every week.</p>
           </div>
-          <Link to="/shop" className="btn-ghost">Shop All →</Link>
-        </div>
-
-        <div className="mt-16 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
-            <Link key={p.name} to="/product" className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
-              </div>
-              <div className="mt-6">
-                <p className="eyebrow">{p.meta}</p>
-                <div className="mt-3 flex items-start justify-between gap-4">
-                  <h3 className="font-display text-lg font-medium leading-snug">{p.name}</h3>
-                  <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
-                </div>
-              </div>
-            </Link>
-          ))}
+          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {brands.map((b) => (
+              <Link
+                to="/shop"
+                key={b}
+                className="group h-16 md:h-20 rounded-lg border border-hairline bg-background/40 grid place-items-center px-4 hover:border-race-red transition-colors"
+              >
+                <span className="font-display text-sm md:text-base font-semibold tracking-tight text-muted-foreground group-hover:text-foreground transition-colors text-center">
+                  {b}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* WHY TWAY */}
-      <section className="hairline-t bg-surface/40">
-        <div className="container-wide py-24 md:py-36 grid gap-12 lg:grid-cols-[1.1fr_1fr] items-center">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
-            <img src={whyTrack} alt="Corvette on track" className="h-full w-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent" />
+      {/* ============================================================
+          6 · WHY TWAY — scannable trust icon cards
+         ============================================================ */}
+      <section className="hairline-t">
+        <div className="container-wide py-24 md:py-32">
+          <div className="text-center max-w-2xl mx-auto">
+            <Eyebrow accent className="justify-center">Why Tway</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">Built by racers. Trusted by builders.</h2>
           </div>
-          <div className="text-center md:text-left">
-            <Eyebrow accent className="justify-center md:justify-start">04 · Why Tway</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-lg mx-auto md:mx-0">
-              Our experience comes from actually racing — <span className="text-muted-foreground">not reading forums.</span>
-            </h2>
-            <p className="mt-8 max-w-md text-muted-foreground leading-relaxed mx-auto md:mx-0">
-              Three generations of racers, engineers and fabricators. Every recommendation
-              we make has been beaten on by a driver we trained, on a car we built.
-            </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-4">
-              {[
-                ["25+", "Years of Experience"],
-                ["10k+", "Track Hours Logged"],
-                ["4", "National Championships"],
-                ["100%", "Family Owned & Operated"],
-              ].map(([n, l]) => (
-                <div key={l} className="card-glass p-6">
-                  <div className="font-display text-3xl font-semibold text-race-red">{n}</div>
-                  <div className="mt-2 text-xs text-muted-foreground leading-tight">{l}</div>
+          <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+            {whyCards.map((c) => (
+              <div key={c.label} className="card-glass p-6 md:p-7 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+                <div className="font-display text-3xl md:text-4xl font-semibold text-race-red">{c.big}</div>
+                <div className="mt-3 eyebrow leading-tight">{c.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {stats.map(([big, label]) => (
+              <div key={label} className="border border-hairline rounded-xl p-6 md:p-8 text-center">
+                <div className="font-display text-4xl md:text-5xl font-semibold tracking-tight">{big}</div>
+                <div className="mt-2 eyebrow">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          7 · RECENT BUILDS
+         ============================================================ */}
+      <section className="hairline-t bg-carbon-texture">
+        <div className="container-wide py-24 md:py-32">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow>Recent Builds</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">Real cars. Real customers. Real results.</h2>
+            </div>
+            <Link to="/about" className="btn-ghost">See the Shop →</Link>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-2">
+            {recentBuilds.map((b) => (
+              <Link key={b.title} to="/product" className="group relative overflow-hidden rounded-xl bg-surface aspect-[16/10]">
+                <img src={b.img} alt={b.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+                  <p className="eyebrow">{b.tag}</p>
+                  <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold">{b.title}</h3>
                 </div>
-              ))}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          8 · SERVICES — teaser strip
+         ============================================================ */}
+      <section className="hairline-t">
+        <div className="container-wide py-20 md:py-28 grid gap-10 lg:grid-cols-[1fr_1.2fr] items-center">
+          <div>
+            <Eyebrow accent>Professional Installation</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] max-w-lg">
+              Don't just buy the part. <span className="text-muted-foreground">Have it installed right.</span>
+            </h2>
+            <p className="mt-6 max-w-md text-muted-foreground leading-relaxed">
+              Fabrication, dyno tuning, engine builds and trackside support — all done in-house by the team that races your platform.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/services" className="btn-primary">Book Services</Link>
+              <Link to="/contact" className="btn-ghost">Request a Quote →</Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* RACE BUILDS — MAGAZINE */}
-      <section className="container-wide py-24 md:py-36">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div className="text-center md:text-left">
-            <Eyebrow className="justify-center md:justify-start">05 · Featured Race Builds</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
-              From the build book.
-            </h2>
+          <div className="grid grid-cols-3 gap-3 md:gap-4">
+            {[
+              { img: svcFab,    label: "Fabrication" },
+              { img: svcDyno,   label: "Dyno Tuning" },
+              { img: svcEngine, label: "Engine Builds" },
+            ].map((s) => (
+              <Link key={s.label} to="/services" className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-surface">
+                <img src={s.img} alt={s.label} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <div className="font-display text-sm md:text-base font-semibold">{s.label}</div>
+                </div>
+              </Link>
+            ))}
           </div>
-          <p className="max-w-sm text-sm text-muted-foreground text-center md:text-left mx-auto md:mx-0">
-            A selection of the machines currently living in our race bay — each one designed, fabricated and calibrated in-house.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-6 md:gap-8 lg:grid-cols-12">
-          <BuildCard className="lg:col-span-8 aspect-[16/10]" img={build1} eyebrow="Build N°07 · Team Livery" title="C7 GT3 · Twin-Turbo Program" />
-          <BuildCard className="lg:col-span-4 aspect-[4/5]" img={userShop} eyebrow="Build N°11 · Time Attack" title="C5 · Fully Caged Track Weapon" />
-          <BuildCard className="lg:col-span-4 aspect-[4/5]" img={build2} eyebrow="Build N°09 · Restomod" title="C7 Stripped · Frame-Up" />
-          <BuildCard className="lg:col-span-8 aspect-[16/10]" img={build3} eyebrow="Build N°12 · Endurance" title="C8 GT4 · Class Contender" />
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* ============================================================
+          9 · TESTIMONIALS — compact and scannable
+         ============================================================ */}
       <section className="hairline-t bg-carbon-texture">
-        <div className="container-wide py-24 md:py-36">
-          <div className="text-center md:text-left">
-          <Eyebrow className="justify-center md:justify-start">06 · Customers</Eyebrow>
-          <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl mx-auto md:mx-0">
-            The paddock talks. We listen.
-          </h2>
+        <div className="container-wide py-20 md:py-28">
+          <div className="text-center max-w-2xl mx-auto">
+            <Eyebrow className="justify-center">Customer Reviews</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">The paddock talks. We listen.</h2>
           </div>
-
-          <div className="mt-16 grid gap-6 md:gap-8 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-3">
             {testimonials.map((t) => (
-              <figure key={t.name} className="card-glass p-8 md:p-10 flex flex-col">
-                <div className="flex gap-1 text-race-red text-xs tracking-widest">★ ★ ★ ★ ★</div>
-                <blockquote className="mt-6 font-display text-xl md:text-2xl leading-snug">"{t.quote}"</blockquote>
-                <figcaption className="mt-auto pt-10">
-                  <div className="font-display font-medium">{t.name}</div>
-                  <div className="eyebrow mt-1">{t.role}</div>
+              <figure key={t.name} className="card-glass p-6 md:p-8 flex flex-col">
+                <Stars n={t.rating} />
+                <blockquote className="mt-4 font-display text-base md:text-lg leading-snug">"{t.quote}"</blockquote>
+                <figcaption className="mt-6 pt-4 border-t border-hairline">
+                  <div className="font-display font-medium text-sm">{t.name}</div>
+                  <div className="eyebrow mt-1">{t.vehicle}</div>
                 </figcaption>
               </figure>
             ))}
@@ -364,60 +445,69 @@ function Index() {
         </div>
       </section>
 
-      {/* SOCIAL / MASONRY */}
-      <section className="container-wide py-24 md:py-36 hairline-t">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
-          <div className="text-center md:text-left">
-            <Eyebrow className="justify-center md:justify-start">07 · @tway.motorsports</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl mx-auto md:mx-0">
-              From the shop floor & the paddock.
-            </h2>
+      {/* ============================================================
+          10 · INSTAGRAM FEED
+         ============================================================ */}
+      <section className="hairline-t">
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow>@tway.motorsports</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">From the shop floor.</h2>
+            </div>
+            <a href="#" className="btn-ghost">Follow on Instagram →</a>
           </div>
-          <a href="#" className="btn-ghost">Follow on Instagram →</a>
-        </div>
-
-        <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-          <img src={social1} alt="Corvette headlight" className="col-span-1 row-span-2 h-full w-full object-cover rounded-lg aspect-[3/4]" loading="lazy" />
-          <img src={social2} alt="Track overhead" className="col-span-2 h-full w-full object-cover rounded-lg aspect-[4/3]" loading="lazy" />
-          <img src={social3} alt="Suspension detail" className="col-span-1 h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
-          <img src={social4} alt="Corvette taillights" className="col-span-1 h-full w-full object-cover rounded-lg aspect-[3/4]" loading="lazy" />
-          <img src={build1} alt="Pit crew" className="col-span-2 h-full w-full object-cover rounded-lg aspect-[4/3]" loading="lazy" />
-          <img src={svcFab} alt="Fabrication" className="col-span-1 h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+            {[social1, social2, social3, social4, whyTrack, build1].map((img, i) => (
+              <a key={i} href="#" className="relative aspect-square overflow-hidden rounded-lg bg-surface group">
+                <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* ============================================================
+          11 · FINAL CTA — shopping-focused
+         ============================================================ */}
       <section className="relative overflow-hidden">
         <img src={build3} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
-        <div className="relative container-wide py-32 md:py-48 text-center">
-          <Eyebrow accent>The Next Build</Eyebrow>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
+        <div className="relative container-wide py-28 md:py-40 text-center">
+          <Eyebrow accent className="justify-center">Ready?</Eyebrow>
           <h2 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] max-w-4xl mx-auto">
-            Ready to build<br />something fast?
+            Ready to Upgrade<br />Your Build?
           </h2>
-          <p className="mt-8 max-w-lg mx-auto text-muted-foreground">
-            Whether it's a full race program, a weekend build or a single component — talk to a racer, not a call center.
+          <p className="mt-6 max-w-lg mx-auto text-muted-foreground">
+            Start with the parts that make the biggest difference — or let our team spec the whole package.
           </p>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <Link to="/contact" className="btn-primary">Request a Quote</Link>
-            <Link to="/shop" className="btn-ghost">Shop Parts</Link>
-            <Link to="/contact" className="btn-ghost">Visit the Shop</Link>
+            <Link to="/shop" className="btn-primary">Shop All Products</Link>
+            <Link to="/shop" className="btn-ghost">Shop Suspension →</Link>
+            <Link to="/shop" className="btn-ghost">Shop Aero →</Link>
+            <Link to="/shop" className="btn-ghost">Shop Brakes →</Link>
+            <Link to="/services" className="btn-ghost">Book Installation →</Link>
           </div>
         </div>
       </section>
+
+      {/* Sticky mobile bottom nav — Shop / Services / Call */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-hairline bg-background/90 backdrop-blur-xl">
+        <div className="grid grid-cols-3">
+          <Link to="/shop" className="flex flex-col items-center justify-center gap-1 py-3 font-display text-[11px] uppercase tracking-widest text-foreground active:bg-white/5">
+            <span aria-hidden className="text-base">🛒</span> Shop
+          </Link>
+          <Link to="/services" className="flex flex-col items-center justify-center gap-1 py-3 font-display text-[11px] uppercase tracking-widest text-foreground active:bg-white/5 border-x border-hairline">
+            <span aria-hidden className="text-base">🔧</span> Services
+          </Link>
+          <a href="tel:+17144101820" className="flex flex-col items-center justify-center gap-1 py-3 font-display text-[11px] uppercase tracking-widest text-race-red active:bg-white/5">
+            <span aria-hidden className="text-base">📞</span> Call
+          </a>
+        </div>
+      </div>
+      {/* spacer so content isn't hidden behind sticky mobile nav */}
+      <div className="md:hidden h-16" aria-hidden />
     </SiteShell>
   );
 }
 
-function BuildCard({ className, img, eyebrow, title }: { className?: string; img: string; eyebrow: string; title: string }) {
-  return (
-    <Link to="/product" className={`group relative overflow-hidden rounded-xl bg-surface ${className}`}>
-      <img src={img} alt={title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-      <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-        <p className="eyebrow">{eyebrow}</p>
-        <h3 className="mt-3 font-display text-xl md:text-2xl font-semibold">{title}</h3>
-      </div>
-    </Link>
-  );
-}
