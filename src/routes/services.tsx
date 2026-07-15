@@ -11,6 +11,7 @@ import servicesHero from "@/assets/services-hero.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
 import trackside from "@/assets/trackside.jpg.asset.json";
 import engineering from "@/assets/engineering.jpg.asset.json";
+import processBg from "@/assets/process-bg.jpg.asset.json";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -87,8 +88,23 @@ function ServicesPage() {
       </section>
 
       {/* PROCESS */}
-      <section className="hairline-t bg-surface/40">
-        <div className="container-wide py-24 md:py-32">
+      <section className="relative hairline-t overflow-hidden">
+        <img
+          src={processBg.url}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover opacity-70"
+          loading="lazy"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.14 0.005 260) 0%, oklch(0.14 0.005 260 / 0.6) 40%, oklch(0.14 0.005 260 / 0.6) 60%, oklch(0.14 0.005 260) 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="relative container-wide py-24 md:py-32">
           <Eyebrow>Our Process</Eyebrow>
           <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-3xl">
             Four stages. No shortcuts.
