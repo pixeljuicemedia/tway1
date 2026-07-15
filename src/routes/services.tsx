@@ -93,14 +93,14 @@ function ServicesPage() {
           src={processBg.url}
           alt=""
           aria-hidden
-          className="absolute inset-0 h-full w-full object-cover opacity-70"
+          className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
         />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, oklch(0.14 0.005 260) 0%, oklch(0.14 0.005 260 / 0.6) 40%, oklch(0.14 0.005 260 / 0.6) 60%, oklch(0.14 0.005 260) 100%)",
+              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.7) 0%, oklch(0.14 0.005 260 / 0.15) 40%, oklch(0.14 0.005 260 / 0.15) 60%, oklch(0.14 0.005 260 / 0.85) 100%)",
           }}
           aria-hidden
         />
