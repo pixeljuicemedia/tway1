@@ -35,13 +35,13 @@ import social4 from "@/assets/social-4.jpg";
 export const Route = createFileRoute("/v1")({
   head: () => ({
     meta: [
-      { title: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
+      { title: "Tway Motorsports (v1) — Race-Proven Performance. Built by Racers." },
       { name: "description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
-      { property: "og:title", content: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
+      { property: "og:title", content: "Tway Motorsports (v1) — Race-Proven Performance. Built by Racers." },
       { property: "og:description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
     ],
   }),
-  component: Index,
+  component: IndexV1,
 });
 
 const categories = [
@@ -86,7 +86,7 @@ const testimonials = [
   { quote: "You call, they answer. Trackside at 6am, in the pit box by qualifying. That's who they are.", name: "Derek Chen", role: "GT4 America · Bronze Driver" },
 ];
 
-function Index() {
+function IndexV1() {
   return (
     <SiteShell>
       {/* HERO */}
