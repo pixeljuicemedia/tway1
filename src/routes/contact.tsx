@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import contactHero from "@/assets/contact-hero.jpg";
+import contactHeroAsset from "@/assets/contact-hero.png.asset.json";
+const contactHero = contactHeroAsset.url;
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,16 +20,28 @@ function ContactPage() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="container-wide pt-20 md:pt-32 pb-16 md:pb-20 grid gap-12 lg:grid-cols-[1.2fr_1fr] items-end">
-        <div>
-          <Eyebrow accent>Get in touch</Eyebrow>
-          <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight">
-            Talk to a racer.<br /><span className="text-muted-foreground">Not a call center.</span>
-          </h1>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <img src={contactHero} alt="" className="h-full w-full object-cover" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, oklch(0.14 0.005 260 / 0.75) 0%, oklch(0.14 0.005 260 / 0.55) 40%, oklch(0.14 0.005 260 / 0.7) 70%, oklch(0.14 0.005 260) 100%)",
+            }}
+          />
         </div>
-        <p className="max-w-md text-muted-foreground leading-relaxed">
-          Every message goes to a technician who has actually built cars — not a sales queue. We reply inside one business day.
-        </p>
+        <div className="container-wide pt-20 md:pt-32 pb-16 md:pb-20 grid gap-12 lg:grid-cols-[1.2fr_1fr] items-end">
+          <div>
+            <Eyebrow accent>Get in touch</Eyebrow>
+            <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight">
+              Talk to a racer.<br /><span className="text-muted-foreground">Not a call center.</span>
+            </h1>
+          </div>
+          <p className="max-w-md text-muted-foreground leading-relaxed">
+            Every message goes to a technician who has actually built cars — not a sales queue. We reply inside one business day.
+          </p>
+        </div>
       </section>
 
       {/* CONTACT GRID */}
