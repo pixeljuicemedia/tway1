@@ -55,7 +55,7 @@ function ShopPage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.55) 0%, oklch(0.14 0.005 260 / 0.75) 60%, oklch(0.14 0.005 260) 100%)",
+              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.2) 0%, oklch(0.14 0.005 260 / 0.4) 60%, oklch(0.14 0.005 260) 100%)",
           }}
           aria-hidden
         />
