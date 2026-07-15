@@ -72,7 +72,6 @@ const bestSellers = [
   { name: "Stilo ST5F Carbon Helmet",   price: "$1,899", meta: "Safety · SA2020",    img: catSafety, rating: 5, badge: "Popular" },
 ];
 
-const brands = ["AP Racing", "Verus Engineering", "MCS", "StopTech", "Sparco", "OMP", "Moton"];
 
 const whyCards = [
   { big: "20+", label: "Years Experience" },
@@ -352,31 +351,6 @@ function Index() {
                   </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          5 · SHOP BY BRAND — logo wall (typographic)
-         ============================================================ */}
-      <section className="hairline-t bg-surface/40">
-        <div className="container-wide py-16 md:py-20">
-          <div className="text-center">
-            <Eyebrow className="justify-center">Shop by Brand</Eyebrow>
-            <p className="mt-4 text-sm text-muted-foreground">Trusted names we install every week.</p>
-          </div>
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-            {brands.map((b) => (
-              <Link
-                to="/shop"
-                key={b}
-                className="group h-16 md:h-20 rounded-lg border border-hairline bg-background/40 grid place-items-center px-4 hover:border-race-red transition-colors"
-              >
-                <span className="font-display text-sm md:text-base font-semibold tracking-tight text-muted-foreground group-hover:text-foreground transition-colors text-center">
-                  {b}
-                </span>
-              </Link>
             ))}
           </div>
         </div>
