@@ -116,23 +116,25 @@ function ContactPage() {
           <div className="card-glass p-8">
             <Eyebrow>The Shop</Eyebrow>
             <address className="not-italic mt-6 font-display text-xl leading-snug">
-              1420 Pit Lane Drive<br />
-              Charlotte, NC 28217
+              210 W Katella Ave, Ste B<br />
+              Orange, CA 92867
             </address>
             <div className="mt-8 space-y-3 text-sm">
-              <InfoRow k="Sales" v="+1 (704) 555 0110" />
-              <InfoRow k="Race Line" v="+1 (704) 555 0111" />
-              <InfoRow k="Email" v="race@tway.com" />
+              <InfoRow k="Phone" v="(714) 410-1820" />
+              <InfoRow k="Web" v="twaymotorsports.com" />
             </div>
           </div>
 
           <div className="card-glass p-8">
             <Eyebrow>Hours</Eyebrow>
             <dl className="mt-6 space-y-3 text-sm">
-              <InfoRow k="Mon – Fri" v="8:00 – 18:00" />
-              <InfoRow k="Saturday" v="By appointment" />
+              <InfoRow k="Monday" v="9 AM – 5 PM" />
+              <InfoRow k="Tuesday" v="9 AM – 5 PM" />
+              <InfoRow k="Wednesday" v="9 AM – 5 PM" />
+              <InfoRow k="Thursday" v="9 AM – 5 PM" />
+              <InfoRow k="Friday" v="9 AM – 5 PM" />
+              <InfoRow k="Saturday" v="Closed" />
               <InfoRow k="Sunday" v="Closed" />
-              <InfoRow k="Race Weekends" v="24/7 on-call" accent />
             </dl>
           </div>
         </div>
