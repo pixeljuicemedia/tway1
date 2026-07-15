@@ -12,6 +12,31 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const shopMenu = {
+  generations: [
+    { label: "C5 Corvette", years: "1997 – 2004", hash: "C5" },
+    { label: "C6 Corvette", years: "2005 – 2013", hash: "C6" },
+    { label: "C7 Corvette", years: "2014 – 2019", hash: "C7" },
+    { label: "C8 Stingray", years: "2020 – Present", hash: "C8" },
+    { label: "C8 Z06", years: "2023 – Present", hash: "Z06" },
+    { label: "C8 E-Ray", years: "2024 – Present", hash: "E-Ray" },
+  ],
+  categories: [
+    "Aero",
+    "Suspension",
+    "Brakes",
+    "Wheels",
+    "Interior",
+    "Engine",
+    "Exterior",
+  ],
+  featured: [
+    { label: "Best Sellers", hash: "best-sellers" },
+    { label: "New Arrivals", hash: "new-arrivals" },
+    { label: "Track Essentials", hash: "track-essentials" },
+  ],
+} as const;
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
@@ -23,16 +48,20 @@ export function SiteHeader() {
             <img src={logo} alt="Tway Motorsports" className="h-7 md:h-8 w-auto" />
           </Link>
           <nav className="hidden lg:flex items-center justify-center gap-10 flex-1">
-            {nav.slice(1).map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
-                activeProps={{ className: "text-white" }}
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.slice(1).map((n) =>
+              n.to === "/shop" ? (
+                <ShopMenu key={n.to} />
+              ) : (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
+                  activeProps={{ className: "text-white" }}
+                >
+                  {n.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
 
