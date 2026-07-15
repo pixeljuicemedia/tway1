@@ -1,13 +1,19 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import aboutTeamAsset from "@/assets/about-team-family.jpg.asset.json";
 const aboutTeam = aboutTeamAsset.url;
-import whyTrack from "@/assets/why-track.jpg";
-import build1 from "@/assets/build-1.jpg";
-import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
-import svcFab from "@/assets/svc-fab.jpg";
-import userShop from "@/assets/tway-user-photo.jpg";
+import insideShop1 from "@/assets/inside-shop-1.png.asset.json";
+import insideShop2 from "@/assets/inside-shop-2.png.asset.json";
+import insideShop3 from "@/assets/inside-shop-3.png.asset.json";
+import insideShop4 from "@/assets/inside-shop-4.png.asset.json";
+import insideShop5 from "@/assets/inside-shop-5.png.asset.json";
+import insideShop6 from "@/assets/inside-shop-6.png.asset.json";
+import insideShop7 from "@/assets/inside-shop-7.png.asset.json";
+import insideShop8 from "@/assets/inside-shop-8.png.asset.json";
+import insideShop9 from "@/assets/inside-shop-9.png.asset.json";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,7 +28,21 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
+const shopGallery = [
+  { src: insideShop1.url, alt: "Wide overhead view of the Tway Motorsports shop floor" },
+  { src: insideShop2.url, alt: "Engineer working on a stripped race car chassis in the shop" },
+  { src: insideShop3.url, alt: "Two mechanics working under the rear of a black race car" },
+  { src: insideShop4.url, alt: "Green Corvette on the lift inside the race shop" },
+  { src: insideShop5.url, alt: "Mechanics working on a blue Corvette engine bay" },
+  { src: insideShop6.url, alt: "Engine install underway on a blue Corvette in the service bay" },
+  { src: insideShop7.url, alt: "Mechanic working under a lifted black car in the shop" },
+  { src: insideShop8.url, alt: "Mechanic working under a blue Corvette with the shop dog nearby" },
+  { src: insideShop9.url, alt: "Fabrication work happening inside a blue race car cockpit" },
+];
+
 function AboutPage() {
+  const [selectedImage, setSelectedImage] = useState<(typeof shopGallery)[number] | null>(null);
+
   return (
     <SiteShell>
       {/* HERO */}
@@ -93,14 +113,40 @@ function AboutPage() {
           <Eyebrow>Inside the Shop</Eyebrow>
           <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">Where the work happens.</h2>
           <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-            <img src={userShop} alt="Corvette on the lift" className="col-span-2 row-span-2 h-full w-full object-cover rounded-lg aspect-square lg:aspect-auto" loading="lazy" />
-            <img src={svcFab} alt="Fabrication" className="h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
-            <img src={build2} alt="Build overhead" className="h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
-            <img src={build1} alt="Pit lane" className="h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
-            <img src={whyTrack} alt="On track" className="h-full w-full object-cover rounded-lg aspect-square" loading="lazy" />
+            {shopGallery.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                onClick={() => setSelectedImage(image)}
+                className={index === 0 ? "col-span-2 row-span-2 overflow-hidden rounded-lg aspect-square lg:aspect-auto text-left" : "overflow-hidden rounded-lg aspect-square text-left"}
+                aria-label={`Open photo: ${image.alt}`}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              </button>
+            ))}
           </div>
         </div>
       </section>
+
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-[92vw] border-border bg-background/95 p-2 sm:p-3">
+          {selectedImage && (
+            <>
+              <DialogTitle className="sr-only">{selectedImage.alt}</DialogTitle>
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="max-h-[85vh] w-full rounded-md object-contain"
+              />
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* CTA */}
       <section className="container-wide py-24 md:py-32 text-center hairline-t">
