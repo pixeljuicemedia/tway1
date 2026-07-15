@@ -10,6 +10,7 @@ import userShop from "@/assets/tway-user-photo.jpg";
 import servicesHero from "@/assets/services-hero.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
 import trackside from "@/assets/trackside.jpg.asset.json";
+import engineering from "@/assets/engineering.jpg.asset.json";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -30,7 +31,7 @@ const services = [
   { n: "03", t: "Dyno Tuning", d: "In-house Mustang chassis dyno. Every calibration is validated with data, not guessed at.", img: svcDyno },
   { n: "04", t: "Race Prep", d: "Corner weights, alignment, brake bleeds, tire prep. We ship your car race-ready — every session.", img: racePrep.url },
   { n: "05", t: "Trackside Support", d: "Full pit-lane presence. Diagnostics, setup changes, fabrication repairs — we don't leave until you finish.", img: trackside.url },
-  { n: "06", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: whyTrack },
+  { n: "06", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: engineering.url },
   { n: "07", t: "Driver Development", d: "Coaching, data review, sim programs. From HPDE novice to championship contender.", img: userShop },
 ];
 
