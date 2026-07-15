@@ -149,8 +149,7 @@ function ShopMenu() {
                   {shopMenu.generations.map((g) => (
                     <li key={g.hash}>
                       <Link
-                        to="/shop"
-                        hash={`gen-${g.hash}`}
+                        to="/category"
                         onClick={() => setOpen(false)}
                         className="group flex items-baseline justify-between gap-3"
                       >
@@ -173,7 +172,7 @@ function ShopMenu() {
                   {shopMenu.categories.map((c) => (
                     <li key={c}>
                       <Link
-                        to="/shop"
+                        to="/category"
                         onClick={() => setOpen(false)}
                         className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
                       >
@@ -191,7 +190,7 @@ function ShopMenu() {
                   {shopMenu.featured.map((f) => (
                     <li key={f.hash}>
                       <Link
-                        to="/shop"
+                        to="/category"
                         onClick={() => setOpen(false)}
                         className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
                       >
