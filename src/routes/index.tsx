@@ -146,15 +146,24 @@ function BrandStrip() {
               key={b.name}
               href="/shop"
               aria-label={`Shop ${b.name}`}
-              className="group opacity-70 hover:opacity-100 transition-opacity"
+              className="group opacity-80 hover:opacity-100 transition-opacity"
               title={b.name}
             >
               {token ? (
-                <img
-                  src={`https://img.logo.dev/${b.domain}?token=${token}&format=png&theme=dark&size=200`}
-                  alt={`${b.name} logo`}
-                  loading="lazy"
-                  className="h-8 md:h-10 w-auto object-contain brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-[filter] duration-300"
+                <span
+                  role="img"
+                  aria-label={`${b.name} logo`}
+                  className="block h-8 md:h-10 w-28 md:w-36 bg-white group-hover:bg-race-red transition-colors"
+                  style={{
+                    WebkitMaskImage: `url(https://img.logo.dev/${b.domain}?token=${token}&format=png&size=400&retina=true)`,
+                    maskImage: `url(https://img.logo.dev/${b.domain}?token=${token}&format=png&size=400&retina=true)`,
+                    WebkitMaskRepeat: "no-repeat",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskPosition: "center",
+                    maskPosition: "center",
+                    WebkitMaskSize: "contain",
+                    maskSize: "contain",
+                  }}
                 />
               ) : (
                 <span className="font-display text-sm md:text-base font-semibold tracking-tight text-white/85">
