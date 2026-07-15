@@ -191,6 +191,11 @@ function Index() {
       </section>
 
       {/* ============================================================
+          1b · BRAND LOGO STRIP — trusted names, right below the hero
+         ============================================================ */}
+      <BrandStrip />
+
+      {/* ============================================================
           2 · FEATURED PRODUCTS — real cards above the fold
          ============================================================ */}
       <section className="hairline-t">
