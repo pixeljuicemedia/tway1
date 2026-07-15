@@ -121,6 +121,54 @@ function Badge({ children }: { children: React.ReactNode }) {
   );
 }
 
+const brandLogos: { name: string; domain: string }[] = [
+  { name: "Brembo",      domain: "brembo.com" },
+  { name: "Sparco",      domain: "sparco.com" },
+  { name: "Recaro",      domain: "recaro-automotive.com" },
+  { name: "Öhlins",      domain: "ohlins.com" },
+  { name: "Motul",       domain: "motul.com" },
+  { name: "AP Racing",   domain: "apracing.com" },
+  { name: "HKS",         domain: "hks-power.co.jp" },
+  { name: "Momo",        domain: "momo.com" },
+  { name: "KW",          domain: "kwsuspensions.com" },
+  { name: "Bilstein",    domain: "bilstein.com" },
+];
+
+function BrandStrip() {
+  const token = import.meta.env.VITE_LOVABLE_CONNECTOR_LOGO_DEV_API_KEY as string | undefined;
+  return (
+    <section className="hairline-b bg-background">
+      <div className="container-wide py-8 md:py-10">
+        <p className="eyebrow text-center text-muted-foreground/80">Brands We Install · Track-Proven</p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-6">
+          {brandLogos.map((b) => (
+            <a
+              key={b.name}
+              href="/shop"
+              aria-label={`Shop ${b.name}`}
+              className="group opacity-70 hover:opacity-100 transition-opacity"
+              title={b.name}
+            >
+              {token ? (
+                <img
+                  src={`https://img.logo.dev/${b.domain}?token=${token}&format=png&theme=dark&size=200`}
+                  alt={`${b.name} logo`}
+                  loading="lazy"
+                  className="h-8 md:h-10 w-auto object-contain brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-[filter] duration-300"
+                />
+              ) : (
+                <span className="font-display text-sm md:text-base font-semibold tracking-tight text-white/85">
+                  {b.name}
+                </span>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <SiteShell>
