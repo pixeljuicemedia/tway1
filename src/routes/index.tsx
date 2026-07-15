@@ -35,10 +35,10 @@ import social4 from "@/assets/social-4.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
-      { name: "description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
-      { property: "og:title", content: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
-      { property: "og:description", content: "Family-owned Corvette race shop. 25+ years of engineering, fabrication, dyno tuning and trackside support. Real racing experience — no theory." },
+      { title: "Tway Motorsports — Performance Parts, Track-Proven. Shop Now." },
+      { name: "description", content: "Shop track-tested performance parts, aero, suspension, brakes and drivetrain — plus professional installation from a 20+ year race shop." },
+      { property: "og:title", content: "Tway Motorsports — Performance Parts, Track-Proven. Shop Now." },
+      { property: "og:description", content: "Shop track-tested performance parts, aero, suspension, brakes and drivetrain — plus professional installation from a 20+ year race shop." },
     ],
   }),
   component: Index,
