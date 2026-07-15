@@ -142,7 +142,7 @@ function Index() {
 
       {/* TRUST BAR */}
       <section className="hairline-b">
-        <div className="container-wide py-10 md:py-14 grid grid-cols-2 md:grid-cols-5 gap-y-10 gap-x-6">
+        <div className="container-wide py-10 md:py-14 grid grid-cols-2 md:grid-cols-5 gap-y-10 gap-x-6 [&>*:nth-child(5)]:col-span-2 md:[&>*:nth-child(5)]:col-span-1">
           {[
             ["25+", "Years Racing"],
             ["100%", "Family Owned"],
