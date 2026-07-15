@@ -152,7 +152,7 @@ function ShopPage() {
             <a
               key={g.key}
               href={`#gen-${g.key}`}
-              className={`group relative block overflow-hidden rounded-2xl hairline ${g.featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
+              className={`group relative block overflow-hidden rounded-2xl border border-border ${g.featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
             >
               <div className={`relative ${g.featured ? "aspect-[4/5] lg:aspect-[3/4]" : "aspect-[5/6]"} overflow-hidden bg-surface`}>
                 <img
@@ -282,7 +282,7 @@ function ShopPage() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {collections.map((c) => (
-              <a key={c.title} href="#" className="group relative block overflow-hidden rounded-2xl hairline bg-background">
+              <a key={c.title} href="#" className="group relative block overflow-hidden rounded-2xl border border-border bg-background">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={c.img} alt={c.title} className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
