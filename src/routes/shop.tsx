@@ -10,6 +10,7 @@ import catElectronics from "@/assets/cat-electronics.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
 import svcFab from "@/assets/svc-fab.jpg";
 import build3 from "@/assets/build-3.jpg";
+import shopHero from "@/assets/shop-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -44,8 +45,21 @@ function ShopPage() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="hairline-b">
-        <div className="container-wide pt-20 md:pt-28 pb-16 md:pb-20 grid gap-8 lg:grid-cols-[1.5fr_1fr] items-end">
+      <section className="relative hairline-b overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${shopHero.url})` }}
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.55) 0%, oklch(0.14 0.005 260 / 0.75) 60%, oklch(0.14 0.005 260) 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="relative container-wide pt-20 md:pt-28 pb-16 md:pb-20 grid gap-8 lg:grid-cols-[1.5fr_1fr] items-end">
           <div>
             <Eyebrow accent>Collection · Performance Parts</Eyebrow>
             <h1 className="mt-6 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight">
