@@ -95,6 +95,15 @@ const testimonials = [
   { rating: 5, name: "Derek Chen",     vehicle: "GT4 Corvette",   quote: "Trackside at 6am, in the pit box by qualifying. Real racers." },
 ];
 
+const instagramPosts: { url: string; img: string }[] = [
+  { url: "https://www.instagram.com/p/DZLgP7NknMk/?img_index=1", img: social1 },
+  { url: "https://www.instagram.com/p/DYP_6aaj_c1/?img_index=1", img: social2 },
+  { url: "https://www.instagram.com/p/C7IlpECu9SG/",             img: social3 },
+  { url: "https://www.instagram.com/p/C7uquXeyxmP/?img_index=1", img: social4 },
+  { url: "https://www.instagram.com/p/CyyPbH-riUn/?img_index=1", img: whyTrack },
+  { url: "https://www.instagram.com/p/CyoTg3EPxTY/?img_index=1", img: build1 },
+];
+
 const stats = [
   ["20+",       "Years Experience"],
   ["500+",      "Track Cars Built"],
@@ -484,12 +493,29 @@ function Index() {
               <Eyebrow>@tway.motorsports</Eyebrow>
               <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">From the shop floor.</h2>
             </div>
-            <a href="#" className="btn-ghost">Follow on Instagram →</a>
+            <a href="https://www.instagram.com/twaymotorsports/" target="_blank" rel="noopener noreferrer" className="btn-ghost">Follow on Instagram →</a>
           </div>
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-            {[social1, social2, social3, social4, whyTrack, build1].map((img, i) => (
-              <a key={i} href="#" className="relative aspect-square overflow-hidden rounded-lg bg-surface group">
-                <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+            {instagramPosts.map((p, i) => (
+              <a
+                key={p.url}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Instagram post ${i + 1}`}
+                className="relative aspect-square overflow-hidden rounded-lg bg-surface group"
+              >
+                <img
+                  src={p.img}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors grid place-items-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity font-display text-[11px] uppercase tracking-widest text-white">
+                    View Post →
+                  </span>
+                </div>
               </a>
             ))}
           </div>
