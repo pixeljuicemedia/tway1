@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import contactHeroAsset from "@/assets/contact-hero.png.asset.json";
+import contactPodiumAsset from "@/assets/contact-podium.jpg.asset.json";
 const contactHero = contactHeroAsset.url;
+const contactPodium = contactPodiumAsset.url;
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -103,7 +105,7 @@ function ContactPage() {
         {/* CONTACT INFO */}
         <div className="space-y-8">
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
-            <img src={contactHero} alt="Inside the Tway race bay" className="h-full w-full object-cover" loading="lazy" />
+            <img src={contactPodium} alt="Tway drivers on the Buttonwillow Raceway Park podium" className="h-full w-full object-cover" loading="lazy" />
           </div>
 
           <div className="card-glass p-8">
