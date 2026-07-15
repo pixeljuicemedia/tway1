@@ -12,6 +12,31 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const shopMenu = {
+  generations: [
+    { label: "C5 Corvette", years: "1997 – 2004", hash: "C5" },
+    { label: "C6 Corvette", years: "2005 – 2013", hash: "C6" },
+    { label: "C7 Corvette", years: "2014 – 2019", hash: "C7" },
+    { label: "C8 Stingray", years: "2020 – Present", hash: "C8" },
+    { label: "C8 Z06", years: "2023 – Present", hash: "Z06" },
+    { label: "C8 E-Ray", years: "2024 – Present", hash: "E-Ray" },
+  ],
+  categories: [
+    "Aero",
+    "Suspension",
+    "Brakes",
+    "Wheels",
+    "Interior",
+    "Engine",
+    "Exterior",
+  ],
+  featured: [
+    { label: "Best Sellers", hash: "best-sellers" },
+    { label: "New Arrivals", hash: "new-arrivals" },
+    { label: "Track Essentials", hash: "track-essentials" },
+  ],
+} as const;
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
@@ -23,16 +48,20 @@ export function SiteHeader() {
             <img src={logo} alt="Tway Motorsports" className="h-7 md:h-8 w-auto" />
           </Link>
           <nav className="hidden lg:flex items-center justify-center gap-10 flex-1">
-            {nav.slice(1).map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
-                activeProps={{ className: "text-white" }}
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.slice(1).map((n) =>
+              n.to === "/shop" ? (
+                <ShopMenu key={n.to} />
+              ) : (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
+                  activeProps={{ className: "text-white" }}
+                >
+                  {n.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
 
@@ -85,6 +114,108 @@ export function SiteHeader() {
         </div>
       )}
     </header>
+  );
+}
+
+function ShopMenu() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Link
+        to="/shop"
+        className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
+        activeProps={{ className: "text-white" }}
+      >
+        Shop
+        <svg aria-hidden viewBox="0 0 24 24" className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </Link>
+
+      {open && (
+        <>
+          {/* Bridge so hover doesn't drop between trigger and panel */}
+          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-[640px]" />
+          <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[640px] rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/40 p-6 animate-fade-in">
+            <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-8">
+              {/* Generations */}
+              <div>
+                <p className="eyebrow text-race-red">Shop by Generation</p>
+                <ul className="mt-4 space-y-2.5">
+                  {shopMenu.generations.map((g) => (
+                    <li key={g.hash}>
+                      <Link
+                        to="/shop"
+                        hash={`gen-${g.hash}`}
+                        onClick={() => setOpen(false)}
+                        className="group flex items-baseline justify-between gap-3"
+                      >
+                        <span className="font-display text-sm font-medium text-white group-hover:text-race-red transition-colors">
+                          {g.label}
+                        </span>
+                        <span className="text-[10px] font-display uppercase tracking-widest text-muted-foreground">
+                          {g.years}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Categories */}
+              <div>
+                <p className="eyebrow">Categories</p>
+                <ul className="mt-4 space-y-2.5">
+                  {shopMenu.categories.map((c) => (
+                    <li key={c}>
+                      <Link
+                        to="/shop"
+                        onClick={() => setOpen(false)}
+                        className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
+                      >
+                        {c}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Featured */}
+              <div>
+                <p className="eyebrow">Featured</p>
+                <ul className="mt-4 space-y-2.5">
+                  {shopMenu.featured.map((f) => (
+                    <li key={f.hash}>
+                      <Link
+                        to="/shop"
+                        onClick={() => setOpen(false)}
+                        className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
+                      >
+                        {f.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 hairline-t pt-4">
+                  <Link
+                    to="/shop"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-white hover:text-race-red transition-colors"
+                  >
+                    View All Parts
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
