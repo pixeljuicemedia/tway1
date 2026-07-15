@@ -140,13 +140,13 @@ function BrandStrip() {
     <section className="hairline-b bg-background">
       <div className="container-wide py-8 md:py-10">
         <p className="eyebrow text-center text-muted-foreground/80">Brands We Install · Track-Proven</p>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 md:gap-x-14 gap-y-6">
+        <div className="mt-6 flex flex-nowrap items-center justify-between gap-x-4 md:gap-x-6 overflow-x-auto no-scrollbar">
           {brandLogos.map((b) => (
             <a
               key={b.name}
               href="/shop"
               aria-label={`Shop ${b.name}`}
-              className="group opacity-80 hover:opacity-100 transition-opacity"
+              className="group opacity-80 hover:opacity-100 transition-opacity shrink-0"
               title={b.name}
             >
               {token ? (
@@ -154,7 +154,7 @@ function BrandStrip() {
                   src={`https://img.logo.dev/${b.domain}?token=${token}&format=png&size=400&retina=true`}
                   alt={`${b.name} logo`}
                   loading="lazy"
-                  className="h-8 md:h-10 w-auto object-contain"
+                  className="h-16 md:h-20 w-auto object-contain"
                 />
               ) : (
                 <span className="font-display text-sm md:text-base font-semibold tracking-tight text-white/85">
