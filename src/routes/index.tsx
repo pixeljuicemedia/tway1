@@ -31,6 +31,12 @@ import social1 from "@/assets/social-1.jpg";
 import social2 from "@/assets/social-2.jpg";
 import social3 from "@/assets/social-3.jpg";
 import social4 from "@/assets/social-4.jpg";
+import ig1 from "@/assets/ig1.jpg.asset.json";
+import ig2 from "@/assets/ig2.jpg.asset.json";
+import ig3 from "@/assets/ig3.jpg.asset.json";
+import ig4 from "@/assets/ig4.jpg.asset.json";
+import ig5 from "@/assets/ig5.jpg.asset.json";
+import ig6 from "@/assets/ig6.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -96,12 +102,12 @@ const testimonials = [
 ];
 
 const instagramPosts: { url: string; img: string }[] = [
-  { url: "https://www.instagram.com/p/DZLgP7NknMk/?img_index=1", img: social1 },
-  { url: "https://www.instagram.com/p/DYP_6aaj_c1/?img_index=1", img: social2 },
-  { url: "https://www.instagram.com/p/C7IlpECu9SG/",             img: social3 },
-  { url: "https://www.instagram.com/p/C7uquXeyxmP/?img_index=1", img: social4 },
-  { url: "https://www.instagram.com/p/CyyPbH-riUn/?img_index=1", img: whyTrack },
-  { url: "https://www.instagram.com/p/CyoTg3EPxTY/?img_index=1", img: build1 },
+  { url: "https://www.instagram.com/p/DZLgP7NknMk/?img_index=1", img: ig1.url },
+  { url: "https://www.instagram.com/p/DYP_6aaj_c1/?img_index=1", img: ig2.url },
+  { url: "https://www.instagram.com/p/C7IlpECu9SG/",             img: ig3.url },
+  { url: "https://www.instagram.com/p/C7uquXeyxmP/?img_index=1", img: ig4.url },
+  { url: "https://www.instagram.com/p/CyyPbH-riUn/?img_index=1", img: ig5.url },
+  { url: "https://www.instagram.com/p/CyoTg3EPxTY/?img_index=1", img: ig6.url },
 ];
 
 const stats = [
