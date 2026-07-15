@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import aboutTeam from "@/assets/about-team.jpg";
+import aboutTeamAsset from "@/assets/about-team-family.jpg.asset.json";
+const aboutTeam = aboutTeamAsset.url;
 import whyTrack from "@/assets/why-track.jpg";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
