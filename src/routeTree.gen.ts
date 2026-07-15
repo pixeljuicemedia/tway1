@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as V1RouteImport } from './routes/v1'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProductRouteImport } from './routes/product'
@@ -16,6 +17,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const V1Route = V1RouteImport.update({
+  id: '/v1',
+  path: '/v1',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/product': typeof ProductRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/v1': typeof V1Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/product': typeof ProductRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/v1': typeof V1Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +79,20 @@ export interface FileRoutesById {
   '/product': typeof ProductRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
+  '/v1': typeof V1Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/product' | '/services' | '/shop'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/product'
+    | '/services'
+    | '/shop'
+    | '/v1'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/product' | '/services' | '/shop'
+  to: '/' | '/about' | '/contact' | '/product' | '/services' | '/shop' | '/v1'
   id:
     | '__root__'
     | '/'
@@ -85,6 +101,7 @@ export interface FileRouteTypes {
     | '/product'
     | '/services'
     | '/shop'
+    | '/v1'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,10 +111,18 @@ export interface RootRouteChildren {
   ProductRoute: typeof ProductRoute
   ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
+  V1Route: typeof V1Route
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/v1': {
+      id: '/v1'
+      path: '/v1'
+      fullPath: '/v1'
+      preLoaderRoute: typeof V1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -150,17 +175,8 @@ const rootRouteChildren: RootRouteChildren = {
   ProductRoute: ProductRoute,
   ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
+  V1Route: V1Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

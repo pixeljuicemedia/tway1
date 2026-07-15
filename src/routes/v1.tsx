@@ -32,7 +32,7 @@ import social2 from "@/assets/social-2.jpg";
 import social3 from "@/assets/social-3.jpg";
 import social4 from "@/assets/social-4.jpg";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/v1")({
   head: () => ({
     meta: [
       { title: "Tway Motorsports — Race-Proven Performance. Built by Racers." },
