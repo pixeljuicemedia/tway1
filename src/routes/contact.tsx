@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import contactHeroAsset from "@/assets/contact-hero.png.asset.json";
+import contactHeroAsset from "@/assets/contact-racecar-hero.png.asset.json";
 import contactPodiumAsset from "@/assets/contact-podium.jpg.asset.json";
 const contactHero = contactHeroAsset.url;
 const contactPodium = contactPodiumAsset.url;
@@ -24,12 +24,17 @@ function ContactPage() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={contactHero} alt="" className="h-full w-full object-cover" />
+          <img
+            src={contactHero}
+            alt=""
+            className="h-full w-full object-cover contrast-[1.12] saturate-[1.15] brightness-[0.98]"
+            style={{ objectPosition: "center 38%" }}
+          />
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, oklch(0.14 0.005 260 / 0.55) 0%, oklch(0.14 0.005 260 / 0.15) 40%, oklch(0.14 0.005 260 / 0.35) 70%, oklch(0.14 0.005 260) 100%)",
+                "linear-gradient(90deg, oklch(0.14 0.005 260 / 0.58) 0%, oklch(0.14 0.005 260 / 0.34) 36%, oklch(0.14 0.005 260 / 0.1) 68%, oklch(0.14 0.005 260 / 0.22) 100%), linear-gradient(180deg, oklch(0.14 0.005 260 / 0.16) 0%, oklch(0.14 0.005 260 / 0.05) 45%, oklch(0.14 0.005 260 / 0.62) 100%)",
             }}
           />
         </div>
