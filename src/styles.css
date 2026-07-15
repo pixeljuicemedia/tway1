@@ -248,6 +248,34 @@
   animation: wheel-bounce 0.35s ease-in-out infinite;
 }
 
+/* Subtle carbon-weave texture — automotive feel, low contrast */
+@utility bg-carbon-texture {
+  background-color: oklch(0.17 0.006 260);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, oklch(1 0 0 / 0.04) 0%, transparent 60%),
+    repeating-linear-gradient(
+      45deg,
+      oklch(1 0 0 / 0.018) 0px,
+      oklch(1 0 0 / 0.018) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      oklch(1 0 0 / 0.018) 0px,
+      oklch(1 0 0 / 0.018) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      oklch(0 0 0 / 0.15) 0px,
+      oklch(0 0 0 / 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
 @keyframes hero-crossfade {
   0%      { opacity: 0; }
   16.666% { opacity: 1; }

@@ -216,7 +216,7 @@ function Index() {
       </section>
 
       {/* FEATURED SERVICES */}
-      <section className="hairline-t">
+      <section className="hairline-t bg-carbon-texture">
         <div className="container-wide py-24 md:py-36">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] items-end">
             <div className="text-center md:text-left">
@@ -340,7 +340,7 @@ function Index() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="hairline-t">
+      <section className="hairline-t bg-carbon-texture">
         <div className="container-wide py-24 md:py-36">
           <div className="text-center md:text-left">
           <Eyebrow className="justify-center md:justify-start">06 · Customers</Eyebrow>
