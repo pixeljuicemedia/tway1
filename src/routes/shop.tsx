@@ -149,9 +149,9 @@ function ShopPage() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {genCards.map((g) => (
-            <a
+            <Link
               key={g.key}
-              href={`#gen-${g.key}`}
+              to="/category"
               className={`group relative block overflow-hidden rounded-2xl border border-border ${g.featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
             >
               <div className={`relative ${g.featured ? "aspect-[4/5] lg:aspect-[3/4]" : "aspect-[5/6]"} overflow-hidden bg-surface`}>
@@ -190,7 +190,7 @@ function ShopPage() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -201,8 +201,9 @@ function ShopPage() {
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="shrink-0 eyebrow text-race-red pr-2">Generation</span>
             {generations.map((f, i) => (
-              <button
+              <Link
                 key={f}
+                to="/category"
                 className={`shrink-0 rounded-full px-4 py-2 text-[11px] font-display uppercase tracking-widest border transition-colors ${
                   i === 0
                     ? "bg-foreground text-background border-foreground"
@@ -210,7 +211,7 @@ function ShopPage() {
                 }`}
               >
                 {f}
-              </button>
+              </Link>
             ))}
             <div className="ml-auto shrink-0 hidden md:flex items-center gap-3 text-xs text-muted-foreground">
               <span>{items.length} products</span>
@@ -221,12 +222,13 @@ function ShopPage() {
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="shrink-0 eyebrow pr-2">Category</span>
             {categories.map((c) => (
-              <button
+              <Link
                 key={c}
+                to="/category"
                 className="shrink-0 rounded-full px-3.5 py-1.5 text-[11px] font-display uppercase tracking-widest border border-border/60 text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
               >
                 {c}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
@@ -282,7 +284,7 @@ function ShopPage() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {collections.map((c) => (
-              <a key={c.title} href="#" className="group relative block overflow-hidden rounded-2xl border border-border bg-background">
+              <Link key={c.title} to="/category" className="group relative block overflow-hidden rounded-2xl border border-border bg-background">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={c.img} alt={c.title} className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
@@ -298,7 +300,7 @@ function ShopPage() {
                     <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
