@@ -278,12 +278,12 @@
 
 @keyframes hero-crossfade {
   0%      { opacity: 0; }
-  16.666% { opacity: 1; }
-  33.333% { opacity: 0; }
+  25%     { opacity: 1; }
+  50%     { opacity: 0; }
   100%    { opacity: 0; }
 }
 
 .hero-crossfade-slide {
-  animation: hero-crossfade 18s linear infinite;
+  animation: hero-crossfade 9s linear infinite;
   will-change: opacity;
 }
