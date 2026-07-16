@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import logoAsset from "@/assets/tway-logo-dark.png.asset.json";
+import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
 const logo = logoAsset.url;
 
 const nav = [
