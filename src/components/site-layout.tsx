@@ -55,7 +55,7 @@ export function SiteHeader() {
                 <Link
                   key={n.to}
                   to={n.to}
-                  className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
+                  className="font-display text-[15px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
                   activeProps={{ className: "text-white" }}
                 >
                   {n.label}
@@ -127,7 +127,7 @@ function ShopMenu() {
     >
       <Link
         to="/shop"
-        className="font-display text-[13px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
+        className="font-display text-[15px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
         activeProps={{ className: "text-white" }}
       >
         Shop
@@ -153,7 +153,7 @@ function ShopMenu() {
                         onClick={() => setOpen(false)}
                         className="group flex items-baseline justify-between gap-3"
                       >
-                        <span className="font-display text-sm font-medium text-white group-hover:text-race-red transition-colors">
+                        <span className="font-display text-[15px] font-semibold text-white group-hover:text-race-red transition-colors">
                           {g.label}
                         </span>
                         <span className="text-[10px] font-display uppercase tracking-widest text-muted-foreground">
@@ -174,7 +174,7 @@ function ShopMenu() {
                       <Link
                         to="/category"
                         onClick={() => setOpen(false)}
-                        className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >
                         {c}
                       </Link>
@@ -192,7 +192,7 @@ function ShopMenu() {
                       <Link
                         to="/category"
                         onClick={() => setOpen(false)}
-                        className="font-display text-sm text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >
                         {f.label}
                       </Link>
