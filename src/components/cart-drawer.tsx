@@ -20,6 +20,12 @@ export function CartDrawer() {
     setIsEmbedded(window.self !== window.top);
   }, []);
 
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener("cart:open", open);
+    return () => window.removeEventListener("cart:open", open);
+  }, []);
+
   const checkoutUrl = getCheckoutUrl();
   const handleCheckoutClick = () => {
     setTimeout(() => setIsOpen(false), 0);
@@ -126,6 +132,12 @@ export function CartDrawer() {
                     </>
                   )}
                 </a>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-full h-11 inline-flex items-center justify-center rounded-lg border border-border text-foreground font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:border-foreground transition-colors"
+                >
+                  Continue Shopping
+                </button>
               </div>
             </>
           )}
