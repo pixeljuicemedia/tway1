@@ -267,7 +267,7 @@ function IndexV1() {
 
         <div className="mt-16 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((p) => (
-            <Link key={p.name} to="/product" className="group block">
+            <Link key={p.name} to="/shop" className="group block">
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
                 <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
               </div>
@@ -411,7 +411,7 @@ function IndexV1() {
 
 function BuildCard({ className, img, eyebrow, title }: { className?: string; img: string; eyebrow: string; title: string }) {
   return (
-    <Link to="/product" className={`group relative overflow-hidden rounded-xl bg-surface ${className}`}>
+    <Link to="/shop" className={`group relative overflow-hidden rounded-xl bg-surface ${className}`}>
       <img src={img} alt={title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
       <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
