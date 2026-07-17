@@ -8,7 +8,6 @@ const logo = logoAsset.url;
 const nav = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
-  { to: "/product", label: "Product" },
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
@@ -153,6 +152,7 @@ function ShopMenu() {
                     <li key={g.hash}>
                       <Link
                         to="/category"
+                        search={{ gen: g.hash, cat: "All", sort: "Featured" }}
                         onClick={() => setOpen(false)}
                         className="group flex items-baseline justify-between gap-3"
                       >
@@ -176,6 +176,7 @@ function ShopMenu() {
                     <li key={c}>
                       <Link
                         to="/category"
+                        search={{ gen: "All", cat: c, sort: "Featured" }}
                         onClick={() => setOpen(false)}
                         className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >
@@ -194,6 +195,7 @@ function ShopMenu() {
                     <li key={f.hash}>
                       <Link
                         to="/category"
+                        search={{ gen: "All", cat: "All", sort: "Featured" }}
                         onClick={() => setOpen(false)}
                         className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >

@@ -23,6 +23,8 @@ export interface ShopifyProductNode {
   title: string;
   description: string;
   handle: string;
+  productType: string;
+  tags: string[];
   priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
   images: { edges: Array<{ node: ShopifyImage }> };
   variants: { edges: Array<{ node: ShopifyVariant }> };
@@ -70,6 +72,8 @@ export const PRODUCTS_QUERY = `
           title
           description
           handle
+          productType
+          tags
           priceRange { minVariantPrice { amount currencyCode } }
           images(first: 5) { edges { node { url altText } } }
           variants(first: 10) {
@@ -91,6 +95,8 @@ export const PRODUCT_BY_HANDLE_QUERY = `
   query GetProduct($handle: String!) {
     product(handle: $handle) {
       id title description handle
+      productType
+      tags
       priceRange { minVariantPrice { amount currencyCode } }
       images(first: 10) { edges { node { url altText } } }
       variants(first: 25) {
