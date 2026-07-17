@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import prod1 from "@/assets/prod-1.jpg";
-import prod2 from "@/assets/prod-2.jpg";
-import prod3 from "@/assets/prod-3.jpg";
-import prod4 from "@/assets/prod-4.jpg";
+import { useEffect, useState } from "react";
+import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cart-store";
+import { Loader2 } from "lucide-react";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
 import catC6 from "@/assets/cat-c6.jpg";
 import catC5 from "@/assets/cat-c5.jpg";
 import catElectronics from "@/assets/cat-electronics.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
-import svcFab from "@/assets/svc-fab.jpg";
 import build3 from "@/assets/build-3.jpg";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
@@ -20,12 +19,9 @@ import trackside from "@/assets/trackside.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
 import engineering from "@/assets/engineering.jpg.asset.json";
 import burnout1 from "@/assets/burnout1.jpg.asset.json";
-import burnout3 from "@/assets/burnout3.jpg.asset.json";
 import burnout5 from "@/assets/burnout5.jpg.asset.json";
 import insideShop2 from "@/assets/inside-shop-2.png.asset.json";
 import insideShop4 from "@/assets/inside-shop-4.png.asset.json";
-import insideShop6 from "@/assets/inside-shop-6.png.asset.json";
-import shopHero from "@/assets/shop-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -54,26 +50,6 @@ const genCards = [
   { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette, count: 47, featured: true },
   { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url, count: 28 },
   { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url, count: 56 },
-];
-
-// Products — each carries generation compatibility + merchandising tags
-const items = [
-  { name: "C8 Z06 Carbon Aero Package", price: "$4,880", meta: "Aero · Carbon", img: prod3, gen: "Z06", cat: "Aero", tags: ["New Arrival", "Track Tested"] },
-  { name: "Track-Spec Intake Manifold — LT4", price: "$1,895", meta: "Engine · LT4", img: prod1, gen: "C7", cat: "Engine", tags: ["Best Seller"] },
-  { name: "Forged Race Wheel 18×11", price: "$1,240", meta: "Wheels · Forged", img: prod2, gen: "C7", cat: "Wheels", tags: ["Track Tested"] },
-  { name: "C8 Stingray Cold Air Intake", price: "$780", meta: "Engine · LT2", img: catC8, gen: "C8", cat: "Engine", tags: ["Best Seller"] },
-  { name: "C7 Adjustable Sway Bar Kit", price: "$1,120", meta: "Suspension · C7", img: catC7, gen: "C7", cat: "Suspension", tags: ["Featured"] },
-  { name: "E-Ray Lowering Springs", price: "$685", meta: "Suspension · E-Ray", img: corvetteSide.url, gen: "E-Ray", cat: "Suspension", tags: ["New Arrival"] },
-  { name: "C6 Z06 Big Brake Kit — 6-Piston", price: "$4,250", meta: "Brakes · 380mm", img: catC6, gen: "C6", cat: "Brakes", tags: ["Track Tested"] },
-  { name: "C5 Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Engine · 304 SS", img: catC5, gen: "C5", cat: "Engine", tags: ["Best Seller"] },
-  { name: "C8 Carbon Fiber Splitter", price: "$2,450", meta: "Aero · Carbon", img: prod3, gen: "C8", cat: "Aero", tags: ["New Arrival"] },
-  { name: "MoTeC C127 Dash Logger", price: "$4,995", meta: "Interior · Data", img: catElectronics, gen: "Universal", cat: "Interior", tags: ["Pro", "Track Tested"] },
-  { name: "Stilo ST5F Carbon Helmet", price: "$1,899", meta: "Safety · SA2020", img: catSafety, gen: "Universal", cat: "Interior", tags: ["Track Tested"] },
-  { name: "Track-Ready Corner Package — C7", price: "$8,450", meta: "Suspension · Full", img: build3, gen: "C7", cat: "Suspension", tags: ["Best Seller", "Pro Install"] },
-  { name: "C8 Braided Brake Line Set", price: "$285", meta: "Brakes · DOT", img: prod4, gen: "C8", cat: "Brakes", tags: ["Fast Ship"] },
-  { name: "Dry Sump Oil System — LT1/LT4", price: "$5,650", meta: "Engine · Endurance", img: prod1, gen: "C7", cat: "Engine", tags: ["Track Tested"] },
-  { name: "Z06 Forged Wheel Set — 20/21\"", price: "$5,400", meta: "Wheels · Forged", img: prod2, gen: "Z06", cat: "Wheels", tags: ["New Arrival"] },
-  { name: "C6 Racing Bucket Seat Pair", price: "$3,120", meta: "Interior · FIA", img: build2, gen: "C6", cat: "Interior", tags: ["Track Tested"] },
 ];
 
 // Curated Corvette collections
