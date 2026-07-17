@@ -6,6 +6,7 @@ import { formatMoney } from "@/lib/shopify";
 
 export function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEmbedded, setIsEmbedded] = useState(false);
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
@@ -15,11 +16,12 @@ export function CartDrawer() {
     if (isOpen) syncCart();
   }, [isOpen, syncCart]);
 
+  useEffect(() => {
+    setIsEmbedded(window.self !== window.top);
+  }, []);
+
   const checkoutUrl = getCheckoutUrl();
   const handleCheckoutClick = () => {
-    // Close drawer after click; anchor handles the new-tab navigation itself,
-    // which escapes the Lovable preview iframe reliably (window.open can be
-    // intercepted and load in-frame, which Shopify then refuses to render).
     setTimeout(() => setIsOpen(false), 0);
   };
 
@@ -109,7 +111,7 @@ export function CartDrawer() {
                 </div>
                 <a
                   href={checkoutUrl ?? "#"}
-                  target="_blank"
+                  target={isEmbedded ? "_top" : "_blank"}
                   rel="noopener noreferrer"
                   onClick={handleCheckoutClick}
                   aria-disabled={!checkoutUrl || isLoading || isSyncing}

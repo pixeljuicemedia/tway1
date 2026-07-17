@@ -96,7 +96,18 @@ function ProductDetailPage() {
   const handleBuyNow = async () => {
     await handleAdd();
     const url = getCheckoutUrl();
-    if (url) window.open(url, "_blank");
+    if (!url) return;
+
+    if (window.self !== window.top && window.top) {
+      try {
+        window.top.location.href = url;
+        return;
+      } catch {
+        // Fall through when the host disallows top-level navigation.
+      }
+    }
+
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
