@@ -15,12 +15,12 @@ export function CartDrawer() {
     if (isOpen) syncCart();
   }, [isOpen, syncCart]);
 
-  const handleCheckout = () => {
-    const url = getCheckoutUrl();
-    if (url) {
-      window.open(url, "_blank");
-      setIsOpen(false);
-    }
+  const checkoutUrl = getCheckoutUrl();
+  const handleCheckoutClick = () => {
+    // Close drawer after click; anchor handles the new-tab navigation itself,
+    // which escapes the Lovable preview iframe reliably (window.open can be
+    // intercepted and load in-frame, which Shopify then refuses to render).
+    setTimeout(() => setIsOpen(false), 0);
   };
 
   return (
@@ -107,10 +107,13 @@ export function CartDrawer() {
                   <span className="text-lg font-semibold">Total</span>
                   <span className="text-xl font-bold">{formatMoney(totalPrice, currency)}</span>
                 </div>
-                <button
-                  onClick={handleCheckout}
-                  disabled={items.length === 0 || isLoading || isSyncing}
-                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors disabled:opacity-50"
+                <a
+                  href={checkoutUrl ?? "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleCheckoutClick}
+                  aria-disabled={!checkoutUrl || isLoading || isSyncing}
+                  className={`w-full h-12 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors ${(!checkoutUrl || isLoading || isSyncing) ? "opacity-50 pointer-events-none" : ""}`}
                 >
                   {isLoading || isSyncing ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -120,7 +123,7 @@ export function CartDrawer() {
                       Checkout with Shopify
                     </>
                   )}
-                </button>
+                </a>
               </div>
             </>
           )}
