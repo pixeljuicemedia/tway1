@@ -57,7 +57,7 @@ const collections = [
   { title: "Most Popular C8 Upgrades", desc: "Bolt-ons the Stingray community keeps buying.", img: catC8, count: 24 },
   { title: "C7 Track Essentials", desc: "Everything the Grand Sport needs for a session.", img: build3, count: 18 },
   { title: "Best Selling C6 Parts", desc: "Tried and proven on the Z06 platform.", img: catC6, count: 21 },
-  { title: "Z06 Aero Packages", desc: "Front splitters, wickers, wings — flat-plane ready.", img: prod3, count: 12 },
+  { title: "Z06 Aero Packages", desc: "Front splitters, wickers, wings — flat-plane ready.", img: heroCorvette, count: 12 },
   { title: "Suspension Upgrades", desc: "Coilovers, sway bars and geometry parts.", img: build1, count: 36 },
   { title: "New Corvette Arrivals", desc: "The latest hardware, just off the shelf.", img: heroCorvette, count: 15 },
 ];
@@ -72,6 +72,19 @@ const lifestyle = [
 ];
 
 function ShopPage() {
+  const [products, setProducts] = useState<ShopifyProduct[] | null>(null);
+  const addItem = useCartStore((s) => s.addItem);
+  const cartLoading = useCartStore((s) => s.isLoading);
+
+  useEffect(() => {
+    fetchProducts(48).then(setProducts).catch((err) => {
+      console.error("Failed to load products:", err);
+      setProducts([]);
+    });
+  }, []);
+
+  const productCount = products?.length ?? 0;
+
   return (
     <SiteShell>
       {/* HERO — Corvette-first */}
