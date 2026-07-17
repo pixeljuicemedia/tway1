@@ -272,14 +272,14 @@ function Index() {
             {featuredProducts.map((p) => (
               <div key={p.name} className="group flex flex-col">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
-                  <Link to="/product" className="absolute inset-0 block" aria-label={p.name}>
+                  <Link to="/shop" className="absolute inset-0 block" aria-label={p.name}>
                     <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
                   </Link>
                   <span className="absolute top-4 left-4 pointer-events-none"><Badge>{p.badge}</Badge></span>
                   <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                     <div className="flex gap-2">
                       <button type="button" className="flex-1 h-10 rounded-md bg-foreground text-background font-display text-[11px] uppercase tracking-[0.18em] hover:bg-race-red hover:text-foreground transition-colors">Quick Add</button>
-                      <Link to="/product" className="h-10 px-3 grid place-items-center rounded-md border border-white/20 bg-background/70 backdrop-blur font-display text-[11px] uppercase tracking-[0.18em] text-white hover:border-race-red transition-colors">View</Link>
+                      <Link to="/shop" className="h-10 px-3 grid place-items-center rounded-md border border-white/20 bg-background/70 backdrop-blur font-display text-[11px] uppercase tracking-[0.18em] text-white hover:border-race-red transition-colors">View</Link>
                     </div>
                   </div>
                 </div>
@@ -348,7 +348,7 @@ function Index() {
           <div className="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {bestSellers.map((p) => (
               <div key={p.name} className="group flex flex-col">
-                <Link to="/product" className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface block">
+                <Link to="/shop" className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface block">
                   <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
                   <span className="absolute top-4 left-4"><Badge>{p.badge}</Badge></span>
                 </Link>
@@ -359,7 +359,7 @@ function Index() {
                     <h3 className="font-display text-base font-medium leading-snug">{p.name}</h3>
                     <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
                   </div>
-                  <Link to="/product" className="mt-4 inline-flex h-9 items-center rounded-md border border-white/15 px-3 font-display text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-race-red hover:text-race-red transition-colors">
+                  <Link to="/shop" className="mt-4 inline-flex h-9 items-center rounded-md border border-white/15 px-3 font-display text-[11px] uppercase tracking-[0.18em] text-foreground hover:border-race-red hover:text-race-red transition-colors">
                     Quick Shop →
                   </Link>
                 </div>
@@ -414,7 +414,7 @@ function Index() {
 
           <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-2">
             {recentBuilds.map((b) => (
-              <Link key={b.title} to="/product" className="group relative overflow-hidden rounded-xl bg-surface aspect-[16/10]">
+              <Link key={b.title} to="/shop" className="group relative overflow-hidden rounded-xl bg-surface aspect-[16/10]">
                 <img src={b.img} alt={b.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
