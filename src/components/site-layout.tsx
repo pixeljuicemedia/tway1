@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
+import { CartDrawer } from "@/components/cart-drawer";
+import { useCartSync } from "@/hooks/use-cart-sync";
 const logo = logoAsset.url;
 
 const nav = [
@@ -84,6 +86,7 @@ export function SiteHeader() {
           >
             Request Quote
           </Link>
+          <CartDrawer />
         </div>
 
         <button
@@ -303,6 +306,7 @@ function FooterCol({ title, links }: { title: string; links: readonly (readonly 
 }
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  useCartSync();
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <SiteHeader />

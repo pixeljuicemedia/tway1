@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import prod1 from "@/assets/prod-1.jpg";
-import prod2 from "@/assets/prod-2.jpg";
-import prod3 from "@/assets/prod-3.jpg";
-import prod4 from "@/assets/prod-4.jpg";
+import { useEffect, useState } from "react";
+import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cart-store";
+import { Loader2 } from "lucide-react";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
 import catC6 from "@/assets/cat-c6.jpg";
 import catC5 from "@/assets/cat-c5.jpg";
 import catElectronics from "@/assets/cat-electronics.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
-import svcFab from "@/assets/svc-fab.jpg";
 import build3 from "@/assets/build-3.jpg";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
@@ -20,12 +19,9 @@ import trackside from "@/assets/trackside.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
 import engineering from "@/assets/engineering.jpg.asset.json";
 import burnout1 from "@/assets/burnout1.jpg.asset.json";
-import burnout3 from "@/assets/burnout3.jpg.asset.json";
 import burnout5 from "@/assets/burnout5.jpg.asset.json";
 import insideShop2 from "@/assets/inside-shop-2.png.asset.json";
 import insideShop4 from "@/assets/inside-shop-4.png.asset.json";
-import insideShop6 from "@/assets/inside-shop-6.png.asset.json";
-import shopHero from "@/assets/shop-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -56,32 +52,12 @@ const genCards = [
   { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url, count: 56 },
 ];
 
-// Products — each carries generation compatibility + merchandising tags
-const items = [
-  { name: "C8 Z06 Carbon Aero Package", price: "$4,880", meta: "Aero · Carbon", img: prod3, gen: "Z06", cat: "Aero", tags: ["New Arrival", "Track Tested"] },
-  { name: "Track-Spec Intake Manifold — LT4", price: "$1,895", meta: "Engine · LT4", img: prod1, gen: "C7", cat: "Engine", tags: ["Best Seller"] },
-  { name: "Forged Race Wheel 18×11", price: "$1,240", meta: "Wheels · Forged", img: prod2, gen: "C7", cat: "Wheels", tags: ["Track Tested"] },
-  { name: "C8 Stingray Cold Air Intake", price: "$780", meta: "Engine · LT2", img: catC8, gen: "C8", cat: "Engine", tags: ["Best Seller"] },
-  { name: "C7 Adjustable Sway Bar Kit", price: "$1,120", meta: "Suspension · C7", img: catC7, gen: "C7", cat: "Suspension", tags: ["Featured"] },
-  { name: "E-Ray Lowering Springs", price: "$685", meta: "Suspension · E-Ray", img: corvetteSide.url, gen: "E-Ray", cat: "Suspension", tags: ["New Arrival"] },
-  { name: "C6 Z06 Big Brake Kit — 6-Piston", price: "$4,250", meta: "Brakes · 380mm", img: catC6, gen: "C6", cat: "Brakes", tags: ["Track Tested"] },
-  { name: "C5 Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Engine · 304 SS", img: catC5, gen: "C5", cat: "Engine", tags: ["Best Seller"] },
-  { name: "C8 Carbon Fiber Splitter", price: "$2,450", meta: "Aero · Carbon", img: prod3, gen: "C8", cat: "Aero", tags: ["New Arrival"] },
-  { name: "MoTeC C127 Dash Logger", price: "$4,995", meta: "Interior · Data", img: catElectronics, gen: "Universal", cat: "Interior", tags: ["Pro", "Track Tested"] },
-  { name: "Stilo ST5F Carbon Helmet", price: "$1,899", meta: "Safety · SA2020", img: catSafety, gen: "Universal", cat: "Interior", tags: ["Track Tested"] },
-  { name: "Track-Ready Corner Package — C7", price: "$8,450", meta: "Suspension · Full", img: build3, gen: "C7", cat: "Suspension", tags: ["Best Seller", "Pro Install"] },
-  { name: "C8 Braided Brake Line Set", price: "$285", meta: "Brakes · DOT", img: prod4, gen: "C8", cat: "Brakes", tags: ["Fast Ship"] },
-  { name: "Dry Sump Oil System — LT1/LT4", price: "$5,650", meta: "Engine · Endurance", img: prod1, gen: "C7", cat: "Engine", tags: ["Track Tested"] },
-  { name: "Z06 Forged Wheel Set — 20/21\"", price: "$5,400", meta: "Wheels · Forged", img: prod2, gen: "Z06", cat: "Wheels", tags: ["New Arrival"] },
-  { name: "C6 Racing Bucket Seat Pair", price: "$3,120", meta: "Interior · FIA", img: build2, gen: "C6", cat: "Interior", tags: ["Track Tested"] },
-];
-
 // Curated Corvette collections
 const collections = [
   { title: "Most Popular C8 Upgrades", desc: "Bolt-ons the Stingray community keeps buying.", img: catC8, count: 24 },
   { title: "C7 Track Essentials", desc: "Everything the Grand Sport needs for a session.", img: build3, count: 18 },
   { title: "Best Selling C6 Parts", desc: "Tried and proven on the Z06 platform.", img: catC6, count: 21 },
-  { title: "Z06 Aero Packages", desc: "Front splitters, wickers, wings — flat-plane ready.", img: prod3, count: 12 },
+  { title: "Z06 Aero Packages", desc: "Front splitters, wickers, wings — flat-plane ready.", img: heroCorvette, count: 12 },
   { title: "Suspension Upgrades", desc: "Coilovers, sway bars and geometry parts.", img: build1, count: 36 },
   { title: "New Corvette Arrivals", desc: "The latest hardware, just off the shelf.", img: heroCorvette, count: 15 },
 ];
@@ -96,6 +72,19 @@ const lifestyle = [
 ];
 
 function ShopPage() {
+  const [products, setProducts] = useState<ShopifyProduct[] | null>(null);
+  const addItem = useCartStore((s) => s.addItem);
+  const cartLoading = useCartStore((s) => s.isLoading);
+
+  useEffect(() => {
+    fetchProducts(48).then(setProducts).catch((err) => {
+      console.error("Failed to load products:", err);
+      setProducts([]);
+    });
+  }, []);
+
+  const productCount = products?.length ?? 0;
+
   return (
     <SiteShell>
       {/* HERO — Corvette-first */}
@@ -214,7 +203,7 @@ function ShopPage() {
               </Link>
             ))}
             <div className="ml-auto shrink-0 hidden md:flex items-center gap-3 text-xs text-muted-foreground">
-              <span>{items.length} products</span>
+              <span>{productCount} products</span>
               <span className="h-4 w-px bg-border" />
               <button className="font-display uppercase tracking-widest text-[11px] text-foreground">Sort ↓</button>
             </div>
@@ -236,35 +225,78 @@ function ShopPage() {
 
       {/* PRODUCT GRID */}
       <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {items.map((p) => (
-            <Link key={p.name} to="/product" className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
-                <span className="absolute top-4 left-4 rounded-full bg-race-red/90 text-background backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                  {p.gen}
-                </span>
-                {p.tags?.[0] && (
-                  <span className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                    {p.tags[0]}
-                  </span>
-                )}
-              </div>
-              <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 items-start">
-                <div className="min-w-0">
-                  <p className="eyebrow">{p.meta}</p>
-                  <h3 className="mt-2 font-display text-base font-medium leading-snug truncate">{p.name}</h3>
-                </div>
-                <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {products === null ? (
+          <div className="flex items-center justify-center py-24 text-muted-foreground">
+            <Loader2 className="h-6 w-6 animate-spin" />
+          </div>
+        ) : products.length === 0 ? (
+          <div className="max-w-xl mx-auto text-center py-16 md:py-24 border border-border rounded-2xl bg-surface/40 px-8">
+            <p className="eyebrow text-race-red">Catalog</p>
+            <h3 className="mt-4 font-display text-2xl md:text-3xl font-semibold">No products found</h3>
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Your Shopify store is connected but empty. Tell the chat what to add — e.g. "Add product: C8 Cold Air Intake, $780" — and it'll appear here instantly.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((p) => {
+                const node = p.node;
+                const img = node.images.edges[0]?.node;
+                const variant = node.variants.edges[0]?.node;
+                return (
+                  <div key={node.id} className="group block">
+                    <Link to="/product/$handle" params={{ handle: node.handle }}>
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+                        {img && (
+                          <img
+                            src={img.url}
+                            alt={img.altText ?? node.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
+                    </Link>
+                    <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 items-start">
+                      <div className="min-w-0">
+                        <Link to="/product/$handle" params={{ handle: node.handle }}>
+                          <h3 className="font-display text-base font-medium leading-snug truncate hover:text-race-red transition-colors">
+                            {node.title}
+                          </h3>
+                        </Link>
+                        <p className="mt-1 font-display text-sm text-muted-foreground">
+                          {formatMoney(node.priceRange.minVariantPrice.amount, node.priceRange.minVariantPrice.currencyCode)}
+                        </p>
+                      </div>
+                      <button
+                        disabled={!variant || cartLoading || !variant.availableForSale}
+                        onClick={() =>
+                          variant &&
+                          addItem({
+                            product: p,
+                            variantId: variant.id,
+                            variantTitle: variant.title,
+                            price: variant.price,
+                            quantity: 1,
+                            selectedOptions: variant.selectedOptions ?? [],
+                          })
+                        }
+                        className="shrink-0 rounded-full border border-border px-3 py-1.5 text-[10px] font-display uppercase tracking-widest hover:border-race-red hover:text-race-red transition-colors disabled:opacity-50"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-        <div className="mt-20 flex flex-col items-center gap-4">
-          <button className="btn-ghost">Load More</button>
-          <p className="text-xs text-muted-foreground">Showing {items.length} of 447 Corvette parts</p>
-        </div>
+            <div className="mt-20 flex flex-col items-center gap-4">
+              <p className="text-xs text-muted-foreground">Showing {productCount} Corvette parts</p>
+            </div>
+          </>
+        )}
       </section>
 
       {/* CURATED COLLECTIONS */}
