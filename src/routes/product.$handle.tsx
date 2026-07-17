@@ -1,8 +1,14 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Loader2, ExternalLink } from "lucide-react";
+import { Loader2, ExternalLink, Heart } from "lucide-react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import { fetchProductByHandle, formatMoney, type ShopifyProductNode } from "@/lib/shopify";
+import {
+  fetchProductByHandle,
+  fetchProducts,
+  formatMoney,
+  type ShopifyProduct,
+  type ShopifyProductNode,
+} from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 
 export const Route = createFileRoute("/product/$handle")({
@@ -20,15 +26,22 @@ function ProductDetailPage() {
   const [product, setProduct] = useState<ShopifyProductNode | null | undefined>(undefined);
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [imageIdx, setImageIdx] = useState(0);
+  const [related, setRelated] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
   const getCheckoutUrl = useCartStore((s) => s.getCheckoutUrl);
 
   useEffect(() => {
+    setImageIdx(0);
     fetchProductByHandle(handle).then((p) => {
       setProduct(p);
       const first = p?.variants.edges[0]?.node;
       if (first) setSelectedVariantId(first.id);
+      if (p?.productType) {
+        fetchProducts(8, `product_type:${p.productType}`)
+          .then((list) => setRelated(list.filter((r) => r.node.handle !== p.handle).slice(0, 4)))
+          .catch(() => setRelated([]));
+      }
     }).catch((err) => {
       console.error(err);
       setProduct(null);
@@ -62,6 +75,8 @@ function ProductDetailPage() {
   const variants = product.variants.edges.map((e) => e.node);
   const selectedVariant = variants.find((v) => v.id === selectedVariantId) ?? variants[0];
   const currentImage = images[imageIdx]?.node ?? images[0]?.node;
+  const thumbs = images.length > 1 ? images.slice(0, 4) : [];
+  const gen = detectGeneration(product);
 
   const handleAdd = async () => {
     if (!selectedVariant) return;
@@ -83,13 +98,35 @@ function ProductDetailPage() {
 
   return (
     <SiteShell>
-      <div className="container-wide py-12 md:py-16">
-        <Link to="/shop" className="text-xs eyebrow text-muted-foreground hover:text-foreground">← Back to Shop</Link>
+      {/* BREADCRUMB */}
+      <div className="container-wide pt-8 md:pt-12">
+        <nav className="flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground">
+          <Link to="/" className="hover:text-foreground">Home</Link>
+          <span>/</span>
+          <Link to="/shop" className="hover:text-foreground">Shop</Link>
+          {product.productType && (
+            <>
+              <span>/</span>
+              <Link
+                to="/category"
+                search={{ gen: "All", cat: product.productType, sort: "Featured" }}
+                className="hover:text-foreground"
+              >
+                {product.productType}
+              </Link>
+            </>
+          )}
+          <span>/</span>
+          <span className="text-foreground">{product.title}</span>
+        </nav>
+      </div>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-2">
+      {/* PRODUCT MAIN */}
+      <section className="container-wide pt-10 md:pt-14 pb-24 md:pb-32">
+        <div className="grid gap-10 lg:gap-16 lg:grid-cols-[1.15fr_1fr] items-start">
           {/* Gallery */}
-          <div>
-            <div className="aspect-square overflow-hidden rounded-2xl bg-surface">
+          <div className="grid gap-3 md:gap-4 grid-cols-6">
+            <div className="col-span-6 relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
               {currentImage && (
                 <img
                   src={currentImage.url}
@@ -98,85 +135,166 @@ function ProductDetailPage() {
                 />
               )}
             </div>
-            {images.length > 1 && (
-              <div className="mt-4 grid grid-cols-5 gap-3">
-                {images.map((img, i) => (
-                  <button
-                    key={img.node.url}
-                    onClick={() => setImageIdx(i)}
-                    className={`aspect-square overflow-hidden rounded-lg bg-surface border ${i === imageIdx ? "border-race-red" : "border-border"}`}
-                  >
-                    <img src={img.node.url} alt="" className="h-full w-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
+            {thumbs.map((img, i) => (
+              <button
+                key={img.node.url}
+                onClick={() => setImageIdx(i)}
+                className={`col-span-2 md:col-span-2 relative aspect-square overflow-hidden rounded-lg bg-surface ${i === imageIdx ? "ring-1 ring-race-red" : "opacity-70 hover:opacity-100"}`}
+              >
+                <img src={img.node.url} alt={img.node.altText ?? `${product.title} angle ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
+              </button>
+            ))}
           </div>
 
           {/* Details */}
-          <div>
-            <Eyebrow accent>Tway Motorsports</Eyebrow>
-            <h1 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] tracking-tight">
+          <div className="lg:sticky lg:top-28">
+            <Eyebrow accent>
+              {[product.productType, gen].filter(Boolean).join(" · ") || "Tway Motorsports"}
+            </Eyebrow>
+            <h1 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.02]">
               {product.title}
             </h1>
-            <p className="mt-6 font-display text-2xl">
-              {selectedVariant && formatMoney(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
-            </p>
+            {selectedVariant?.selectedOptions?.length ? (
+              <p className="mt-4 text-sm text-muted-foreground">
+                {selectedVariant.selectedOptions.map((o) => `${o.name}: ${o.value}`).join(" · ")}
+              </p>
+            ) : null}
+
+            <div className="mt-8 flex items-baseline gap-4">
+              <span className="font-display text-4xl font-semibold">
+                {selectedVariant && formatMoney(selectedVariant.price.amount, selectedVariant.price.currencyCode)}
+              </span>
+              <span className={`eyebrow ${selectedVariant?.availableForSale ? "text-race-red" : "text-muted-foreground"}`}>
+                {selectedVariant?.availableForSale ? "In Stock" : "Sold Out"}
+              </span>
+            </div>
 
             {product.description && (
-              <p className="mt-6 text-muted-foreground leading-relaxed whitespace-pre-line">
+              <p className="mt-8 text-muted-foreground leading-relaxed max-w-md whitespace-pre-line">
                 {product.description}
               </p>
             )}
 
-            {variants.length > 1 && (
-              <div className="mt-8">
-                <p className="eyebrow">Variant</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {variants.map((v) => {
-                    const active = v.id === selectedVariant?.id;
-                    return (
-                      <button
-                        key={v.id}
-                        onClick={() => setSelectedVariantId(v.id)}
-                        disabled={!v.availableForSale}
-                        className={`rounded-full px-4 py-2 text-[11px] font-display uppercase tracking-widest border transition-colors disabled:opacity-40 ${
-                          active
-                            ? "bg-foreground text-background border-foreground"
-                            : "border-border text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        {v.title}
-                      </button>
-                    );
-                  })}
+            {/* Options */}
+            {product.options?.map((opt) => {
+              if (opt.values.length <= 1 && opt.values[0] === "Default Title") return null;
+              return (
+                <div key={opt.name} className="mt-10">
+                  <p className="eyebrow">{opt.name}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {opt.values.map((val) => {
+                      const match = variants.find((v) =>
+                        v.selectedOptions.some((so) => so.name === opt.name && so.value === val),
+                      );
+                      const active = match?.id === selectedVariant?.id;
+                      return (
+                        <button
+                          key={val}
+                          onClick={() => match && setSelectedVariantId(match.id)}
+                          disabled={!match?.availableForSale}
+                          className={`px-4 py-3 rounded-lg border text-xs font-display uppercase tracking-widest disabled:opacity-40 ${
+                            active
+                              ? "border-foreground bg-foreground/5"
+                              : "border-border text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          {val}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })}
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-3">
+            <div className="mt-10 flex gap-3">
               <button
                 onClick={handleAdd}
                 disabled={isLoading || !selectedVariant?.availableForSale}
-                className="flex-1 h-14 inline-flex items-center justify-center rounded-lg border border-foreground text-foreground font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground hover:text-background transition-colors disabled:opacity-50"
+                className="btn-primary flex-1 disabled:opacity-50"
               >
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Add to Cart"}
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : selectedVariant ? `Add to Build — ${formatMoney(selectedVariant.price.amount, selectedVariant.price.currencyCode)}` : "Add to Build"}
               </button>
               <button
                 onClick={handleBuyNow}
                 disabled={isLoading || !selectedVariant?.availableForSale}
-                className="flex-1 h-14 inline-flex items-center justify-center gap-2 rounded-lg bg-foreground text-background font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors disabled:opacity-50"
+                className="btn-ghost !px-4 disabled:opacity-50"
+                aria-label="Buy now"
+                title="Buy now"
               >
-                <ExternalLink className="h-4 w-4" /> Buy Now
+                <ExternalLink className="h-4 w-4" />
               </button>
             </div>
+            <p className="mt-4 text-xs text-muted-foreground text-center">Ships in 3–5 business days · Free US shipping over $500</p>
 
-            {selectedVariant && !selectedVariant.availableForSale && (
-              <p className="mt-4 text-sm text-race-red font-display uppercase tracking-widest">Sold out</p>
-            )}
+            {/* Spec strip */}
+            <div className="mt-12 hairline-t pt-8 grid grid-cols-3 gap-6">
+              <div>
+                <div className="font-display text-2xl">{gen || "Corvette"}</div>
+                <div className="mt-1 eyebrow">Fitment</div>
+              </div>
+              <div>
+                <div className="font-display text-2xl">{product.productType || "Performance"}</div>
+                <div className="mt-1 eyebrow">Category</div>
+              </div>
+              <div>
+                <div className="font-display text-2xl">Yes</div>
+                <div className="mt-1 eyebrow">Track Tested</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* CROSS-SELL */}
+      {related.length > 0 && (
+        <section className="container-wide py-24 md:py-32 hairline-t">
+          <div className="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <Eyebrow>Pair with</Eyebrow>
+              <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold">Completes the build</h2>
+            </div>
+            <Link to="/shop" className="btn-ghost">View All →</Link>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {related.map((r) => {
+              const img = r.node.images.edges[0]?.node;
+              const price = r.node.priceRange.minVariantPrice;
+              return (
+                <Link
+                  key={r.node.id}
+                  to="/product/$handle"
+                  params={{ handle: r.node.handle }}
+                  className="group block"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+                    {img && (
+                      <img
+                        src={img.url}
+                        alt={img.altText ?? r.node.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                  <div className="mt-5 flex items-start justify-between gap-4">
+                    <h3 className="font-display text-base font-medium">{r.node.title}</h3>
+                    <span className="font-display text-sm text-muted-foreground shrink-0">
+                      {formatMoney(price.amount, price.currencyCode)}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </SiteShell>
   );
+}
+
+function detectGeneration(p: ShopifyProductNode): string {
+  const hay = `${p.title} ${p.tags.join(" ")}`.toUpperCase();
+  for (const g of ["C8", "C7", "C6", "C5"]) if (hay.includes(g)) return g;
+  return "";
 }
