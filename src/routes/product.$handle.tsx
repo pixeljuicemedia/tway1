@@ -90,6 +90,7 @@ function ProductDetailPage() {
       selectedOptions: selectedVariant.selectedOptions ?? [],
     });
     setJustAdded(true);
+    window.dispatchEvent(new Event("cart:open"));
     setTimeout(() => setJustAdded(false), 2000);
   };
 
