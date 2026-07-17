@@ -276,14 +276,14 @@ function ShopPage() {
                         disabled={!variant || cartLoading || !variant.availableForSale}
                         onClick={() =>
                           variant &&
-                          addItem({
+                          (addItem({
                             product: p,
                             variantId: variant.id,
                             variantTitle: variant.title,
                             price: variant.price,
                             quantity: 1,
                             selectedOptions: variant.selectedOptions ?? [],
-                          })
+                          }), window.dispatchEvent(new Event("cart:open")))
                         }
                         className="shrink-0 rounded-full border border-border px-3 py-1.5 text-[10px] font-display uppercase tracking-widest hover:border-race-red hover:text-race-red transition-colors disabled:opacity-50"
                       >
