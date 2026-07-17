@@ -203,7 +203,7 @@ function ShopPage() {
               </Link>
             ))}
             <div className="ml-auto shrink-0 hidden md:flex items-center gap-3 text-xs text-muted-foreground">
-              <span>{items.length} products</span>
+              <span>{productCount} products</span>
               <span className="h-4 w-px bg-border" />
               <button className="font-display uppercase tracking-widest text-[11px] text-foreground">Sort ↓</button>
             </div>
@@ -225,35 +225,78 @@ function ShopPage() {
 
       {/* PRODUCT GRID */}
       <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {items.map((p) => (
-            <Link key={p.name} to="/product" className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
-                <img src={p.img} alt={p.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
-                <span className="absolute top-4 left-4 rounded-full bg-race-red/90 text-background backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                  {p.gen}
-                </span>
-                {p.tags?.[0] && (
-                  <span className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                    {p.tags[0]}
-                  </span>
-                )}
-              </div>
-              <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 items-start">
-                <div className="min-w-0">
-                  <p className="eyebrow">{p.meta}</p>
-                  <h3 className="mt-2 font-display text-base font-medium leading-snug truncate">{p.name}</h3>
-                </div>
-                <span className="font-display text-sm text-muted-foreground shrink-0">{p.price}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {products === null ? (
+          <div className="flex items-center justify-center py-24 text-muted-foreground">
+            <Loader2 className="h-6 w-6 animate-spin" />
+          </div>
+        ) : products.length === 0 ? (
+          <div className="max-w-xl mx-auto text-center py-16 md:py-24 border border-border rounded-2xl bg-surface/40 px-8">
+            <p className="eyebrow text-race-red">Catalog</p>
+            <h3 className="mt-4 font-display text-2xl md:text-3xl font-semibold">No products found</h3>
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Your Shopify store is connected but empty. Tell the chat what to add — e.g. "Add product: C8 Cold Air Intake, $780" — and it'll appear here instantly.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((p) => {
+                const node = p.node;
+                const img = node.images.edges[0]?.node;
+                const variant = node.variants.edges[0]?.node;
+                return (
+                  <div key={node.id} className="group block">
+                    <Link to="/product/$handle" params={{ handle: node.handle }}>
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+                        {img && (
+                          <img
+                            src={img.url}
+                            alt={img.altText ?? node.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
+                    </Link>
+                    <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 items-start">
+                      <div className="min-w-0">
+                        <Link to="/product/$handle" params={{ handle: node.handle }}>
+                          <h3 className="font-display text-base font-medium leading-snug truncate hover:text-race-red transition-colors">
+                            {node.title}
+                          </h3>
+                        </Link>
+                        <p className="mt-1 font-display text-sm text-muted-foreground">
+                          {formatMoney(node.priceRange.minVariantPrice.amount, node.priceRange.minVariantPrice.currencyCode)}
+                        </p>
+                      </div>
+                      <button
+                        disabled={!variant || cartLoading || !variant.availableForSale}
+                        onClick={() =>
+                          variant &&
+                          addItem({
+                            product: p,
+                            variantId: variant.id,
+                            variantTitle: variant.title,
+                            price: variant.price,
+                            quantity: 1,
+                            selectedOptions: variant.selectedOptions ?? [],
+                          })
+                        }
+                        className="shrink-0 rounded-full border border-border px-3 py-1.5 text-[10px] font-display uppercase tracking-widest hover:border-race-red hover:text-race-red transition-colors disabled:opacity-50"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-        <div className="mt-20 flex flex-col items-center gap-4">
-          <button className="btn-ghost">Load More</button>
-          <p className="text-xs text-muted-foreground">Showing {items.length} of 447 Corvette parts</p>
-        </div>
+            <div className="mt-20 flex flex-col items-center gap-4">
+              <p className="text-xs text-muted-foreground">Showing {productCount} Corvette parts</p>
+            </div>
+          </>
+        )}
       </section>
 
       {/* CURATED COLLECTIONS */}
