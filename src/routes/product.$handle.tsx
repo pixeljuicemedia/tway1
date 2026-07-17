@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Loader2, ExternalLink, Heart } from "lucide-react";
+import { Loader2, ExternalLink, Heart, Check } from "lucide-react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import {
   fetchProductByHandle,
@@ -27,6 +27,7 @@ function ProductDetailPage() {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [imageIdx, setImageIdx] = useState(0);
   const [related, setRelated] = useState<ShopifyProduct[]>([]);
+  const [justAdded, setJustAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
   const getCheckoutUrl = useCartStore((s) => s.getCheckoutUrl);
@@ -88,6 +89,8 @@ function ProductDetailPage() {
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions ?? [],
     });
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 2000);
   };
 
   const handleBuyNow = async () => {
@@ -211,9 +214,17 @@ function ProductDetailPage() {
               <button
                 onClick={handleAdd}
                 disabled={isLoading || !selectedVariant?.availableForSale}
-                className="btn-primary flex-1 disabled:opacity-50"
+                className={`btn-primary flex-1 disabled:opacity-50 transition-colors ${justAdded ? "!bg-race-red !text-white !border-race-red" : ""}`}
               >
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : selectedVariant ? `Add to Build — ${formatMoney(selectedVariant.price.amount, selectedVariant.price.currencyCode)}` : "Add to Build"}
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : justAdded ? (
+                  <span className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> Added to Cart</span>
+                ) : selectedVariant ? (
+                  `Add to Build — ${formatMoney(selectedVariant.price.amount, selectedVariant.price.currencyCode)}`
+                ) : (
+                  "Add to Build"
+                )}
               </button>
               <button
                 onClick={handleBuyNow}
