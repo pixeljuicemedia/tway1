@@ -1,0 +1,296 @@
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { SiteShell, Eyebrow } from "@/components/site-layout";
+import { useEffect, useMemo, useState } from "react";
+import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cart-store";
+import { Loader2 } from "lucide-react";
+import heroCorvette from "@/assets/hero-corvette.jpg";
+
+type SearchState = { gen: string; cat: string; sort: string };
+
+const GENERATIONS = ["All", "C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"] as const;
+const CATEGORIES = ["All", "Aero", "Suspension", "Brakes", "Wheels", "Interior", "Engine", "Exterior"] as const;
+const SORTS = ["Featured", "Price ↑", "Price ↓", "A–Z"] as const;
+
+const GEN_YEARS: Record<string, string> = {
+  All: "Every Corvette",
+  C5: "1997 – 2004",
+  C6: "2005 – 2013",
+  C7: "2014 – 2019",
+  C8: "2020 – Present",
+  Z06: "2023 – Present",
+  "E-Ray": "2024 – Present",
+  Universal: "All Generations",
+};
+
+export const Route = createFileRoute("/category")({
+  validateSearch: (search: Record<string, unknown>): SearchState => ({
+    gen: typeof search.gen === "string" ? search.gen : "All",
+    cat: typeof search.cat === "string" ? search.cat : "All",
+    sort: typeof search.sort === "string" ? search.sort : "Featured",
+  }),
+  head: ({ loaderData: _l }) => ({
+    meta: [
+      { title: "Corvette Performance Parts — Tway Motorsports" },
+      { name: "description", content: "Track-tested Corvette parts — aero, suspension, brakes, wheels, engine and interior upgrades. Filter by generation and category." },
+      { property: "og:title", content: "Corvette Performance Parts — Tway Motorsports" },
+      { property: "og:description", content: "Track-tested Corvette parts, engineered and validated in-house." },
+    ],
+  }),
+  component: CategoryPage,
+});
+
+function detectGeneration(p: ShopifyProduct): string {
+  const t = p.node.title.toUpperCase();
+  const tags = (p.node.tags ?? []).map((x) => x.toUpperCase());
+  if (t.includes("E-RAY") || tags.includes("E-RAY")) return "E-Ray";
+  if (t.includes("Z06") || tags.includes("Z06")) return "Z06";
+  if (t.includes("C8")) return "C8";
+  if (t.includes("C7")) return "C7";
+  if (t.includes("C6")) return "C6";
+  if (t.includes("C5")) return "C5";
+  return "Universal";
+}
+
+function CategoryPage() {
+  const { gen, cat, sort } = Route.useSearch();
+  const navigate = useNavigate({ from: "/category" });
+  const [products, setProducts] = useState<ShopifyProduct[] | null>(null);
+  const addItem = useCartStore((s) => s.addItem);
+  const cartLoading = useCartStore((s) => s.isLoading);
+
+  useEffect(() => {
+    fetchProducts(100).then(setProducts).catch(() => setProducts([]));
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!products) return null;
+    let list = products.slice();
+    if (gen !== "All") list = list.filter((p) => detectGeneration(p) === gen);
+    if (cat !== "All") list = list.filter((p) => (p.node.productType || "").toLowerCase() === cat.toLowerCase());
+    switch (sort) {
+      case "Price ↑":
+        list.sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount));
+        break;
+      case "Price ↓":
+        list.sort((a, b) => parseFloat(b.node.priceRange.minVariantPrice.amount) - parseFloat(a.node.priceRange.minVariantPrice.amount));
+        break;
+      case "A–Z":
+        list.sort((a, b) => a.node.title.localeCompare(b.node.title));
+        break;
+    }
+    return list;
+  }, [products, gen, cat, sort]);
+
+  const title = gen === "All" ? "All Corvette Parts" : `${gen} Corvette`;
+  const subtitle = cat === "All" ? "Performance parts." : `${cat}.`;
+
+  const setParam = (key: keyof SearchState, value: string) =>
+    navigate({ search: (prev) => ({ ...prev, [key]: value }) });
+
+  return (
+    <SiteShell>
+      {/* HERO */}
+      <section className="relative hairline-b overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroCorvette})` }} aria-hidden />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.14 0.005 260 / 0.35) 0%, oklch(0.14 0.005 260 / 0.6) 55%, oklch(0.14 0.005 260) 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="relative container-wide pt-20 md:pt-24 pb-16 md:pb-20">
+          <div className="flex items-center gap-2 text-[11px] font-display uppercase tracking-widest text-muted-foreground">
+            <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
+            <span>/</span>
+            <span className="text-foreground">{gen === "All" ? "All Corvettes" : gen}</span>
+            {cat !== "All" && (<><span>/</span><span className="text-foreground">{cat}</span></>)}
+          </div>
+          <Eyebrow accent className="mt-6">{GEN_YEARS[gen] ?? "All Corvettes"}</Eyebrow>
+          <h1 className="mt-6 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight max-w-4xl">
+            {title}<br /><span className="text-muted-foreground">{subtitle}</span>
+          </h1>
+        </div>
+      </section>
+
+      {/* FILTER BAR */}
+      <section className="sticky top-16 md:top-20 z-40 bg-background/90 backdrop-blur-xl hairline-b">
+        <div className="container-wide py-4 space-y-3">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span className="shrink-0 eyebrow text-race-red pr-2">Generation</span>
+            {GENERATIONS.map((f) => {
+              const active = gen === f;
+              return (
+                <button
+                  key={f}
+                  onClick={() => setParam("gen", f)}
+                  className={`shrink-0 rounded-full px-4 py-2 text-[11px] font-display uppercase tracking-widest border transition-colors ${
+                    active
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                  }`}
+                >
+                  {f === "All" ? "All Corvettes" : f}
+                </button>
+              );
+            })}
+            <div className="ml-auto shrink-0 hidden md:flex items-center gap-3 text-xs text-muted-foreground">
+              <span>{filtered?.length ?? 0} products</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span className="shrink-0 eyebrow pr-2">Category</span>
+            {CATEGORIES.map((c) => {
+              const active = cat === c;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setParam("cat", c)}
+                  className={`shrink-0 rounded-full px-3.5 py-1.5 text-[11px] font-display uppercase tracking-widest border transition-colors ${
+                    active
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border/60 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                  }`}
+                >
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCT GRID */}
+      <section className="container-wide py-16 md:py-20">
+        <div className="flex items-end justify-between gap-6 mb-10 flex-wrap">
+          <div>
+            <Eyebrow>
+              {gen === "All" ? "Showing all parts" : `Showing ${gen} parts`}
+              {cat !== "All" ? ` · ${cat}` : ""}
+            </Eyebrow>
+            <h2 className="mt-4 font-display text-2xl md:text-3xl font-semibold">
+              {filtered?.length ?? 0} products
+            </h2>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            {SORTS.map((s) => (
+              <button
+                key={s}
+                onClick={() => setParam("sort", s)}
+                className={`rounded-full px-3.5 py-1.5 text-[11px] font-display uppercase tracking-widest border transition-colors ${
+                  sort === s
+                    ? "border-foreground text-foreground"
+                    : "border-border/60 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {products === null ? (
+          <div className="flex items-center justify-center py-24 text-muted-foreground">
+            <Loader2 className="h-6 w-6 animate-spin" />
+          </div>
+        ) : filtered && filtered.length === 0 ? (
+          <div className="max-w-xl mx-auto text-center py-16 md:py-24 border border-border rounded-2xl bg-surface/40 px-8">
+            <p className="eyebrow text-race-red">No matches</p>
+            <h3 className="mt-4 font-display text-2xl md:text-3xl font-semibold">Nothing fits that filter yet.</h3>
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Try widening your search or clear the filters.
+            </p>
+            <button
+              onClick={() => navigate({ search: { gen: "All", cat: "All", sort: "Featured" } })}
+              className="mt-6 btn-ghost"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {filtered!.map((p) => {
+              const node = p.node;
+              const img = node.images.edges[0]?.node;
+              const variant = node.variants.edges[0]?.node;
+              const g = detectGeneration(p);
+              return (
+                <div key={node.id} className="group block">
+                  <Link to="/product/$handle" params={{ handle: node.handle }}>
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+                      {img && (
+                        <img
+                          src={img.url}
+                          alt={img.altText ?? node.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                          loading="lazy"
+                        />
+                      )}
+                      <span className="absolute top-4 left-4 rounded-full bg-race-red/90 text-background backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
+                        {g}
+                      </span>
+                      {node.productType && (
+                        <span className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
+                          {node.productType}
+                        </span>
+                      )}
+                    </div>
+                  </Link>
+                  <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 items-start">
+                    <div className="min-w-0">
+                      <Link to="/product/$handle" params={{ handle: node.handle }}>
+                        <h3 className="font-display text-base font-medium leading-snug truncate hover:text-race-red transition-colors">
+                          {node.title}
+                        </h3>
+                      </Link>
+                      <p className="mt-1 font-display text-sm text-muted-foreground">
+                        {formatMoney(node.priceRange.minVariantPrice.amount, node.priceRange.minVariantPrice.currencyCode)}
+                      </p>
+                    </div>
+                    <button
+                      disabled={!variant || cartLoading || !variant.availableForSale}
+                      onClick={() =>
+                        variant &&
+                        addItem({
+                          product: p,
+                          variantId: variant.id,
+                          variantTitle: variant.title,
+                          price: variant.price,
+                          quantity: 1,
+                          selectedOptions: variant.selectedOptions ?? [],
+                        })
+                      }
+                      className="shrink-0 rounded-full border border-border px-3 py-1.5 text-[10px] font-display uppercase tracking-widest hover:border-race-red hover:text-race-red transition-colors disabled:opacity-50"
+                    >
+                      Add
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      {/* CTA */}
+      <section className="hairline-t">
+        <div className="container-wide py-16 md:py-20 grid gap-8 lg:grid-cols-[1.4fr_1fr] items-center">
+          <div>
+            <Eyebrow accent>Not sure what fits?</Eyebrow>
+            <h2 className="mt-6 font-display text-3xl md:text-4xl font-semibold leading-[0.95] tracking-tight">
+              Talk to a Corvette specialist.
+            </h2>
+          </div>
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
+            <Link to="/contact" className="inline-flex items-center justify-center rounded-lg bg-foreground text-background px-6 py-4 font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors">
+              Request a Build Consult
+            </Link>
+            <Link to="/shop" className="btn-ghost justify-center">Back to Shop</Link>
+          </div>
+        </div>
+      </section>
+    </SiteShell>
+  );
+}
