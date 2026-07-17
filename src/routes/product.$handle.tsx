@@ -129,34 +129,28 @@ function ProductDetailPage() {
               </p>
             )}
 
-            {product.options.length > 0 && product.options[0].values.length > 1 && (
-              <div className="mt-8 space-y-6">
-                {product.options.map((option) => (
-                  <div key={option.name}>
-                    <p className="eyebrow">{option.name}</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {variants.map((v) => {
-                        const val = v.selectedOptions.find((o) => o.name === option.name)?.value;
-                        if (!val) return null;
-                        const active = v.id === selectedVariant?.id;
-                        return (
-                          <button
-                            key={v.id + option.name}
-                            onClick={() => setSelectedVariantId(v.id)}
-                            className={`rounded-full px-4 py-2 text-[11px] font-display uppercase tracking-widest border transition-colors ${
-                              active ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground"
-                            }`}
-                          >
-                            {val}
-                          </button>
-                        );
-                      }).filter((n, i, arr) => {
-                        // dedupe by rendered label per option — simple approach: filter to first occurrence
-                        return arr.findIndex((x) => (x as any)?.key === (n as any)?.key) === i;
-                      })}
-                    </div>
-                  </div>
-                ))}
+            {variants.length > 1 && (
+              <div className="mt-8">
+                <p className="eyebrow">Variant</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {variants.map((v) => {
+                    const active = v.id === selectedVariant?.id;
+                    return (
+                      <button
+                        key={v.id}
+                        onClick={() => setSelectedVariantId(v.id)}
+                        disabled={!v.availableForSale}
+                        className={`rounded-full px-4 py-2 text-[11px] font-display uppercase tracking-widest border transition-colors disabled:opacity-40 ${
+                          active
+                            ? "bg-foreground text-background border-foreground"
+                            : "border-border text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {v.title}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
