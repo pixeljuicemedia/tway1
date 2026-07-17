@@ -248,6 +248,13 @@ function ProductDetailPage() {
                 <ExternalLink className="h-4 w-4" />
               </button>
             </div>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("cart:open"))}
+              className="mt-3 w-full text-center text-[11px] font-display font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4"
+            >
+              View Cart
+            </button>
             <p className="mt-4 text-xs text-muted-foreground text-center">Ships in 3–5 business days · Free US shipping over $500</p>
 
             {/* Spec strip */}
