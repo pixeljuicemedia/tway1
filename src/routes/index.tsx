@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import burnout1 from "@/assets/c8hero1.jpg.asset.json";
 import burnout2 from "@/assets/c8hero2.jpg.asset.json";
