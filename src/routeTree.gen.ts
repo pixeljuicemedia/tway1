@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as V1RouteImport } from './routes/v1'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoryRouteImport } from './routes/category'
 import { Route as AboutRouteImport } from './routes/about'
@@ -31,6 +32,11 @@ const ShopRoute = ShopRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/category': typeof CategoryRoute
   '/contact': typeof ContactRoute
+  '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/v1': typeof V1Route
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/category': typeof CategoryRoute
   '/contact': typeof ContactRoute
+  '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/v1': typeof V1Route
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/category': typeof CategoryRoute
   '/contact': typeof ContactRoute
+  '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/v1': typeof V1Route
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/category'
     | '/contact'
+    | '/search'
     | '/services'
     | '/shop'
     | '/v1'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/category'
     | '/contact'
+    | '/search'
     | '/services'
     | '/shop'
     | '/v1'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/category'
     | '/contact'
+    | '/search'
     | '/services'
     | '/shop'
     | '/v1'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CategoryRoute: typeof CategoryRoute
   ContactRoute: typeof ContactRoute
+  SearchRoute: typeof SearchRoute
   ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
   V1Route: typeof V1Route
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CategoryRoute: CategoryRoute,
   ContactRoute: ContactRoute,
+  SearchRoute: SearchRoute,
   ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
   V1Route: V1Route,
