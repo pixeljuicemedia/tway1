@@ -22,6 +22,7 @@ export interface ShopifyProductNode {
   id: string;
   title: string;
   description: string;
+  descriptionHtml?: string;
   handle: string;
   productType: string;
   tags: string[];
@@ -71,6 +72,7 @@ export const PRODUCTS_QUERY = `
           id
           title
           description
+          descriptionHtml
           handle
           productType
           tags
