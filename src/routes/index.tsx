@@ -223,24 +223,7 @@ function Index() {
             </p>
 
             {/* Prominent search — vehicle / brand / part number */}
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="mt-8 w-full max-w-xl flex items-center rounded-lg bg-background/70 backdrop-blur-xl border border-white/15 shadow-lg shadow-black/30 h-12 md:h-14 pl-4 pr-2"
-              role="search"
-            >
-              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-white/70 shrink-0" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-              </svg>
-              <input
-                type="search"
-                placeholder="Search by vehicle, brand, part name or number…"
-                className="flex-1 bg-transparent px-3 text-sm md:text-base text-white placeholder:text-white/60 focus:outline-none"
-              />
-              <button type="submit" className="h-9 md:h-10 rounded-md bg-foreground text-background px-4 font-display text-[11px] uppercase tracking-[0.18em] hover:bg-race-red hover:text-foreground transition-colors">
-                Search
-              </button>
-            </form>
+            <HeroSearch />
 
             <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3">
               <Link to="/shop" className="btn-primary">Shop Performance Parts</Link>
