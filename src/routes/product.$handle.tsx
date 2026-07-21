@@ -159,6 +159,21 @@ function ProductDetailPage() {
                 <img src={img.node.url} alt={img.node.altText ?? `${product.title} angle ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
               </button>
             ))}
+            {/* Spec strip */}
+            <div className="col-span-6 mt-4 hairline-t pt-8 grid grid-cols-3 gap-6">
+              <div>
+                <div className="font-display text-2xl">{gen || "Corvette"}</div>
+                <div className="mt-1 eyebrow">Fitment</div>
+              </div>
+              <div>
+                <div className="font-display text-2xl">{product.productType || "Performance"}</div>
+                <div className="mt-1 eyebrow">Category</div>
+              </div>
+              <div>
+                <div className="font-display text-2xl">Yes</div>
+                <div className="mt-1 eyebrow">Track Tested</div>
+              </div>
+            </div>
           </div>
 
           {/* Details */}
@@ -275,22 +290,6 @@ function ProductDetailPage() {
               View Cart
             </button>
             <p className="mt-4 text-xs text-muted-foreground text-center">Ships in 3–5 business days · Free US shipping over $500</p>
-
-            {/* Spec strip */}
-            <div className="mt-12 hairline-t pt-8 grid grid-cols-3 gap-6">
-              <div>
-                <div className="font-display text-2xl">{gen || "Corvette"}</div>
-                <div className="mt-1 eyebrow">Fitment</div>
-              </div>
-              <div>
-                <div className="font-display text-2xl">{product.productType || "Performance"}</div>
-                <div className="mt-1 eyebrow">Category</div>
-              </div>
-              <div>
-                <div className="font-display text-2xl">Yes</div>
-                <div className="mt-1 eyebrow">Track Tested</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
