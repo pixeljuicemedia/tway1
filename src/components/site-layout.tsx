@@ -70,17 +70,28 @@ export function SiteHeader() {
 
         {/* Search + Quote */}
         <div className="hidden md:flex items-center gap-2 shrink-0">
-          <div className="relative">
+          <form
+            role="search"
+            className="relative"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const q = searchInput.trim();
+              if (!q) return;
+              navigate({ to: "/search", search: { q } });
+            }}
+          >
             <svg aria-hidden viewBox="0 0 24 24" className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="7" />
               <path d="m20 20-3.5-3.5" strokeLinecap="round" />
             </svg>
             <input
               type="search"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search parts…"
               className="h-11 md:h-12 w-44 lg:w-56 rounded-lg bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/20 pl-10 pr-4 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-white/30 transition-colors"
             />
-          </div>
+          </form>
           <Link
             to="/contact"
             className="h-11 md:h-12 inline-flex items-center rounded-lg bg-foreground text-background px-5 font-display text-[11px] font-semibold uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors"
