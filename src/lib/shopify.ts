@@ -22,6 +22,7 @@ export interface ShopifyProductNode {
   id: string;
   title: string;
   description: string;
+  descriptionHtml?: string;
   handle: string;
   productType: string;
   tags: string[];
@@ -71,6 +72,7 @@ export const PRODUCTS_QUERY = `
           id
           title
           description
+          descriptionHtml
           handle
           productType
           tags
@@ -94,7 +96,7 @@ export const PRODUCTS_QUERY = `
 export const PRODUCT_BY_HANDLE_QUERY = `
   query GetProduct($handle: String!) {
     product(handle: $handle) {
-      id title description handle
+      id title description descriptionHtml handle
       productType
       tags
       priceRange { minVariantPrice { amount currencyCode } }

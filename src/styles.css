@@ -2,6 +2,21 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Product description formatted HTML from Shopify */
+.prose-product p { margin: 0 0 0.75rem; }
+.prose-product p:last-child { margin-bottom: 0; }
+.prose-product strong { color: hsl(var(--foreground)); font-weight: 600; }
+.prose-product ul { list-style: disc; padding-left: 1.25rem; margin: 0.5rem 0 0.75rem; }
+.prose-product ol { list-style: decimal; padding-left: 1.25rem; margin: 0.5rem 0 0.75rem; }
+.prose-product li { margin: 0.25rem 0; }
+.prose-product a { color: hsl(var(--foreground)); text-decoration: underline; text-underline-offset: 4px; }
+.prose-product h1,.prose-product h2,.prose-product h3,.prose-product h4 {
+  color: hsl(var(--foreground));
+  font-family: var(--font-display, inherit);
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
