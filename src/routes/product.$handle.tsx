@@ -198,10 +198,26 @@ function ProductDetailPage() {
                   <p className="eyebrow">{opt.name}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {opt.values.map((val) => {
-                      const match = variants.find((v) =>
-                        v.selectedOptions.some((so) => so.name === opt.name && so.value === val),
+                      // Build desired option combo: keep other options from current selection,
+                      // change only this option to `val`. This makes each dropdown independent.
+                      const desired = (selectedVariant?.selectedOptions ?? []).map((so) =>
+                        so.name === opt.name ? { ...so, value: val } : so,
                       );
-                      const active = match?.id === selectedVariant?.id;
+                      if (!desired.some((so) => so.name === opt.name)) {
+                        desired.push({ name: opt.name, value: val });
+                      }
+                      const match =
+                        variants.find((v) =>
+                          desired.every((d) =>
+                            v.selectedOptions.some((so) => so.name === d.name && so.value === d.value),
+                          ),
+                        ) ??
+                        variants.find((v) =>
+                          v.selectedOptions.some((so) => so.name === opt.name && so.value === val),
+                        );
+                      const active = selectedVariant?.selectedOptions.some(
+                        (so) => so.name === opt.name && so.value === val,
+                      );
                       return (
                         <button
                           key={val}
