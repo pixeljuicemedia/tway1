@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
 import { CartDrawer } from "@/components/cart-drawer";
@@ -40,6 +40,8 @@ const shopMenu = {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="container-wide pt-4 md:pt-5 flex items-center gap-3">
