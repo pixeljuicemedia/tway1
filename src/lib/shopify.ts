@@ -96,7 +96,7 @@ export const PRODUCTS_QUERY = `
 export const PRODUCT_BY_HANDLE_QUERY = `
   query GetProduct($handle: String!) {
     product(handle: $handle) {
-      id title description handle
+      id title description descriptionHtml handle
       productType
       tags
       priceRange { minVariantPrice { amount currencyCode } }
