@@ -184,10 +184,13 @@ function ProductDetailPage() {
               </span>
             </div>
 
-            {product.description && (
-              <p className="mt-8 text-muted-foreground leading-relaxed max-w-md whitespace-pre-line">
-                {product.description}
-              </p>
+            {(product.descriptionHtml || product.description) && (
+              <div
+                className="prose-product mt-8 text-muted-foreground leading-relaxed max-w-md"
+                dangerouslySetInnerHTML={{
+                  __html: product.descriptionHtml || product.description,
+                }}
+              />
             )}
 
             {/* Options */}
