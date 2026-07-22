@@ -1,32 +1,23 @@
-# Push Liquid theme to `tway-liquid` GitHub repo
+## Confirmed issues
 
-Lovable's built-in GitHub sync is tied to this project's React codebase, so it can't push a subfolder to a different repo. We'll use the GitHub connector instead to upload the contents of `shopify-theme/` into your existing `tway-liquid` repo.
+- `layout/theme.liquid` relies entirely on `header-group.json` and `footer-group.json` for global chrome.
+- Those group files use hyphenated block IDs such as `link-home` and `col-explore`; Shopify’s section-group format only accepts alphanumeric IDs, so the groups are not reliable render sources.
+- The hero button does not use its configured `cta_primary_link`; it is hardcoded to `routes.all_products_collection_url`, which resolves to the same `/collections/all` URL shown by the reported 404.
+- The theme currently has no `list-collections.json` template for the safer canonical `/collections` shop route.
 
-## What I need from you
+## Implementation
 
-1. The GitHub **owner/org name** for the repo (e.g. `yourusername/tway-liquid`).
-2. Confirm the repo is currently **empty** (or say if I should overwrite/branch).
-3. Target branch — default `main` unless you say otherwise.
+1. **Guarantee the header and footer render**
+   - Change `layout/theme.liquid` to render `header.liquid` and `footer.liquid` directly as static global sections.
+   - Remove the now-unused broken header/footer group files so Shopify cannot reject or continue loading stale group configuration.
+   - Keep the existing default navigation blocks, logo fallback, contact details, and responsive styling intact.
 
-## Steps
+2. **Create a real `/collections` shop destination**
+   - Add a Shopify list-collections template and matching section styled like the existing shop/product grids.
+   - Link the hero CTA to `routes.collections_url`, while honoring a merchant-selected CTA URL when one is configured.
+   - Replace sibling “Shop” / “Shop All” defaults that still target `/collections/all` so the header and footer do not reproduce the same 404.
 
-1. **Connect GitHub** via the connector (`standard_connectors--connect` → `github`). You'll authorize a personal access token with `repo` scope so I can write to `tway-liquid`.
-2. **Verify the repo** exists and read its default branch via the GitHub REST API through the connector gateway.
-3. **Upload the theme files** — walk every file under `shopify-theme/` (assets, config, layout, sections, snippets, templates, locales) and PUT each one to `repos/{owner}/tway-liquid/contents/{path}` with base64 content. Binary assets (PNG/JPG/WebP) are uploaded the same way.
-4. **Commit message**: `Initial Shopify theme import from Lovable`.
-5. **Verify** by listing the repo tree and confirming file count matches the local `shopify-theme/` folder.
-
-## After it's pushed
-
-You'll have two workflows available:
-
-- **Shopify GitHub integration** — in Shopify admin → Online Store → Themes → Add theme → Connect from GitHub → pick `tway-liquid`. Shopify then auto-syncs commits to that theme.
-- **Shopify CLI locally** — `git clone` the repo, run `shopify theme dev --store=tway-motorsports-8sf51j39` for a true live preview against your dev store.
-
-Future edits: I can either commit directly to `tway-liquid` from here via the connector, or you can edit locally and push — both work with Shopify's GitHub sync.
-
-## Notes / limitations
-
-- GitHub Contents API has a 100 MB per-file limit; all bundled images are well under that.
-- If the repo already has files, tell me whether to overwrite, create a new branch, or bail.
-- The React project in this Lovable workspace stays untouched — it continues to sync to its own repo via Lovable's built-in Git sync.
+3. **Validate and sync**
+   - Validate every JSON template and Liquid schema locally.
+   - Check all section references and catalog links.
+   - Push the corrected theme files directly to `pixeljuicemedia/tway-liquid` on `main` through the working GitHub connection and verify the resulting repository contents.
