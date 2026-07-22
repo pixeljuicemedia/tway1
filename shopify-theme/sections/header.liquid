@@ -1,0 +1,181 @@
+<header class="site-header" role="banner">
+  <div class="site-header__inner container-wide">
+    <div class="site-header__pill">
+      <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager' }}
+        {%- elsif settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager' }}
+        {%- else -%}
+          <span style="font-family: var(--font-display); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px;">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      <nav class="site-header__nav" aria-label="Primary">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'link' -%}
+            {%- if block.settings.is_shop_menu -%}
+              <div class="shop-menu">
+                <a href="{{ block.settings.link }}"{% if block.settings.link == request.path %} aria-current="page"{% endif %}>
+                  {{ block.settings.label }}
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <div class="shop-menu__bridge" aria-hidden="true"></div>
+                <div class="shop-menu__panel" role="menu">
+                  <div class="shop-menu__grid">
+                    <div class="shop-menu__col">
+                      <p class="eyebrow">Shop by Generation</p>
+                      <ul>
+                        {%- for gen in section.blocks -%}
+                          {%- if gen.type == 'generation' -%}
+                            <li><a href="{{ gen.settings.link }}">{{ gen.settings.label }} <span class="years">{{ gen.settings.years }}</span></a></li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    <div class="shop-menu__col">
+                      <p class="eyebrow neutral">Categories</p>
+                      <ul>
+                        {%- for cat in section.blocks -%}
+                          {%- if cat.type == 'category' -%}
+                            <li><a href="{{ cat.settings.link }}">{{ cat.settings.label }}</a></li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    <div class="shop-menu__col">
+                      <p class="eyebrow neutral">Featured</p>
+                      <ul>
+                        {%- for feat in section.blocks -%}
+                          {%- if feat.type == 'featured' -%}
+                            <li><a href="{{ feat.settings.link }}">{{ feat.settings.label }}</a></li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                      <div class="hairline-t" style="margin-top: 1.5rem; padding-top: 1rem;">
+                        <a href="{{ routes.all_products_collection_url }}" style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--foreground); display: inline-flex; align-items: center; gap: 0.5rem;">View All Parts <span aria-hidden="true">&rarr;</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- else -%}
+              <a href="{{ block.settings.link }}"{% if block.settings.link == request.path %} aria-current="page"{% endif %}>{{ block.settings.label }}</a>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    </div>
+
+    <div class="site-header__actions">
+      <form action="{{ routes.search_url }}" method="get" class="site-header__search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.title' | t }}">
+        <input type="hidden" name="type" value="product">
+      </form>
+      {%- if section.settings.quote_link != blank -%}
+        <a href="{{ section.settings.quote_link }}" class="site-header__quote">{{ section.settings.quote_label | default: 'Request Quote' }}</a>
+      {%- endif -%}
+      <button type="button" class="site-header__cart-btn" data-cart-open aria-label="{{ 'general.accessibility.cart' | t }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        <span class="site-header__cart-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+      </button>
+    </div>
+
+    <button type="button" class="site-header__burger" data-mobile-burger aria-label="{{ 'general.accessibility.menu' | t }}" aria-expanded="false" aria-controls="MobileMenu">
+      <span class="site-header__burger-lines"><span></span><span></span></span>
+    </button>
+  </div>
+
+  <div id="MobileMenu" class="mobile-menu" data-mobile-menu data-open="false" aria-label="Mobile navigation">
+    <ul>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link' -%}
+          <li><a href="{{ block.settings.link }}">{{ block.settings.label }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if section.settings.quote_link != blank -%}
+        <li><a href="{{ section.settings.quote_link }}">{{ section.settings.quote_label | default: 'Request Quote' }}</a></li>
+      {%- endif -%}
+    </ul>
+    <form action="{{ routes.search_url }}" method="get" class="mobile-menu__search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+      <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
+      <input type="hidden" name="type" value="product">
+    </form>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Section logo override" },
+    { "type": "text", "id": "quote_label", "label": "Quote button label", "default": "Request Quote" },
+    { "type": "url", "id": "quote_link", "label": "Quote button link" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Nav link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Home" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "is_shop_menu", "label": "This is the Shop mega menu trigger", "default": false }
+      ]
+    },
+    {
+      "type": "generation",
+      "name": "Shop menu - Generation",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Generation label", "default": "C8 Stingray" },
+        { "type": "text", "id": "years", "label": "Years", "default": "2020 - Present" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "category",
+      "name": "Shop menu - Category",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Category label", "default": "Aero" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "featured",
+      "name": "Shop menu - Featured",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Featured label", "default": "Best Sellers" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "default": {
+    "settings": { "quote_label": "Request Quote", "quote_link": "/pages/contact" },
+    "blocks": [
+      { "type": "link", "settings": { "label": "Home", "link": "/" } },
+      { "type": "link", "settings": { "label": "Shop", "link": "/collections/all", "is_shop_menu": true } },
+      { "type": "link", "settings": { "label": "Services", "link": "/pages/services" } },
+      { "type": "link", "settings": { "label": "About", "link": "/pages/about" } },
+      { "type": "link", "settings": { "label": "Contact", "link": "/pages/contact" } },
+      { "type": "generation", "settings": { "label": "C5 Corvette", "years": "1997 - 2004", "link": "/collections/c5" } },
+      { "type": "generation", "settings": { "label": "C6 Corvette", "years": "2005 - 2013", "link": "/collections/c6" } },
+      { "type": "generation", "settings": { "label": "C7 Corvette", "years": "2014 - 2019", "link": "/collections/c7" } },
+      { "type": "generation", "settings": { "label": "C8 Stingray", "years": "2020 - Present", "link": "/collections/c8" } },
+      { "type": "generation", "settings": { "label": "C8 Z06", "years": "2023 - Present", "link": "/collections/z06" } },
+      { "type": "generation", "settings": { "label": "C8 E-Ray", "years": "2024 - Present", "link": "/collections/eray" } },
+      { "type": "category", "settings": { "label": "Aero", "link": "/collections/aero" } },
+      { "type": "category", "settings": { "label": "Suspension", "link": "/collections/suspension" } },
+      { "type": "category", "settings": { "label": "Brakes", "link": "/collections/brakes" } },
+      { "type": "category", "settings": { "label": "Wheels", "link": "/collections/wheels" } },
+      { "type": "category", "settings": { "label": "Interior", "link": "/collections/interior" } },
+      { "type": "category", "settings": { "label": "Engine", "link": "/collections/engine" } },
+      { "type": "category", "settings": { "label": "Exterior", "link": "/collections/exterior" } },
+      { "type": "featured", "settings": { "label": "Best Sellers", "link": "/collections/best-sellers" } },
+      { "type": "featured", "settings": { "label": "New Arrivals", "link": "/collections/new-arrivals" } },
+      { "type": "featured", "settings": { "label": "Track Essentials", "link": "/collections/track-essentials" } }
+    ]
+  },
+  "presets": [{ "name": "Header" }]
+}
+{% endschema %}

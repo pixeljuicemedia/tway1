@@ -1,0 +1,24 @@
+{
+  "current": {
+    "logo_height": 32,
+    "color_background": "#0a0a0b",
+    "color_foreground": "#f9f9fa",
+    "color_surface": "#141416",
+    "color_accent": "#8fe038",
+    "color_muted": "#8a8a90",
+    "container_max": 1440,
+    "social_instagram": "https://www.instagram.com/twaymotorsports/"
+  },
+  "platform_customizations": {},
+  "presets": {
+    "Default": {
+      "logo_height": 32,
+      "color_background": "#0a0a0b",
+      "color_foreground": "#f9f9fa",
+      "color_surface": "#141416",
+      "color_accent": "#8fe038",
+      "color_muted": "#8a8a90",
+      "container_max": 1440
+    }
+  }
+}

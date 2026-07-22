@@ -1,0 +1,13 @@
+{%- assign p = product -%}
+<a href="{{ p.url }}" class="product-card" aria-label="{{ p.title | escape }}">
+  <div class="product-card__media">
+    {%- if p.featured_image -%}
+      {{ p.featured_image | image_url: width: 800 | image_tag: alt: p.title, loading: 'lazy', widths: '300,400,600,800,1000' }}
+    {%- endif -%}
+  </div>
+  <div class="product-card__body">
+    {%- if p.type != blank -%}<div class="product-card__eyebrow">{{ p.type }}</div>{%- endif -%}
+    <div class="product-card__title">{{ p.title }}</div>
+    <div class="product-card__price">{% render 'price', product: p %}</div>
+  </div>
+</a>
