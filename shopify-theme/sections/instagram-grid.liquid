@@ -1,0 +1,41 @@
+<section class="instagram-grid hairline-t">
+  <div class="container-wide section-pad">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow eyebrow--accent">{{ section.settings.eyebrow | default: 'Follow Along' }}</p>
+        <h2 class="section-title">{{ section.settings.heading | default: '@twaymotorsports' }}</h2>
+      </div>
+      {%- if section.settings.profile_link != blank -%}
+        <a href="{{ section.settings.profile_link }}" class="btn-ghost" target="_blank" rel="noopener">Follow on Instagram &rarr;</a>
+      {%- endif -%}
+    </div>
+    <div class="ig-grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="ig-tile" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="Instagram post" loading="lazy" width="600" height="600">
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Follow Along" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "@twaymotorsports" },
+    { "type": "url", "id": "profile_link", "label": "Instagram profile URL" }
+  ],
+  "blocks": [
+    { "type": "post", "name": "Post", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "url", "id": "link", "label": "Instagram post URL" }
+    ] }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Instagram grid" }]
+}
+{% endschema %}

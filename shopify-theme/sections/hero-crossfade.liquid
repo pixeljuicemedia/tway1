@@ -1,0 +1,98 @@
+<section class="hero-crossfade" aria-label="{{ section.settings.aria_label | default: 'Hero' }}">
+  <div class="hero-crossfade__bg" aria-hidden="true">
+    {%- assign slide_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' and block.settings.image != blank -%}{%- assign slide_count = slide_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- assign cycle = section.settings.cycle_seconds | default: 9 -%}
+    {%- assign idx = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' and block.settings.image != blank -%}
+        {%- assign delay = 0 -%}
+        {%- if slide_count > 0 -%}
+          {%- assign delay = cycle | times: -1.0 | divided_by: slide_count | times: idx -%}
+        {%- endif -%}
+        <img
+          src="{{ block.settings.image | image_url: width: 1920 }}"
+          alt="{{ block.settings.image.alt | default: '' | escape }}"
+          class="hero-crossfade-slide"
+          style="animation-duration: {{ cycle }}s; animation-delay: {{ delay }}s;"
+          loading="{% if idx == 0 %}eager{% else %}lazy{% endif %}"
+          width="1920" height="1280"
+          {{ block.shopify_attributes }}
+        >
+        {%- assign idx = idx | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="hero-crossfade__grad-b"></div>
+    <div class="hero-crossfade__grad-r"></div>
+  </div>
+
+  <div class="container-wide hero-crossfade__inner">
+    <div class="hero-crossfade__content">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 900 }}" alt="{{ shop.name }}" class="hero-crossfade__logo" width="900" height="300">
+      {%- endif -%}
+      <div class="hero-crossfade__badges">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'badge' -%}
+            <span class="badge-pill" {{ block.shopify_attributes }}>{{ block.settings.label }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.headline != blank -%}
+        <h1 class="hero-crossfade__headline">{{ section.settings.headline }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subhead != blank -%}
+        <p class="hero-crossfade__subhead">{{ section.settings.subhead }}</p>
+      {%- endif -%}
+
+      <form action="{{ routes.search_url }}" method="get" class="hero-crossfade__search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+        <input type="search" name="q" placeholder="{{ section.settings.search_placeholder | default: 'Search vehicle, brand or part number' }}" aria-label="Search">
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="btn-primary">Search</button>
+      </form>
+
+      <div class="hero-crossfade__ctas">
+        {%- if section.settings.cta_primary_link != blank -%}
+          <a href="{{ section.settings.cta_primary_link }}" class="btn-primary">{{ section.settings.cta_primary_label | default: 'Shop Performance Parts' }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta_secondary_link != blank -%}
+          <a href="{{ section.settings.cta_secondary_link }}" class="btn-ghost">{{ section.settings.cta_secondary_label | default: 'Book Services' }} &rarr;</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero crossfade",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Overlay logo" },
+    { "type": "text", "id": "headline", "label": "Headline (HTML allowed)", "default": "Race-Proven Parts.<br><strong>Ready to Ship.</strong>" },
+    { "type": "textarea", "id": "subhead", "label": "Subhead", "default": "Aero, suspension, brakes and drivetrain - engineered, installed and validated by a shop that races every weekend." },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search vehicle, brand or part number" },
+    { "type": "text", "id": "cta_primary_label", "label": "Primary CTA label", "default": "Shop Performance Parts" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Secondary CTA label", "default": "Book Services" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary CTA link" },
+    { "type": "range", "id": "cycle_seconds", "label": "Crossfade full cycle (seconds)", "min": 4, "max": 30, "step": 1, "default": 9 },
+    { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Hero" }
+  ],
+  "blocks": [
+    { "type": "slide", "name": "Slide", "settings": [ { "type": "image_picker", "id": "image", "label": "Slide image" } ] },
+    { "type": "badge", "name": "Badge pill", "settings": [ { "type": "text", "id": "label", "label": "Label", "default": "Performance Parts" } ] }
+  ],
+  "max_blocks": 12,
+  "presets": [{
+    "name": "Hero crossfade",
+    "blocks": [
+      { "type": "badge", "settings": { "label": "Performance Parts" } },
+      { "type": "badge", "settings": { "label": "Track-Proven" } },
+      { "type": "badge", "settings": { "label": "Pro Installation" } }
+    ]
+  }]
+}
+{% endschema %}

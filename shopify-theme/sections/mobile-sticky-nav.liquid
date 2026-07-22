@@ -1,0 +1,31 @@
+<nav class="mobile-sticky-nav" aria-label="Quick nav">
+  {%- for block in section.blocks -%}
+    <a href="{{ block.settings.link }}" class="mobile-sticky-nav__item" {{ block.shopify_attributes }}>
+      <span class="mobile-sticky-nav__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+      <span>{{ block.settings.label }}</span>
+    </a>
+  {%- endfor -%}
+</nav>
+
+{% schema %}
+{
+  "name": "Mobile sticky nav",
+  "blocks": [
+    { "type": "item", "name": "Item", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Shop" },
+      { "type": "text", "id": "icon", "label": "Icon (emoji or char)", "default": "\u2699" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ] }
+  ],
+  "max_blocks": 5,
+  "presets": [{
+    "name": "Mobile sticky nav",
+    "blocks": [
+      { "type": "item", "settings": { "label": "Home", "icon": "\u2302" } },
+      { "type": "item", "settings": { "label": "Shop", "icon": "\u2699" } },
+      { "type": "item", "settings": { "label": "Services", "icon": "\u2692" } },
+      { "type": "item", "settings": { "label": "Contact", "icon": "\u260E" } }
+    ]
+  }]
+}
+{% endschema %}
