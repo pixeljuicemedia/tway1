@@ -1,7 +1,15 @@
 {
   "sections": {
-    "hero": { "type": "rich-hero", "settings": { "eyebrow": "Contact", "heading": "Get in touch", "sub": "Ready to build? Tell us what you're chasing.", "overlay_top": 45, "overlay_bottom": 85 } },
-    "form": { "type": "contact-form" }
+    "hero": { "type": "rich-hero", "settings": { "default_asset": "contact-racecar-hero.png", "eyebrow": "Contact", "heading": "Get in touch", "sub": "Ready to build? Tell us what you're chasing.", "overlay_top": 40, "overlay_bottom": 85 } },
+    "form": {
+      "type": "contact-form",
+      "blocks": {
+        "d1": { "type": "detail", "settings": { "label": "Address", "value": "<p>210 W Katella Ave, Ste B<br>Orange, CA 92867</p>" } },
+        "d2": { "type": "detail", "settings": { "label": "Phone", "value": "<p><a href=\"tel:7144101820\">(714) 410-1820</a></p>" } },
+        "d3": { "type": "detail", "settings": { "label": "Hours", "value": "<p>Mon–Fri 9:00–17:00<br>Sat by appointment<br>Sun closed</p>" } }
+      },
+      "block_order": ["d1","d2","d3"]
+    }
   },
   "order": ["hero", "form"]
 }
