@@ -5,7 +5,7 @@
         <p class="eyebrow">{{ section.settings.eyebrow | default: 'Shop by Category' }}</p>
         <h2 class="section-title">{{ section.settings.heading }}</h2>
       </div>
-      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="btn-ghost">{{ section.settings.view_all_label | default: 'Full Catalog' }} &rarr;</a>
+      <a href="{{ section.settings.view_all_link | default: routes.collections_url }}" class="btn-ghost">{{ section.settings.view_all_label | default: 'Full Catalog' }} &rarr;</a>
     </div>
     <div class="curated-grid">
       {%- for block in section.blocks -%}

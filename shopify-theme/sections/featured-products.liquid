@@ -6,7 +6,7 @@
         <p class="eyebrow eyebrow--accent">{{ section.settings.eyebrow | default: 'Featured Products' }}</p>
         <h2 class="section-title">{{ section.settings.heading | default: 'Shop what wins races.' }}</h2>
       </div>
-      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="btn-ghost">{{ section.settings.view_all_label | default: 'View All Products' }} &rarr;</a>
+      <a href="{{ section.settings.view_all_link | default: routes.collections_url }}" class="btn-ghost">{{ section.settings.view_all_label | default: 'View All Products' }} &rarr;</a>
     </div>
     <div class="product-grid product-grid--4">
       {%- if coll.products.size > 0 -%}

@@ -64,7 +64,8 @@
       </form>
 
       <div class="hero-crossfade__ctas">
-        <a href="{{ routes.all_products_collection_url }}" class="btn-primary">{{ section.settings.cta_primary_label | default: 'Shop Performance Parts' }}</a>
+        {%- assign primary_cta_url = section.settings.cta_primary_link | default: routes.collections_url -%}
+        <a href="{{ primary_cta_url }}" class="btn-primary">{{ section.settings.cta_primary_label | default: 'Shop Performance Parts' }}</a>
         {%- if section.settings.cta_secondary_link != blank -%}
           <a href="{{ section.settings.cta_secondary_link }}" class="btn-ghost">{{ section.settings.cta_secondary_label | default: 'Book Services' }} &rarr;</a>
         {%- endif -%}

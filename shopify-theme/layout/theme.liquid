@@ -34,13 +34,13 @@
   <body class="template-{{ template | replace: '.', '-' | handle }}">
     <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
-    {% sections 'header-group' %}
+    {% section 'header' %}
 
     <main id="MainContent" role="main">
       {{ content_for_layout }}
     </main>
 
-    {% sections 'footer-group' %}
+    {% section 'footer' %}
 
     {% render 'cart-drawer' %}
 
