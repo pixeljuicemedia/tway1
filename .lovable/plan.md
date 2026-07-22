@@ -1,63 +1,32 @@
-## Diagnosis
+# Push Liquid theme to `tway-liquid` GitHub repo
 
-The Liquid theme is technically working — the reason it looks broken on your store is that everything visual is wired to Shopify **image_picker** settings and **content pages** the merchant is expected to configure. On a fresh install none of that exists yet, so:
+Lovable's built-in GitHub sync is tied to this project's React codebase, so it can't push a subfolder to a different repo. We'll use the GitHub connector instead to upload the contents of `shopify-theme/` into your existing `tway-liquid` repo.
 
-- **Hero graphic is black** — `hero-crossfade` iterates `section.blocks` of type `slide`, but the preset only seeds `badge` blocks, no slide blocks and no image files. Empty image pickers = 0 slides = pitch black.
-- **Homepage almost blank** — `generation-cards`, `curated-collections`, `instagram-grid`, `brand-strip`, `trust-stats` all render from empty image_pickers / unset block content.
-- **Nav "not working"** — links point to `/pages/services`, `/pages/about`, `/pages/contact`, `/collections/c5..c8`, `/collections/aero..` etc. Those pages/collections don't exist in your Shopify yet, and even the templates (`page.about`, `page.contact`, `page.services`) aren't assigned to any page.
-- **Contact page totally different** — `templates/page.contact.json` only has a bare rich-hero + a generic contact form. The React page had a full info card (address, phone, hours), racecar hero graphic, podium image, map area — none of that is in the Liquid template.
+## What I need from you
 
-Root cause: the port assumed the merchant would populate all imagery and content through the customizer. It should ship self-contained so it looks right the moment the zip is uploaded.
+1. The GitHub **owner/org name** for the repo (e.g. `yourusername/tway-liquid`).
+2. Confirm the repo is currently **empty** (or say if I should overwrite/branch).
+3. Target branch — default `main` unless you say otherwise.
 
-## Fix plan
+## Steps
 
-### 1. Bundle default images into `shopify-theme/assets/`
-Download the actual CDN images used on the React site and place them in the theme's `assets/` folder so they load via `{{ 'file.jpg' | asset_url }}` with zero customizer setup:
-- `c8hero1..4.jpg` — hero crossfade slides
-- `contact-racecar-hero.png`, `contact-podium.jpg` — contact page
-- `about-team-family.jpg`, `inside-shop-1..9.png` — about page
-- `services-hero.jpg`, `trackside.jpg`, `engineering.jpg`, `process-bg.jpg` — services page
-- `ig1..7.jpg` — Instagram grid
-- `tway-logo-darkbg.png` — header/footer logo fallback
-- `corvette-side.png` — generation card fallback
+1. **Connect GitHub** via the connector (`standard_connectors--connect` → `github`). You'll authorize a personal access token with `repo` scope so I can write to `tway-liquid`.
+2. **Verify the repo** exists and read its default branch via the GitHub REST API through the connector gateway.
+3. **Upload the theme files** — walk every file under `shopify-theme/` (assets, config, layout, sections, snippets, templates, locales) and PUT each one to `repos/{owner}/tway-liquid/contents/{path}` with base64 content. Binary assets (PNG/JPG/WebP) are uploaded the same way.
+4. **Commit message**: `Initial Shopify theme import from Lovable`.
+5. **Verify** by listing the repo tree and confirming file count matches the local `shopify-theme/` folder.
 
-### 2. Add "asset fallback" logic to every image section
-In each section (`hero-crossfade`, `generation-cards`, `curated-collections`, `instagram-grid`, `rich-hero`, `brand-strip`, `services-grid`, `contact-form`, `image-gallery`), change:
-```
-{% if block.settings.image != blank %} ... image_url ... {% endif %}
-```
-to fall back to a bundled asset URL when the picker is empty:
-```
-{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1920 }}{% else %}{{ 'c8hero1.jpg' | asset_url }}{% endif %}
-```
-Merchant can still override in the customizer, but out-of-the-box it just works.
+## After it's pushed
 
-### 3. Seed real slide/tile blocks in `templates/index.json`
-Replace the empty `blocks: {}` for hero and other sections with concrete block presets — 4 hero slides, 5 generation cards (C5/C6/C7/C8/Z06), 7 category tiles, 7 Instagram tiles, 4 brand logos, 4 trust stats — each pointing to a bundled asset filename. That way the homepage renders fully immediately.
+You'll have two workflows available:
 
-### 4. Rebuild the contact page template to match the React site
-Rewrite `templates/page.contact.json` and expand `sections/contact-form.liquid` (or add a new `contact-info` section) with:
-- Racecar hero background (bundled asset)
-- Two-column layout: contact form on left, info card on right with the correct address (Orange, CA), phone (714) 410-1820, Mon–Fri 9AM–5PM
-- Podium image card
-- Same edgy dark styling as the React version
+- **Shopify GitHub integration** — in Shopify admin → Online Store → Themes → Add theme → Connect from GitHub → pick `tway-liquid`. Shopify then auto-syncs commits to that theme.
+- **Shopify CLI locally** — `git clone` the repo, run `shopify theme dev --store=tway-motorsports-8sf51j39` for a true live preview against your dev store.
 
-### 5. Enrich about and services page templates
-Wire the gallery blocks in `page.about.json` to bundled `inside-shop-*` images, add the family/trackside hero image, and set services-grid blocks to real service copy with bundled backgrounds.
+Future edits: I can either commit directly to `tway-liquid` from here via the connector, or you can edit locally and push — both work with Shopify's GitHub sync.
 
-### 6. Update `README.md` install instructions
-Add a short "after upload" checklist so nav works:
-- Create pages: About, Contact, Services (assign matching templates)
-- Create collections with handles: `c5`, `c6`, `c7`, `c8`, `z06`, `aero`, `suspension`, `brakes`, `wheels`, `interior`, `engine`, `exterior`, `best-sellers`, `new-arrivals`, `track-essentials`
-- (Optional) Tag products C5/C6/C7/C8 and set product type for filtering
+## Notes / limitations
 
-### 7. Re-zip and hand over
-Regenerate `tway-motorsports-shopify-theme.zip` under `/mnt/documents/` for you to download and re-upload.
-
-## Notes / trade-offs
-
-- Bundling ~30 image files will inflate the theme zip to roughly 8–12 MB (still well under Shopify's 50 MB theme limit).
-- The nav links to `/pages/*` and `/collections/*` can only fully "work" once those Shopify pages/collections exist — that's inherently merchant setup. The plan makes the theme self-contained visually and the README makes the setup a 5-minute checklist rather than guesswork.
-- No changes to the React app in `src/` — this is Liquid-theme-only work.
-
-Ready to execute once you approve.
+- GitHub Contents API has a 100 MB per-file limit; all bundled images are well under that.
+- If the repo already has files, tell me whether to overwrite, create a new branch, or bail.
+- The React project in this Lovable workspace stays untouched — it continues to sync to its own repo via Lovable's built-in Git sync.
