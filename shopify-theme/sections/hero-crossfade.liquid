@@ -41,6 +41,8 @@
     <div class="hero-crossfade__content">
       {%- if section.settings.logo != blank -%}
         <img src="{{ section.settings.logo | image_url: width: 900 }}" alt="{{ shop.name }}" class="hero-crossfade__logo" width="900" height="300">
+      {%- elsif section.settings.default_logo != blank -%}
+        <img src="{{ section.settings.default_logo | asset_url }}" alt="{{ shop.name }}" class="hero-crossfade__logo" width="900" height="300">
       {%- endif -%}
       <div class="hero-crossfade__badges">
         {%- for block in section.blocks -%}
@@ -79,6 +81,7 @@
   "name": "Hero crossfade",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Overlay logo" },
+    { "type": "text", "id": "default_logo", "label": "Default logo asset filename (bundled)", "default": "tway-logo-darkbg.png" },
     { "type": "text", "id": "headline", "label": "Headline (HTML allowed)", "default": "Race-Proven Parts.<br><strong>Ready to Ship.</strong>" },
     { "type": "textarea", "id": "subhead", "label": "Subhead", "default": "Aero, suspension, brakes and drivetrain - engineered, installed and validated by a shop that races every weekend." },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search vehicle, brand or part number" },
