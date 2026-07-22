@@ -1,0 +1,233 @@
+<section class="product-main">
+  <div class="container-wide section-pad">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      {%- if product.type != blank -%}
+        <span aria-hidden="true">/</span>
+        <a href="{{ routes.collections_url }}/all?filter.p.product_type={{ product.type | url_encode }}">{{ product.type }}</a>
+      {%- endif -%}
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
+
+    <div class="product-main__layout">
+      {%- comment -%} ---------- Gallery ---------- {%- endcomment -%}
+      <div class="product-gallery" data-product-gallery>
+        <div class="product-gallery__main">
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="product-gallery__slide{% if forloop.first %} is-active{% endif %}"
+                data-gallery-slide="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                {{ media | image_url: width: 1400 | image_tag: alt: product.title, loading: forloop.first | if_null: 'lazy', widths: '600,900,1200,1600' }}
+              </button>
+            {%- endfor -%}
+          {%- elsif product.featured_image -%}
+            <div class="product-gallery__slide is-active">
+              {{ product.featured_image | image_url: width: 1400 | image_tag: alt: product.title, loading: 'eager' }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="product-gallery__thumbs">
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="product-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-gallery-thumb="{{ forloop.index0 }}"
+                aria-label="Thumbnail {{ forloop.index }}"
+              >
+                {{ media | image_url: width: 200 | image_tag: alt: product.title, loading: 'lazy' }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Spec strip under gallery {%- endcomment -%}
+        <div class="product-spec-strip">
+          <div class="product-spec">
+            <p class="eyebrow">Fitment</p>
+            <p class="spec-value">{{ product.metafields.custom.fitment | default: product.vendor | default: 'See description' }}</p>
+          </div>
+          <div class="product-spec">
+            <p class="eyebrow">Category</p>
+            <p class="spec-value">{{ product.type | default: 'Performance' }}</p>
+          </div>
+          <div class="product-spec">
+            <p class="eyebrow">Track Tested</p>
+            <p class="spec-value">Race Proven</p>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} ---------- Details ---------- {%- endcomment -%}
+      <div class="product-details">
+        <div class="product-details__sticky">
+          {%- if product.type != blank -%}
+            <p class="eyebrow eyebrow--accent">{{ product.type }}</p>
+          {%- endif -%}
+          <h1 class="product-details__title">{{ product.title }}</h1>
+          <div class="product-details__price">{% render 'price', product: product %}</div>
+
+          {%- if product.selected_or_first_available_variant.available -%}
+            <p class="product-details__availability in-stock">
+              <span class="dot" aria-hidden="true"></span> In Stock &middot; Ships from Orange, CA
+            </p>
+          {%- else -%}
+            <p class="product-details__availability out-stock">
+              <span class="dot" aria-hidden="true"></span> Currently unavailable
+            </p>
+          {%- endif -%}
+
+          <form action="{{ routes.cart_url }}/add" method="post" enctype="multipart/form-data" class="product-form" data-product-form>
+            {%- unless product.has_only_default_variant -%}
+              {%- for option in product.options_with_values -%}
+                <div class="product-option">
+                  <label class="eyebrow" for="Option-{{ option.position }}">{{ option.name }}</label>
+                  <div class="product-option__select">
+                    <select
+                      id="Option-{{ option.position }}"
+                      name="options[{{ option.name | escape }}]"
+                      data-option-index="{{ forloop.index0 }}"
+                    >
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
+                      {%- endfor -%}
+                    </select>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            <div class="product-qty">
+              <label class="eyebrow" for="Quantity">Quantity</label>
+              <div class="product-qty__control">
+                <button type="button" data-qty-dec aria-label="Decrease">&minus;</button>
+                <input id="Quantity" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+                <button type="button" data-qty-inc aria-label="Increase">+</button>
+              </div>
+            </div>
+
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-id>
+
+            <button
+              type="submit"
+              class="btn-primary product-add"
+              data-added-label="Added to Cart"
+              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+            >
+              {%- if product.selected_or_first_available_variant.available -%}Add to Build{%- else -%}Sold out{%- endif -%}
+            </button>
+
+            <a href="{{ routes.cart_url }}" class="btn-ghost product-view-cart">View Cart &rarr;</a>
+          </form>
+
+          {%- if section.settings.show_trust_bullets -%}
+            <ul class="product-trust">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'trust' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <span aria-hidden="true">{{ block.settings.icon | default: '✓' }}</span>
+                    <span>{{ block.settings.label }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <div class="prose-product product-details__desc">
+            {{ product.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var scope = document.querySelector('[data-product-form]');
+    if (!scope) return;
+    var variants = {{ product.variants | json }};
+    var selects = scope.querySelectorAll('select[name^="options"]');
+    var hidden = scope.querySelector('[data-variant-id]');
+    var priceEl = document.querySelector('.product-details__price');
+    var addBtn = scope.querySelector('.product-add');
+
+    function updateVariant() {
+      var chosen = Array.from(selects).map(function (s) { return s.value; });
+      var match = variants.find(function (v) {
+        return v.options.every(function (o, i) { return o === chosen[i]; });
+      });
+      if (!match) return;
+      hidden.value = match.id;
+      if (addBtn) {
+        addBtn.disabled = !match.available;
+        addBtn.textContent = match.available ? 'Add to Build' : 'Sold out';
+      }
+      if (priceEl && match.price != null) {
+        try {
+          priceEl.textContent = new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
+            style: 'currency',
+            currency: (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD'
+          }).format(match.price / 100);
+        } catch (e) {}
+      }
+    }
+    selects.forEach(function (s) { s.addEventListener('change', updateVariant); });
+
+    // Quantity stepper
+    var qtyInput = scope.querySelector('input[name="quantity"]');
+    var dec = scope.querySelector('[data-qty-dec]');
+    var inc = scope.querySelector('[data-qty-inc]');
+    if (dec) dec.addEventListener('click', function () { qtyInput.value = Math.max(1, parseInt(qtyInput.value || '1', 10) - 1); });
+    if (inc) inc.addEventListener('click', function () { qtyInput.value = parseInt(qtyInput.value || '1', 10) + 1; });
+
+    // Gallery
+    var gallery = document.querySelector('[data-product-gallery]');
+    if (gallery) {
+      var slides = gallery.querySelectorAll('[data-gallery-slide]');
+      var thumbs = gallery.querySelectorAll('[data-gallery-thumb]');
+      function activate(i) {
+        slides.forEach(function (s, j) { s.classList.toggle('is-active', i === j); });
+        thumbs.forEach(function (t, j) { t.classList.toggle('is-active', i === j); });
+      }
+      thumbs.forEach(function (t, j) { t.addEventListener('click', function () { activate(j); }); });
+      slides.forEach(function (s, j) { s.addEventListener('click', function () {
+        activate((j + 1) % slides.length);
+      }); });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product main",
+  "settings": [
+    { "type": "checkbox", "id": "show_trust_bullets", "label": "Show trust bullets", "default": true }
+  ],
+  "blocks": [
+    { "type": "trust", "name": "Trust bullet", "settings": [
+      { "type": "text", "id": "icon", "label": "Icon", "default": "✓" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Track-tested by pro drivers" }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [{
+    "name": "Product main",
+    "blocks": [
+      { "type": "trust", "settings": { "icon": "✓", "label": "Track-tested by pro drivers" } },
+      { "type": "trust", "settings": { "icon": "⚙", "label": "Professional installation available" } },
+      { "type": "trust", "settings": { "icon": "◆", "label": "20+ years race shop experience" } },
+      { "type": "trust", "settings": { "icon": "▲", "label": "Ships from Orange, CA" } }
+    ]
+  }]
+}
+{% endschema %}

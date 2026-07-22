@@ -1,0 +1,35 @@
+<section class="product-related hairline-t">
+  <div class="container-wide section-pad">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow eyebrow--accent">{{ section.settings.eyebrow | default: 'You Might Also Like' }}</p>
+        <h2 class="section-title">{{ section.settings.heading | default: 'Related parts' }}</h2>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="btn-ghost">Shop All &rarr;</a>
+    </div>
+    <div class="product-grid product-grid--4">
+      {%- assign related = recommendations.products | default: collections[product.type | handle].products -%}
+      {%- if related.size > 0 -%}
+        {%- for p in related limit: section.settings.limit -%}
+          {%- unless p.handle == product.handle -%}
+            {% render 'product-card', product: p %}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- else -%}
+        <p class="empty">No related products yet.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product related",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "You Might Also Like" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Related parts" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 12, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "Product related" }]
+}
+{% endschema %}
