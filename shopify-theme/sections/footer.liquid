@@ -55,6 +55,7 @@
 {% schema %}
 {
   "name": "Footer",
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Footer logo" },
     { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Family-owned race shop. Twenty-five years of Corvette engineering, fabrication and trackside experience - engineered for the podium." },
@@ -92,6 +93,5 @@
       { "type": "visit", "settings": {} }
     ]
   },
-  "presets": [{ "name": "Footer" }]
 }
 {% endschema %}
