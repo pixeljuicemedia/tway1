@@ -3,7 +3,7 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
       <span aria-hidden="true">/</span>
-      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="{{ routes.collections_url }}">Shop</a>
       {%- if product.type != blank -%}
         <span aria-hidden="true">/</span>
         <a href="{{ routes.collections_url }}/all?filter.p.product_type={{ product.type | url_encode }}">{{ product.type }}</a>

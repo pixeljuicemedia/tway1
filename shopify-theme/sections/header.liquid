@@ -53,7 +53,7 @@
                         {%- endfor -%}
                       </ul>
                       <div class="hairline-t" style="margin-top: 1.5rem; padding-top: 1rem;">
-                        <a href="{{ routes.all_products_collection_url }}" style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--foreground); display: inline-flex; align-items: center; gap: 0.5rem;">View All Parts <span aria-hidden="true">&rarr;</span></a>
+                        <a href="{{ routes.collections_url }}" style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--foreground); display: inline-flex; align-items: center; gap: 0.5rem;">View All Parts <span aria-hidden="true">&rarr;</span></a>
                       </div>
                     </div>
                   </div>
@@ -109,7 +109,6 @@
 {% schema %}
 {
   "name": "Header",
-  "enabled_on": { "groups": ["header"] },
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Section logo override" },
     { "type": "text", "id": "quote_label", "label": "Quote button label", "default": "Request Quote" },
@@ -155,7 +154,7 @@
     "settings": { "quote_label": "Request Quote", "quote_link": "/pages/contact" },
     "blocks": [
       { "type": "link", "settings": { "label": "Home", "link": "/" } },
-      { "type": "link", "settings": { "label": "Shop", "link": "/collections/all", "is_shop_menu": true } },
+      { "type": "link", "settings": { "label": "Shop", "link": "/collections", "is_shop_menu": true } },
       { "type": "link", "settings": { "label": "Services", "link": "/pages/services" } },
       { "type": "link", "settings": { "label": "About", "link": "/pages/about" } },
       { "type": "link", "settings": { "label": "Contact", "link": "/pages/contact" } },
