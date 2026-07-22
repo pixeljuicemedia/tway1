@@ -1,0 +1,55 @@
+{%- assign gen = current_tags | join: ',' -%}
+<div class="container-wide section-pad">
+  <p class="eyebrow" style="margin-bottom: 1rem;">{{ section.settings.eyebrow | default: 'Shop' }}</p>
+  <h1 style="font-size: clamp(1.75rem, 4vw, 3rem); margin-bottom: 1rem;">{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}
+    <div class="prose-product" style="max-width: 42rem; color: var(--muted-foreground); margin-bottom: 2rem;">{{ collection.description }}</div>
+  {%- endif -%}
+  {%- if section.settings.show_filters -%}
+    <div class="filter-bar">
+      <div class="filter-bar__group" role="tablist" aria-label="Corvette generation">
+        <a href="{{ collection.url }}" class="chip {% if current_tags == blank %}chip--active{% endif %}">All</a>
+        {%- for t in section.settings.gen_tags | split: ',' -%}
+          {%- assign tag = t | strip -%}
+          <a href="{{ collection.url }}/{{ tag | handle }}" class="chip {% if current_tags contains tag %}chip--active{% endif %}">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+      <div class="filter-bar__group">
+        <label class="filter-bar__label" for="sort-by">Sort</label>
+        <select id="sort-by" class="filter-bar__select" onchange="location.href=this.value">
+          {%- assign sort = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for opt in collection.sort_options -%}
+            <option value="{{ collection.url }}?sort_by={{ opt.value }}" {% if opt.value == sort %}selected{% endif %}>{{ opt.name }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+    </div>
+  {%- endif -%}
+  {%- paginate collection.products by section.settings.per_page -%}
+    {%- if collection.products.size > 0 -%}
+      <div class="product-grid">
+        {%- for product in collection.products -%}{% render 'product-card', product: product %}{%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>
+      {%- endif -%}
+    {%- else -%}
+      <div class="empty-state">
+        <p style="color: var(--muted-foreground);">No products match your filters.</p>
+        <a href="{{ collection.url }}" class="btn-ghost" style="margin-top: 1rem;">Clear filters</a>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop" },
+    { "type": "checkbox", "id": "show_filters", "label": "Show filters", "default": true },
+    { "type": "text", "id": "gen_tags", "label": "Generation tags", "default": "C5,C6,C7,C8" },
+    { "type": "range", "id": "per_page", "min": 8, "max": 48, "step": 4, "default": 24, "label": "Products per page" }
+  ],
+  "presets": [{ "name": "Collection" }]
+}
+{% endschema %}

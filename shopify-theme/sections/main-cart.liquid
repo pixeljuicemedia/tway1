@@ -1,0 +1,53 @@
+<div class="container-wide section-pad">
+  <p class="eyebrow" style="margin-bottom: 1rem;">{{ section.settings.eyebrow | default: 'Cart' }}</p>
+  <h1 style="font-size: clamp(1.75rem, 4vw, 3rem); margin-bottom: 2rem;">{{ section.settings.heading | default: 'Your build' }}</h1>
+  {%- if cart.item_count == 0 -%}
+    <div class="empty-state">
+      <p style="color: var(--muted-foreground);">Your cart is empty.</p>
+      <a class="btn-primary" href="{{ routes.all_products_collection_url }}" style="margin-top: 1.25rem;">Continue shopping</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <div class="cart-list">
+        {%- for item in cart.items -%}
+          <div class="cart-item">
+            <a href="{{ item.url }}" class="cart-item__img">
+              {%- if item.image -%}<img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.title | escape }}">{%- endif -%}
+            </a>
+            <div class="cart-item__body">
+              <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+              {%- unless item.variant.title contains 'Default' -%}<div class="cart-item__variant">{{ item.variant.title }}</div>{%- endunless -%}
+              <div class="cart-item__price">{{ item.final_line_price | money }}</div>
+            </div>
+            <div class="cart-item__side">
+              <input type="number" name="updates[]" min="0" value="{{ item.quantity }}" class="qty-input" aria-label="Quantity">
+              <a href="{{ item.url_to_remove }}" class="cart-item__remove">Remove</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="cart-summary">
+        <div>
+          <p class="eyebrow neutral" style="margin: 0;">Subtotal</p>
+          <p class="cart-summary__total">{{ cart.total_price | money }}</p>
+          <p class="cart-summary__note">{{ section.settings.note | default: 'Shipping and taxes calculated at checkout.' }}</p>
+        </div>
+        <div class="cart-summary__actions">
+          <button type="submit" name="update" class="btn-ghost">Update</button>
+          <button type="submit" name="checkout" class="btn-primary">Checkout</button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Cart" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your build" },
+    { "type": "text", "id": "note", "label": "Summary note", "default": "Shipping and taxes calculated at checkout." }
+  ],
+  "presets": [{ "name": "Cart" }]
+}
+{% endschema %}

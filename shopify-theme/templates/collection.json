@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "main-collection", "settings": { "eyebrow": "Shop", "show_filters": true, "gen_tags": "C5,C6,C7,C8", "per_page": 24 } } },
+  "order": ["main"]
+}

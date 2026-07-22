@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "hero": { "type": "rich-hero", "settings": { "eyebrow": "About", "heading": "Family run. Track proven.", "sub": "Two generations building America's fastest Corvettes.", "overlay_top": 50, "overlay_bottom": 85 } },
+    "story": { "type": "rich-text", "settings": { "eyebrow": "Our story", "heading": "Born on the track.", "body": "<p>Tway Motorsports has been building, racing and refining Corvettes for over two decades.</p>" } },
+    "gallery": { "type": "image-gallery", "settings": { "heading": "Inside the shop" }, "blocks": {
+      "b1": { "type": "image" }, "b2": { "type": "image" }, "b3": { "type": "image" },
+      "b4": { "type": "image" }, "b5": { "type": "image" }, "b6": { "type": "image" }
+    }, "block_order": ["b1","b2","b3","b4","b5","b6"] }
+  },
+  "order": ["hero", "story", "gallery"]
+}

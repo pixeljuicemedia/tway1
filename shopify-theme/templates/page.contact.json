@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "rich-hero", "settings": { "eyebrow": "Contact", "heading": "Get in touch", "sub": "Ready to build? Tell us what you're chasing.", "overlay_top": 45, "overlay_bottom": 85 } },
+    "form": { "type": "contact-form" }
+  },
+  "order": ["hero", "form"]
+}
