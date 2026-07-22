@@ -8,9 +8,11 @@
     </div>
 
     {%- if collections.size > 0 -%}
+      {%- assign visible_collection_count = 0 -%}
       <div class="curated-grid">
         {%- for collection in collections -%}
           {%- unless collection.handle == 'frontpage' -%}
+            {%- assign visible_collection_count = visible_collection_count | plus: 1 -%}
             <a href="{{ collection.url }}" class="curated-card">
               {%- assign collection_image = collection.image | default: collection.products.first.featured_image -%}
               {%- if collection_image != blank -%}
@@ -26,6 +28,12 @@
           {%- endunless -%}
         {%- endfor -%}
       </div>
+      {%- if visible_collection_count == 0 -%}
+        <div class="empty-state">
+          <p class="empty">Products are available through search while collections are being organized.</p>
+          <a href="{{ routes.search_url }}?type=product&amp;q=*" class="btn-primary">Browse all products</a>
+        </div>
+      {%- endif -%}
     {%- else -%}
       <div class="empty-state">
         <p class="empty">No collections are available yet.</p>
