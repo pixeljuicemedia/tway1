@@ -13,6 +13,7 @@
       },
       "block_order": ["s1", "s2", "s3", "s4", "b1", "b2", "b3"],
       "settings": {
+        "default_logo": "tway-logo-darkbg.png",
         "headline": "Race-Proven Parts.<br><strong>Ready to Ship.</strong>",
         "subhead": "Aero, suspension, brakes and drivetrain - engineered, installed and validated by a shop that races every weekend.",
         "cta_primary_label": "Shop Performance Parts",
