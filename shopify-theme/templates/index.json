@@ -3,11 +3,15 @@
     "hero": {
       "type": "hero-crossfade",
       "blocks": {
+        "s1": { "type": "slide", "settings": { "default_asset": "c8hero1.jpg" } },
+        "s2": { "type": "slide", "settings": { "default_asset": "c8hero2.jpg" } },
+        "s3": { "type": "slide", "settings": { "default_asset": "c8hero3.jpg" } },
+        "s4": { "type": "slide", "settings": { "default_asset": "c8hero4.jpg" } },
         "b1": { "type": "badge", "settings": { "label": "Performance Parts" } },
         "b2": { "type": "badge", "settings": { "label": "Track-Proven" } },
         "b3": { "type": "badge", "settings": { "label": "Pro Installation" } }
       },
-      "block_order": ["b1", "b2", "b3"],
+      "block_order": ["s1", "s2", "s3", "s4", "b1", "b2", "b3"],
       "settings": {
         "headline": "Race-Proven Parts.<br><strong>Ready to Ship.</strong>",
         "subhead": "Aero, suspension, brakes and drivetrain - engineered, installed and validated by a shop that races every weekend.",
@@ -20,12 +24,40 @@
     },
     "brand-strip": { "type": "brand-strip" },
     "featured": { "type": "featured-products", "settings": { "collection": "frontpage", "limit": 4 } },
-    "generations": { "type": "generation-cards" },
-    "curated": { "type": "curated-collections" },
+    "generations": {
+      "type": "generation-cards",
+      "blocks": {
+        "g1": { "type": "generation", "settings": { "label": "C5 Corvette", "years": "1997 - 2004", "link": "/collections/c5", "default_asset": "corvette-side.png" } },
+        "g2": { "type": "generation", "settings": { "label": "C6 Corvette", "years": "2005 - 2013", "link": "/collections/c6", "default_asset": "corvette-side.png" } },
+        "g3": { "type": "generation", "settings": { "label": "C7 Corvette", "years": "2014 - 2019", "link": "/collections/c7", "default_asset": "corvette-side.png" } },
+        "g4": { "type": "generation", "settings": { "label": "C8 Stingray", "years": "2020 - Present", "link": "/collections/c8", "default_asset": "c8hero1.jpg" } }
+      },
+      "block_order": ["g1","g2","g3","g4"]
+    },
+    "curated": {
+      "type": "curated-collections",
+      "blocks": {
+        "t1": { "type": "tile", "settings": { "title": "Aero", "meta": "Splitters, wings, diffusers", "link": "/collections/aero", "default_asset": "trackside.jpg" } },
+        "t2": { "type": "tile", "settings": { "title": "Suspension", "meta": "Coilovers, sway bars", "link": "/collections/suspension", "default_asset": "race-prep.jpg" } },
+        "t3": { "type": "tile", "settings": { "title": "Brakes", "meta": "Big brake kits, pads", "link": "/collections/brakes", "default_asset": "engineering.jpg" } },
+        "t4": { "type": "tile", "settings": { "title": "Wheels", "meta": "Forged, flow-formed", "link": "/collections/wheels", "default_asset": "shop-hero.jpg" } }
+      },
+      "block_order": ["t1","t2","t3","t4"]
+    },
     "trust": { "type": "trust-stats" },
     "instagram": {
       "type": "instagram-grid",
-      "settings": { "profile_link": "https://www.instagram.com/twaymotorsports/" }
+      "settings": { "profile_link": "https://www.instagram.com/twaymotorsports/" },
+      "blocks": {
+        "p1": { "type": "post", "settings": { "default_asset": "ig1.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p2": { "type": "post", "settings": { "default_asset": "ig2.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p3": { "type": "post", "settings": { "default_asset": "ig3.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p4": { "type": "post", "settings": { "default_asset": "ig4.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p5": { "type": "post", "settings": { "default_asset": "ig5.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p6": { "type": "post", "settings": { "default_asset": "ig6.jpg", "link": "https://www.instagram.com/twaymotorsports/" } },
+        "p7": { "type": "post", "settings": { "default_asset": "ig7.jpg", "link": "https://www.instagram.com/twaymotorsports/" } }
+      },
+      "block_order": ["p1","p2","p3","p4","p5","p6","p7"]
     },
     "mobile-nav": { "type": "mobile-sticky-nav" }
   },
