@@ -4,7 +4,11 @@
     <div class="gallery-grid">
       {%- for block in section.blocks -%}
         <figure class="gallery-tile" {{ block.shopify_attributes }}>
-          {%- if block.settings.image -%}{{ block.settings.image | image_url: width: 1200 | image_tag: alt: block.settings.caption, loading: 'lazy', class: 'gallery-tile__img' }}{%- endif -%}
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1200 | image_tag: alt: block.settings.caption, loading: 'lazy', class: 'gallery-tile__img' }}
+          {%- elsif block.settings.default_asset != blank -%}
+            <img src="{{ block.settings.default_asset | asset_url }}" alt="{{ block.settings.caption | escape }}" loading="lazy" class="gallery-tile__img">
+          {%- endif -%}
           {%- if block.settings.caption != blank -%}<figcaption class="gallery-tile__cap">{{ block.settings.caption }}</figcaption>{%- endif -%}
         </figure>
       {%- endfor -%}
@@ -19,6 +23,7 @@
   "blocks": [
     { "type": "image", "name": "Image", "settings": [
       { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "default_asset", "label": "Default asset filename (bundled)" },
       { "type": "text", "id": "caption", "label": "Caption" }
     ]}
   ],
