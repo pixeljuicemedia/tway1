@@ -91,10 +91,9 @@
     { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Hero" }
   ],
   "blocks": [
-    { "type": "slide", "name": "Slide", "settings": [ { "type": "image_picker", "id": "image", "label": "Slide image" } ] },
-    { "type": "slide-asset", "name": "Slide (bundled asset)", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Slide image (optional override)" },
-      { "type": "text", "id": "default_asset", "label": "Default asset filename (in theme /assets)", "default": "c8hero1.jpg" }
+    { "type": "slide", "name": "Slide", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Slide image (optional if using default asset)" },
+      { "type": "text", "id": "default_asset", "label": "Default asset filename (bundled in /assets)", "info": "Used if no image is uploaded. Example: c8hero1.jpg" }
     ] },
     { "type": "badge", "name": "Badge pill", "settings": [ { "type": "text", "id": "label", "label": "Label", "default": "Performance Parts" } ] }
   ],
