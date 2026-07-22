@@ -7,7 +7,7 @@
         {%- elsif settings.logo != blank -%}
           {{ settings.logo | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager' }}
         {%- else -%}
-          <span style="font-family: var(--font-display); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px;">{{ shop.name }}</span>
+          <img src="{{ 'tway-logo-darkbg.png' | asset_url }}" alt="{{ shop.name | escape }}" loading="eager" style="height:28px;width:auto;display:block;">
         {%- endif -%}
       </a>
 
