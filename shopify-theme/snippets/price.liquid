@@ -1,0 +1,15 @@
+{%- liquid
+  if variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+  elsif product
+    assign price = product.price
+    assign compare = product.compare_at_price
+  else
+    assign price = 0
+  endif
+-%}
+<span class="price">
+  {%- if compare and compare > price -%}<span class="price__compare"><s>{{ compare | money }}</s></span>{%- endif -%}
+  <span class="price__current">{{ price | money }}</span>
+</span>
