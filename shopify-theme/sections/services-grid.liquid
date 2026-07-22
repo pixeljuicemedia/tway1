@@ -1,0 +1,37 @@
+<section class="section-pad" {% if section.settings.bg_image %}style="background-image: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('{{ section.settings.bg_image | image_url: width: 2000 }}'); background-size: cover; background-position: center;"{% endif %}>
+  <div class="container-wide">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin-bottom: 1rem;">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="rich-text__heading" style="margin-bottom: 2.5rem;">{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="services-grid">
+      {%- for block in section.blocks -%}
+        <article class="service-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image -%}<div class="service-card__media">{{ block.settings.image | image_url: width: 1000 | image_tag: alt: block.settings.title, loading: 'lazy' }}</div>{%- endif -%}
+          <div class="service-card__body">
+            {%- if block.settings.eyebrow != blank -%}<p class="eyebrow neutral">{{ block.settings.eyebrow }}</p>{%- endif -%}
+            <h3 class="service-card__title">{{ block.settings.title }}</h3>
+            <div class="service-card__desc">{{ block.settings.description }}</div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Services grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (optional)" }
+  ],
+  "blocks": [
+    { "type": "service", "name": "Service", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "richtext", "id": "description", "label": "Description" }
+    ]}
+  ],
+  "presets": [{ "name": "Services grid", "blocks": [{ "type": "service" }, { "type": "service" }, { "type": "service" }] }]
+}
+{% endschema %}

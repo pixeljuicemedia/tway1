@@ -5,7 +5,6 @@
   {%- if collection.description != blank -%}
     <div class="prose-product" style="max-width: 42rem; color: var(--muted-foreground); margin-bottom: 2rem;">{{ collection.description }}</div>
   {%- endif -%}
-
   {%- if section.settings.show_filters -%}
     <div class="filter-bar">
       <div class="filter-bar__group" role="tablist" aria-label="Corvette generation">
@@ -26,7 +25,6 @@
       </div>
     </div>
   {%- endif -%}
-
   {%- paginate collection.products by section.settings.per_page -%}
     {%- if collection.products.size > 0 -%}
       <div class="product-grid">
@@ -43,14 +41,13 @@
     {%- endif -%}
   {%- endpaginate -%}
 </div>
-
 {% schema %}
 {
   "name": "Collection",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop" },
     { "type": "checkbox", "id": "show_filters", "label": "Show filters", "default": true },
-    { "type": "text", "id": "gen_tags", "label": "Generation tags (comma separated)", "default": "C5,C6,C7,C8" },
+    { "type": "text", "id": "gen_tags", "label": "Generation tags", "default": "C5,C6,C7,C8" },
     { "type": "range", "id": "per_page", "min": 8, "max": 48, "step": 4, "default": 24, "label": "Products per page" }
   ],
   "presets": [{ "name": "Collection" }]
