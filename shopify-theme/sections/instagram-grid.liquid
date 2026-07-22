@@ -14,6 +14,8 @@
         <a href="{{ block.settings.link }}" class="ig-tile" target="_blank" rel="noopener" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
             <img src="{{ block.settings.image | image_url: width: 600 }}" alt="Instagram post" loading="lazy" width="600" height="600">
+          {%- elsif block.settings.default_asset != blank -%}
+            <img src="{{ block.settings.default_asset | asset_url }}" alt="Instagram post" loading="lazy" width="600" height="600">
           {%- endif -%}
         </a>
       {%- endfor -%}
@@ -32,6 +34,7 @@
   "blocks": [
     { "type": "post", "name": "Post", "settings": [
       { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "default_asset", "label": "Default asset filename (bundled)" },
       { "type": "url", "id": "link", "label": "Instagram post URL" }
     ] }
   ],
