@@ -1,0 +1,58 @@
+<section class="generation-cards hairline-t">
+  <div class="container-wide section-pad">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{{ section.settings.eyebrow | default: 'Shop by Generation' }}</p>
+        <h2 class="section-title">{{ section.settings.heading | default: 'Pick your platform. Pick your podium.' }}</h2>
+      </div>
+      <a href="{{ section.settings.view_all_link | default: routes.all_products_collection_url }}" class="btn-ghost">{{ section.settings.view_all_label | default: 'Full Catalog' }} &rarr;</a>
+    </div>
+    <div class="generation-grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="generation-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.label | escape }}" loading="lazy" width="900" height="1200">
+          {%- endif -%}
+          <div class="generation-card__grad"></div>
+          <div class="generation-card__body">
+            <p class="eyebrow">{{ block.settings.years }}</p>
+            <h3>{{ block.settings.label }}</h3>
+            <span class="generation-card__cta">Shop {{ block.settings.label }} &rarr;</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Generation cards",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by Generation" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pick your platform. Pick your podium." },
+    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "Full Catalog" },
+    { "type": "url", "id": "view_all_link", "label": "View all link" }
+  ],
+  "blocks": [
+    { "type": "generation", "name": "Generation", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "C8 Stingray" },
+      { "type": "text", "id": "years", "label": "Years", "default": "2020 - Present" },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ] }
+  ],
+  "max_blocks": 8,
+  "presets": [{
+    "name": "Generation cards",
+    "blocks": [
+      { "type": "generation", "settings": { "label": "C5 Corvette", "years": "1997 - 2004" } },
+      { "type": "generation", "settings": { "label": "C6 Corvette", "years": "2005 - 2013" } },
+      { "type": "generation", "settings": { "label": "C7 Corvette", "years": "2014 - 2019" } },
+      { "type": "generation", "settings": { "label": "C8 Stingray", "years": "2020 - Present" } },
+      { "type": "generation", "settings": { "label": "C8 Z06", "years": "2023 - Present" } },
+      { "type": "generation", "settings": { "label": "C8 E-Ray", "years": "2024 - Present" } }
+    ]
+  }]
+}
+{% endschema %}

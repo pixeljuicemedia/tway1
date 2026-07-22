@@ -1,0 +1,50 @@
+<section class="brand-strip hairline-b">
+  <div class="container-wide brand-strip__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow brand-strip__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    <div class="brand-strip__row">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="brand-strip__logo" aria-label="{{ block.settings.name | escape }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="200" height="80">
+          {%- else -%}
+            <span class="brand-strip__name">{{ block.settings.name }}</span>
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand strip",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Brands We Install - Track-Proven" }
+  ],
+  "blocks": [
+    { "type": "logo", "name": "Brand logo", "settings": [
+      { "type": "text", "id": "name", "label": "Brand name", "default": "Brembo" },
+      { "type": "image_picker", "id": "image", "label": "Logo (transparent PNG)" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ] }
+  ],
+  "max_blocks": 20,
+  "presets": [{
+    "name": "Brand strip",
+    "blocks": [
+      { "type": "logo", "settings": { "name": "Brembo" } },
+      { "type": "logo", "settings": { "name": "Sparco" } },
+      { "type": "logo", "settings": { "name": "Recaro" } },
+      { "type": "logo", "settings": { "name": "Ohlins" } },
+      { "type": "logo", "settings": { "name": "Motul" } },
+      { "type": "logo", "settings": { "name": "AP Racing" } },
+      { "type": "logo", "settings": { "name": "HKS" } },
+      { "type": "logo", "settings": { "name": "Momo" } },
+      { "type": "logo", "settings": { "name": "KW" } },
+      { "type": "logo", "settings": { "name": "Bilstein" } }
+    ]
+  }]
+}
+{% endschema %}

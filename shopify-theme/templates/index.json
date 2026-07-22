@@ -1,4 +1,33 @@
 {
-  "sections": { "hero": { "type": "hero-placeholder" } },
-  "order": ["hero"]
+  "sections": {
+    "hero": {
+      "type": "hero-crossfade",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "label": "Performance Parts" } },
+        "b2": { "type": "badge", "settings": { "label": "Track-Proven" } },
+        "b3": { "type": "badge", "settings": { "label": "Pro Installation" } }
+      },
+      "block_order": ["b1", "b2", "b3"],
+      "settings": {
+        "headline": "Race-Proven Parts.<br><strong>Ready to Ship.</strong>",
+        "subhead": "Aero, suspension, brakes and drivetrain - engineered, installed and validated by a shop that races every weekend.",
+        "cta_primary_label": "Shop Performance Parts",
+        "cta_primary_link": "/collections/all",
+        "cta_secondary_label": "Book Services",
+        "cta_secondary_link": "/pages/services",
+        "cycle_seconds": 9
+      }
+    },
+    "brand-strip": { "type": "brand-strip" },
+    "featured": { "type": "featured-products", "settings": { "collection": "frontpage", "limit": 4 } },
+    "generations": { "type": "generation-cards" },
+    "curated": { "type": "curated-collections" },
+    "trust": { "type": "trust-stats" },
+    "instagram": {
+      "type": "instagram-grid",
+      "settings": { "profile_link": "https://www.instagram.com/twaymotorsports/" }
+    },
+    "mobile-nav": { "type": "mobile-sticky-nav" }
+  },
+  "order": ["hero", "brand-strip", "featured", "generations", "curated", "trust", "instagram", "mobile-nav"]
 }
