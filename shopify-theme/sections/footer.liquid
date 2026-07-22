@@ -6,6 +6,8 @@
           {{ section.settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
         {%- elsif settings.logo != blank -%}
           {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
+        {%- else -%}
+          <img src="{{ 'tway-logo-darkbg.png' | asset_url }}" alt="{{ shop.name | escape }}" style="height:32px;width:auto;display:block;">
         {%- endif -%}
         {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline }}</p>{%- endif -%}
         <div class="site-footer__social">
