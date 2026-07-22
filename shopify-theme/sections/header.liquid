@@ -109,6 +109,7 @@
 {% schema %}
 {
   "name": "Header",
+  "enabled_on": { "groups": ["header"] },
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Section logo override" },
     { "type": "text", "id": "quote_label", "label": "Quote button label", "default": "Request Quote" },
@@ -176,6 +177,5 @@
       { "type": "featured", "settings": { "label": "Track Essentials", "link": "/collections/track-essentials" } }
     ]
   },
-  "presets": [{ "name": "Header" }]
 }
 {% endschema %}
