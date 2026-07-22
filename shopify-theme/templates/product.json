@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-main",
+      "blocks": {
+        "t1": { "type": "trust", "settings": { "icon": "✓", "label": "Track-tested by pro drivers" } },
+        "t2": { "type": "trust", "settings": { "icon": "⚙", "label": "Professional installation available" } },
+        "t3": { "type": "trust", "settings": { "icon": "◆", "label": "20+ years race shop experience" } },
+        "t4": { "type": "trust", "settings": { "icon": "▲", "label": "Ships from Orange, CA" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "show_trust_bullets": true }
+    },
+    "related": { "type": "product-related", "settings": { "limit": 4 } },
+    "mobile-nav": { "type": "mobile-sticky-nav" }
+  },
+  "order": ["main", "related", "mobile-nav"]
+}
