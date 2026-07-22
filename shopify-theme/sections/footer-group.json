@@ -1,6 +1,42 @@
 {
   "type": "footer",
   "name": "Footer group",
-  "sections": { "footer": { "type": "footer" } },
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "tagline": "Family-owned race shop. Twenty-five years of Corvette engineering, fabrication and trackside experience - engineered for the podium.",
+        "tagline_small": "Built by racers."
+      },
+      "blocks": {
+        "col-explore": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Explore",
+            "labels": "Shop All\nC8 Corvette\nC7 Corvette\nServices\nRace Builds",
+            "links": "/collections/all\n/collections/c8\n/collections/c7\n/pages/services\n/pages/about"
+          }
+        },
+        "col-company": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Company",
+            "labels": "About\nOur Shop\nCareers\nContact",
+            "links": "/pages/about\n/pages/about\n/pages/contact\n/pages/contact"
+          }
+        },
+        "visit": {
+          "type": "visit",
+          "settings": {
+            "heading": "Visit the Shop",
+            "address": "210 W Katella Ave, Ste B\nOrange, CA 92867",
+            "phone": "(714) 410-1820",
+            "hours": "Mon - Fri  9:00 - 17:00\nSat  By appointment\nSun  Closed"
+          }
+        }
+      },
+      "block_order": ["col-explore", "col-company", "visit"]
+    }
+  },
   "order": ["footer"]
 }

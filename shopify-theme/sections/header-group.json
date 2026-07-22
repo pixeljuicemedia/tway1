@@ -1,6 +1,43 @@
 {
   "type": "header",
   "name": "Header group",
-  "sections": { "header": { "type": "header" } },
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "quote_label": "Request Quote",
+        "quote_link": "/pages/contact"
+      },
+      "blocks": {
+        "link-home": { "type": "link", "settings": { "label": "Home", "link": "/" } },
+        "link-shop": { "type": "link", "settings": { "label": "Shop", "link": "/collections/all", "is_shop_menu": true } },
+        "link-services": { "type": "link", "settings": { "label": "Services", "link": "/pages/services" } },
+        "link-about": { "type": "link", "settings": { "label": "About", "link": "/pages/about" } },
+        "link-contact": { "type": "link", "settings": { "label": "Contact", "link": "/pages/contact" } },
+        "gen-c5": { "type": "generation", "settings": { "label": "C5 Corvette", "years": "1997 - 2004", "link": "/collections/c5" } },
+        "gen-c6": { "type": "generation", "settings": { "label": "C6 Corvette", "years": "2005 - 2013", "link": "/collections/c6" } },
+        "gen-c7": { "type": "generation", "settings": { "label": "C7 Corvette", "years": "2014 - 2019", "link": "/collections/c7" } },
+        "gen-c8": { "type": "generation", "settings": { "label": "C8 Stingray", "years": "2020 - Present", "link": "/collections/c8" } },
+        "gen-z06": { "type": "generation", "settings": { "label": "C8 Z06", "years": "2023 - Present", "link": "/collections/z06" } },
+        "gen-eray": { "type": "generation", "settings": { "label": "C8 E-Ray", "years": "2024 - Present", "link": "/collections/eray" } },
+        "cat-aero": { "type": "category", "settings": { "label": "Aero", "link": "/collections/aero" } },
+        "cat-suspension": { "type": "category", "settings": { "label": "Suspension", "link": "/collections/suspension" } },
+        "cat-brakes": { "type": "category", "settings": { "label": "Brakes", "link": "/collections/brakes" } },
+        "cat-wheels": { "type": "category", "settings": { "label": "Wheels", "link": "/collections/wheels" } },
+        "cat-interior": { "type": "category", "settings": { "label": "Interior", "link": "/collections/interior" } },
+        "cat-engine": { "type": "category", "settings": { "label": "Engine", "link": "/collections/engine" } },
+        "cat-exterior": { "type": "category", "settings": { "label": "Exterior", "link": "/collections/exterior" } },
+        "feat-best": { "type": "featured", "settings": { "label": "Best Sellers", "link": "/collections/best-sellers" } },
+        "feat-new": { "type": "featured", "settings": { "label": "New Arrivals", "link": "/collections/new-arrivals" } },
+        "feat-track": { "type": "featured", "settings": { "label": "Track Essentials", "link": "/collections/track-essentials" } }
+      },
+      "block_order": [
+        "link-home", "link-shop", "link-services", "link-about", "link-contact",
+        "gen-c5", "gen-c6", "gen-c7", "gen-c8", "gen-z06", "gen-eray",
+        "cat-aero", "cat-suspension", "cat-brakes", "cat-wheels", "cat-interior", "cat-engine", "cat-exterior",
+        "feat-best", "feat-new", "feat-track"
+      ]
+    }
+  },
   "order": ["header"]
 }
