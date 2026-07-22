@@ -1,89 +1,63 @@
-# Port Tway Motorsports to a Shopify Liquid theme (pixel-perfect, mobile-first)
+## Diagnosis
 
-Confirmed scope:
-- You upload the `.zip` to Shopify Admin → Online Store → Themes → Add theme.
-- Current Lovable site stays untouched; the Liquid build happens in this project's codebase alongside it under `shopify-theme/` and is packaged for download.
-- All hardcoded copy (About, Services, Contact hours/address, curated collection titles, hero eyebrows, trust stats, etc.) moves into Shopify **Section settings** so you can edit from Shopify's theme editor with no code.
-- Pixel-perfect on **desktop and mobile**, with mobile as the priority. Every section gets a mobile pass before I move to the next one.
+The Liquid theme is technically working — the reason it looks broken on your store is that everything visual is wired to Shopify **image_picker** settings and **content pages** the merchant is expected to configure. On a fresh install none of that exists yet, so:
 
-## Deliverable
+- **Hero graphic is black** — `hero-crossfade` iterates `section.blocks` of type `slide`, but the preset only seeds `badge` blocks, no slide blocks and no image files. Empty image pickers = 0 slides = pitch black.
+- **Homepage almost blank** — `generation-cards`, `curated-collections`, `instagram-grid`, `brand-strip`, `trust-stats` all render from empty image_pickers / unset block content.
+- **Nav "not working"** — links point to `/pages/services`, `/pages/about`, `/pages/contact`, `/collections/c5..c8`, `/collections/aero..` etc. Those pages/collections don't exist in your Shopify yet, and even the templates (`page.about`, `page.contact`, `page.services`) aren't assigned to any page.
+- **Contact page totally different** — `templates/page.contact.json` only has a bare rich-hero + a generic contact form. The React page had a full info card (address, phone, hours), racecar hero graphic, podium image, map area — none of that is in the Liquid template.
 
-A zip you upload: `/mnt/documents/tway-theme.zip` — standard Shopify 2.0 theme structure, OS 2.0 JSON templates, sections everywhere, section settings for all editable copy.
+Root cause: the port assumed the merchant would populate all imagery and content through the customizer. It should ship self-contained so it looks right the moment the zip is uploaded.
 
-```text
-shopify-theme/
-├── assets/            # theme.css (compiled), theme.js, logo, fonts, hero C8 images, IG images, category images
-├── config/            # settings_schema.json (global theme settings), settings_data.json
-├── layout/theme.liquid
-├── locales/en.default.json
-├── sections/          # header, footer, hero-crossfade, brand-strip, featured-products, generation-cards,
-│                      # curated-collections, trust-stats, instagram-grid, mobile-sticky-nav,
-│                      # collection-filter-bar, product-main, product-related, page-about-*, page-services-*, page-contact-*
-├── snippets/          # product-card, price, cart-drawer, cart-line, icon-*, meta-tags, responsive-image
-└── templates/
-    ├── index.json
-    ├── collection.json
-    ├── product.json
-    ├── cart.json
-    ├── search.json
-    ├── page.about.json
-    ├── page.services.json
-    ├── page.contact.json
-    └── 404.json
+## Fix plan
+
+### 1. Bundle default images into `shopify-theme/assets/`
+Download the actual CDN images used on the React site and place them in the theme's `assets/` folder so they load via `{{ 'file.jpg' | asset_url }}` with zero customizer setup:
+- `c8hero1..4.jpg` — hero crossfade slides
+- `contact-racecar-hero.png`, `contact-podium.jpg` — contact page
+- `about-team-family.jpg`, `inside-shop-1..9.png` — about page
+- `services-hero.jpg`, `trackside.jpg`, `engineering.jpg`, `process-bg.jpg` — services page
+- `ig1..7.jpg` — Instagram grid
+- `tway-logo-darkbg.png` — header/footer logo fallback
+- `corvette-side.png` — generation card fallback
+
+### 2. Add "asset fallback" logic to every image section
+In each section (`hero-crossfade`, `generation-cards`, `curated-collections`, `instagram-grid`, `rich-hero`, `brand-strip`, `services-grid`, `contact-form`, `image-gallery`), change:
 ```
+{% if block.settings.image != blank %} ... image_url ... {% endif %}
+```
+to fall back to a bundled asset URL when the picker is empty:
+```
+{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1920 }}{% else %}{{ 'c8hero1.jpg' | asset_url }}{% endif %}
+```
+Merchant can still override in the customizer, but out-of-the-box it just works.
 
-## Pixel-perfect strategy
+### 3. Seed real slide/tile blocks in `templates/index.json`
+Replace the empty `blocks: {}` for hero and other sections with concrete block presets — 4 hero slides, 5 generation cards (C5/C6/C7/C8/Z06), 7 category tiles, 7 Instagram tiles, 4 brand logos, 4 trust stats — each pointing to a bundled asset filename. That way the homepage renders fully immediately.
 
-- `assets/theme.css` is a **compiled CSS file** built from the current Tailwind classes and `src/styles.css` tokens (colors, `--race-red`, eyebrow utilities, `.prose-product`, hero crossfade keyframes, container widths). Shopify themes don't run Tailwind at request time, so I flatten it once. No CDN Tailwind — that would break parity.
-- Same custom fonts loaded via `{{ 'font.woff2' | asset_url }}` `@font-face` in `theme.css`.
-- Same breakpoints (`sm/md/lg` mapped to px values used today) baked into custom media queries.
-- Every section gets tested at **375px, 414px, 768px, 1024px, 1440px** before I mark it done — I screenshot each viewport with Playwright against a local preview and diff against the current site.
-- The mobile-sticky bottom nav from the current home page is ported as its own section, enabled globally on mobile.
+### 4. Rebuild the contact page template to match the React site
+Rewrite `templates/page.contact.json` and expand `sections/contact-form.liquid` (or add a new `contact-info` section) with:
+- Racecar hero background (bundled asset)
+- Two-column layout: contact form on left, info card on right with the correct address (Orange, CA), phone (714) 410-1820, Mon–Fri 9AM–5PM
+- Podium image card
+- Same edgy dark styling as the React version
 
-## Page-by-page port
+### 5. Enrich about and services page templates
+Wire the gallery blocks in `page.about.json` to bundled `inside-shop-*` images, add the family/trackside hero image, and set services-grid blocks to real service copy with bundled backgrounds.
 
-- **Home (`index.json`)** — hero crossfade with the C8 images and hero search wired to `/search`, brand strip, featured products (bound to a Shopify collection you pick in the editor), generation cards → `/collections/{gen-handle}`, curated collections, trust stats, Instagram grid (manual URLs + images as section blocks), mobile sticky nav.
-- **Collection (`collection.json`)** — sticky Generation + Category filter bar. Generation filter uses tags (`gen-c5`, `gen-c6`, `gen-c7`, `gen-c8`, `gen-z06`, `gen-eray`); category filter uses `product.product_type`. Native Shopify filters/sort under the hood.
-- **Product (`product.json`)** — gallery + thumbnails, breadcrumb, sticky details panel, **variant option selectors as dropdowns** (works with the Brake Pads + Tension Kit add-ons using native `option1/option2/option3` — no custom logic needed), HTML description rendered raw with `.prose-product`, spec strip under the gallery, related products by product type, "Added to cart" state, cart drawer opens on add (JS listens to Shopify's `cart:added` event).
-- **Cart (`cart.json`) + drawer** — native Shopify AJAX cart via `/cart.js`. No iframe workaround, no `_top` — checkout is same-origin.
-- **Search (`search.json`)** — Shopify predictive search + results grid identical to shop.
-- **About / Services / Contact pages** — one Shopify Page per URL, each with its own custom template (`page.about.json`, etc.). Every copy block, image, and stat is a section setting. Contact form uses `{% form 'contact' %}` posting to Shopify (submissions go to your store email).
-- **404** — themed match with home CTA back.
+### 6. Update `README.md` install instructions
+Add a short "after upload" checklist so nav works:
+- Create pages: About, Contact, Services (assign matching templates)
+- Create collections with handles: `c5`, `c6`, `c7`, `c8`, `z06`, `aero`, `suspension`, `brakes`, `wheels`, `interior`, `engine`, `exterior`, `best-sellers`, `new-arrivals`, `track-essentials`
+- (Optional) Tag products C5/C6/C7/C8 and set product type for filtering
 
-## Editable-in-theme-editor content
+### 7. Re-zip and hand over
+Regenerate `tway-motorsports-shopify-theme.zip` under `/mnt/documents/` for you to download and re-upload.
 
-Moved out of code into Section settings so you edit in Shopify (no dev needed):
-- Hero: eyebrow, headline, subhead, CTA text/link, C8 slide images (up to 6), crossfade timing.
-- Brand strip: logo blocks (image + link).
-- Featured products: collection picker + heading + eyebrow.
-- Generation cards: block per generation (label, years, image, tag).
-- Curated collections: block per tile (title, image, collection link).
-- Trust stats: block per stat (number, label).
-- Instagram grid: block per tile (image, IG URL).
-- About page: hero image, all body copy blocks, "Inside the Shop" gallery (image blocks, lightbox stays), team info.
-- Services page: hero, process background, service blocks (icon, title, copy), our-process copy.
-- Contact page: hero image, address, phone, hours, podium image.
-- Footer: columns + links as blocks, address, social handles.
+## Notes / trade-offs
 
-## What changes vs. today (transparency)
+- Bundling ~30 image files will inflate the theme zip to roughly 8–12 MB (still well under Shopify's 50 MB theme limit).
+- The nav links to `/pages/*` and `/collections/*` can only fully "work" once those Shopify pages/collections exist — that's inherently merchant setup. The plan makes the theme self-contained visually and the README makes the setup a 5-minute checklist rather than guesswork.
+- No changes to the React app in `src/` — this is Liquid-theme-only work.
 
-- URLs move to Shopify conventions: `/collections/c8-corvette`, `/products/{handle}`, `/pages/about`, `/pages/services`, `/pages/contact`, `/cart`, `/search`. I'll set up 301s in Shopify if you want.
-- Checkout works normally — same-origin, no blocking.
-- Shopify Files hosts images. Current `/__l5e/assets-v1/…` Lovable URLs won't work in the theme, so I re-upload every image (hero C8s, IG tiles, category images, shop photos, logo, about gallery, contact hero/podium, services images, process bg) as theme assets or Shopify Files, and reference them via `asset_url` / `file_url`.
-
-## Build order (multiple turns, one review checkpoint per step)
-
-1. **Scaffold** — folder structure, `theme.liquid`, header section (with the pill nav + mobile menu + search + cart), footer section, `theme.css` compiled from current tokens, `theme.js` with cart drawer + mobile menu, `settings_schema.json`. **Mobile parity screenshots for header/footer at 375/414/768/1024/1440**.
-2. **Product page** — full port including variant add-ons; mobile parity pass.
-3. **Collection page** — filter bar + grid; mobile parity pass.
-4. **Home** — all sections; mobile parity pass (this is the biggest step).
-5. **About / Services / Contact** — page templates + sections; mobile parity pass.
-6. **Search + 404 + cart drawer polish + Instagram grid + mobile sticky nav** — final mobile pass.
-7. **Package** — zip to `/mnt/documents/tway-theme.zip`, plus a `README.md` inside the zip with upload steps, tag conventions for generations, and which sections to fill in first.
-
-Each turn stops for your review; I don't move on until you confirm mobile+desktop parity for that step.
-
-## What I need from you at kickoff
-
-- Confirm this build order and that I can start with **step 1 (scaffold + header + footer)** now.
-- If you already have preferred **generation tags** other than `gen-c5`, `gen-c6`, `gen-c7`, `gen-c8`, `gen-z06`, `gen-eray`, tell me — otherwise I'll apply these to the existing 21 demo products in Shopify as part of step 3.
+Ready to execute once you approve.

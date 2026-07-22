@@ -1,11 +1,18 @@
 {
   "sections": {
-    "hero": { "type": "rich-hero", "settings": { "eyebrow": "About", "heading": "Family run. Track proven.", "sub": "Two generations building America's fastest Corvettes.", "overlay_top": 50, "overlay_bottom": 85 } },
-    "story": { "type": "rich-text", "settings": { "eyebrow": "Our story", "heading": "Born on the track.", "body": "<p>Tway Motorsports has been building, racing and refining Corvettes for over two decades.</p>" } },
+    "hero": { "type": "rich-hero", "settings": { "default_asset": "about-team-family.jpg", "eyebrow": "About", "heading": "Family run. Track proven.", "sub": "Two generations building America's fastest Corvettes.", "overlay_top": 50, "overlay_bottom": 85 } },
+    "story": { "type": "rich-text", "settings": { "eyebrow": "Our story", "heading": "Born on the track.", "body": "<p>Tway Motorsports has been building, racing and refining Corvettes for over two decades. What started as a father-and-son racing effort has grown into a full-service performance shop trusted by drivers across the country.</p>" } },
     "gallery": { "type": "image-gallery", "settings": { "heading": "Inside the shop" }, "blocks": {
-      "b1": { "type": "image" }, "b2": { "type": "image" }, "b3": { "type": "image" },
-      "b4": { "type": "image" }, "b5": { "type": "image" }, "b6": { "type": "image" }
-    }, "block_order": ["b1","b2","b3","b4","b5","b6"] }
+      "b1": { "type": "image", "settings": { "default_asset": "inside-shop-1.png" } },
+      "b2": { "type": "image", "settings": { "default_asset": "inside-shop-2.png" } },
+      "b3": { "type": "image", "settings": { "default_asset": "inside-shop-3.png" } },
+      "b4": { "type": "image", "settings": { "default_asset": "inside-shop-4.png" } },
+      "b5": { "type": "image", "settings": { "default_asset": "inside-shop-5.png" } },
+      "b6": { "type": "image", "settings": { "default_asset": "inside-shop-6.png" } },
+      "b7": { "type": "image", "settings": { "default_asset": "inside-shop-7.png" } },
+      "b8": { "type": "image", "settings": { "default_asset": "inside-shop-8.png" } },
+      "b9": { "type": "image", "settings": { "default_asset": "inside-shop-9.png" } }
+    }, "block_order": ["b1","b2","b3","b4","b5","b6","b7","b8","b9"] }
   },
   "order": ["hero", "story", "gallery"]
 }

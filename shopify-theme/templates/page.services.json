@@ -1,6 +1,6 @@
 {
   "sections": {
-    "hero": { "type": "rich-hero", "settings": { "eyebrow": "Services", "heading": "Race-grade fabrication & tuning.", "sub": "From weekend track days to national championships.", "overlay_top": 45, "overlay_bottom": 85 } },
+    "hero": { "type": "rich-hero", "settings": { "default_asset": "services-hero.jpg", "eyebrow": "Services", "heading": "Race-grade fabrication & tuning.", "sub": "From weekend track days to national championships.", "overlay_top": 45, "overlay_bottom": 85 } },
     "grid": { "type": "services-grid", "settings": { "eyebrow": "What we do", "heading": "Services" }, "blocks": {
       "s1": { "type": "service", "settings": { "eyebrow": "Track", "title": "Suspension & chassis", "description": "<p>Corner balancing, alignment, custom setups.</p>" } },
       "s2": { "type": "service", "settings": { "eyebrow": "Power", "title": "Engine builds", "description": "<p>Forged internals, forced induction, ECU tuning.</p>" } },
