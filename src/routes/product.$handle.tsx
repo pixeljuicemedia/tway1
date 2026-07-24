@@ -76,7 +76,7 @@ function ProductDetailPage() {
   const variants = product.variants.edges.map((e) => e.node);
   const selectedVariant = variants.find((v) => v.id === selectedVariantId) ?? variants[0];
   const currentImage = images[imageIdx]?.node ?? images[0]?.node;
-  const thumbs = images.length > 1 ? images.slice(0, 4) : [];
+  const thumbs = images.length > 1 ? images : [];
   const gen = detectGeneration(product);
 
   const handleAdd = async () => {
