@@ -141,12 +141,12 @@ function ProductDetailPage() {
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-[1.15fr_1fr] items-start">
           {/* Gallery */}
           <div className="grid gap-3 md:gap-4 grid-cols-6">
-            <div className="col-span-6 relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+            <div className="col-span-6 relative overflow-hidden rounded-xl bg-surface flex items-center justify-center">
               {currentImage && (
                 <img
                   src={currentImage.url}
                   alt={currentImage.altText ?? product.title}
-                  className="h-full w-full object-cover"
+                  className="w-full h-auto max-h-[80vh] object-contain"
                 />
               )}
             </div>
