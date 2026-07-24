@@ -77,7 +77,7 @@ export const PRODUCTS_QUERY = `
           productType
           tags
           priceRange { minVariantPrice { amount currencyCode } }
-          images(first: 5) { edges { node { url altText } } }
+          images(first: 20) { edges { node { url altText } } }
           variants(first: 10) {
             edges { node {
               id title
