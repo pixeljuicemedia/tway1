@@ -181,7 +181,7 @@ function ProductDetailPage() {
             <Eyebrow accent>
               {[product.productType, gen].filter(Boolean).join(" · ") || "Tway Motorsports"}
             </Eyebrow>
-            <h1 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.02]">
+            <h1 className="mt-6 font-display text-2xl md:text-3xl font-semibold leading-[1.1]">
               {product.title}
             </h1>
             {selectedVariant?.selectedOptions?.length ? (
