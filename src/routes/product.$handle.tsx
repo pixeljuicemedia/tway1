@@ -137,7 +137,7 @@ function ProductDetailPage() {
       </div>
 
       {/* PRODUCT MAIN */}
-      <section className="container-wide pt-10 md:pt-14 pb-24 md:pb-32">
+      <section className="container-wide pt-10 md:pt-14 pb-8 md:pb-10">
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-[1.15fr_1fr] items-start">
           {/* Gallery */}
           <div className="grid gap-3 md:gap-4 grid-cols-6">
@@ -296,7 +296,7 @@ function ProductDetailPage() {
 
       {/* CROSS-SELL */}
       {related.length > 0 && (
-        <section className="container-wide py-24 md:py-32 hairline-t">
+        <section className="container-wide pt-8 md:pt-10 pb-24 md:pb-32 hairline-t">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
               <Eyebrow>Pair with</Eyebrow>
