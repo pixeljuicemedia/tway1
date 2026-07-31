@@ -285,9 +285,10 @@ function Index() {
           </div>
 
           <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {productCategories.map((c, i) => (
+            {categoryCards.map((c, i) => (
               <Link
-                to="/shop"
+                to="/category"
+                search={{ gen: "All", cat: c.title, sort: "Featured" }}
                 key={c.title}
                 className={`group relative overflow-hidden rounded-xl bg-surface ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
               >
