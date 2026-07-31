@@ -274,11 +274,15 @@ function ProductDetailPage() {
                           }`}
                         >
                           {val}
-                          {match?.price?.amount && (
-                            <span className="ml-2 normal-case tracking-normal text-[10px] opacity-70">
-                              {formatMoney(match.price.amount, match.price.currencyCode)}
-                            </span>
-                          )}
+                          {(() => {
+                            const delta = addonPriceDelta(opt.name, val);
+                            if (delta === null || delta === 0) return null;
+                            return (
+                              <span className="ml-2 normal-case tracking-normal text-[10px] opacity-70">
+                                {delta > 0 ? "+" : "−"}{formatMoney(String(Math.abs(delta)), match?.price?.currencyCode ?? "USD")}
+                              </span>
+                            );
+                          })()}
                         </button>
                       );
                     })}
