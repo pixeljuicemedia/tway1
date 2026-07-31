@@ -275,9 +275,9 @@ export function SiteFooter() {
           <div>
             <p className="eyebrow">Visit the Shop</p>
             <address className="not-italic mt-6 text-sm text-muted-foreground leading-relaxed">
-              1420 Pit Lane Drive<br />
-              Charlotte, NC 28217<br />
-              <a href="tel:+17045550110" className="text-foreground hover:text-race-red transition-colors">+1 (704) 555 0110</a>
+              210 W Katella Ave, Ste B<br />
+              Orange, CA 92867<br />
+              <a href="tel:+17144101820" className="text-foreground hover:text-race-red transition-colors">(714) 410-1820</a>
             </address>
             <p className="eyebrow mt-8">Hours</p>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
