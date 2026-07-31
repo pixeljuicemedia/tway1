@@ -254,6 +254,11 @@ function ProductDetailPage() {
                           }`}
                         >
                           {val}
+                          {match?.price?.amount && (
+                            <span className="ml-2 normal-case tracking-normal text-[10px] opacity-70">
+                              {formatMoney(match.price.amount, match.price.currencyCode)}
+                            </span>
+                          )}
                         </button>
                       );
                     })}
