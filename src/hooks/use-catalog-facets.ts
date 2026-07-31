@@ -46,6 +46,7 @@ export function useCatalogFacets() {
   return useMemo(() => {
     const counts = new Map<string, number>();
     const cats = new Map<string, string>();
+    const catCounts = new Map<string, number>();
     for (const p of products ?? []) {
       for (const g of generationsOf(p)) counts.set(g, (counts.get(g) ?? 0) + 1);
       for (const t of productTags(p)) {
@@ -53,11 +54,13 @@ export function useCatalogFacets() {
         if (IGNORED_TAGS.includes(n)) continue;
         if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
         if (!cats.has(n)) cats.set(n, t.trim());
+        catCounts.set(t.trim(), (catCounts.get(t.trim()) ?? 0) + 1);
       }
     }
     return {
       loading: products === null,
       genCounts: counts,
+      catCounts,
       generations: GEN_TAG_ORDER.filter((g) => (counts.get(g) ?? 0) > 0),
       categories: Array.from(cats.values()).sort((a, b) => a.localeCompare(b)),
     };
