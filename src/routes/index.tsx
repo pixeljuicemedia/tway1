@@ -1,6 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
+import { useCatalogFacets } from "@/hooks/use-catalog-facets";
+import { categoryImage } from "@/lib/category-imagery";
 import burnout1 from "@/assets/c8hero1.jpg.asset.json";
 import burnout2 from "@/assets/c8hero2.jpg.asset.json";
 import burnout3 from "@/assets/c8hero3.jpg.asset.json";
@@ -173,6 +175,13 @@ function BrandStrip() {
 }
 
 function Index() {
+  const { categories, catCounts } = useCatalogFacets();
+  const categoryCards = categories.map((title) => ({
+    title,
+    img: categoryImage(title),
+    count: `${catCounts.get(title) ?? 0} ${(catCounts.get(title) ?? 0) === 1 ? "product" : "products"}`,
+  }));
+
   return (
     <SiteShell>
       {/* ============================================================
