@@ -1,6 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
+import { useCatalogFacets } from "@/hooks/use-catalog-facets";
+import { categoryImage } from "@/lib/category-imagery";
 import burnout1 from "@/assets/c8hero1.jpg.asset.json";
 import burnout2 from "@/assets/c8hero2.jpg.asset.json";
 import burnout3 from "@/assets/c8hero3.jpg.asset.json";
@@ -58,16 +60,6 @@ const featuredProducts = [
   { name: "Forged Race Wheel 18×11", price: "$1,240", meta: "Wheel · Forged", img: prod2, badge: "In Stock", rating: 5 },
   { name: "Carbon Front Splitter — C7", price: "$2,450", meta: "Aero · Carbon", img: prod3, badge: "New Arrival", rating: 5 },
   { name: "Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Exhaust · 304 SS", img: prod4, badge: "Ships Today", rating: 5 },
-];
-
-const productCategories: { title: string; img: string; count: string }[] = [
-  { title: "Aero",              img: build2,         count: "48 products" },
-  { title: "Suspension",        img: catC7,          count: "62 products" },
-  { title: "Brakes",            img: catC6,          count: "37 products" },
-  { title: "Drivetrain",        img: svcEngine,      count: "54 products" },
-  { title: "Safety",            img: catSafety,      count: "29 products" },
-  { title: "Wheels",            img: prod2,          count: "41 products" },
-  { title: "Engine Performance", img: svcDyno,       count: "76 products" },
 ];
 
 const bestSellers = [
@@ -183,6 +175,13 @@ function BrandStrip() {
 }
 
 function Index() {
+  const { categories, catCounts } = useCatalogFacets();
+  const categoryCards = categories.map((title) => ({
+    title,
+    img: categoryImage(title),
+    count: `${catCounts.get(title) ?? 0} ${(catCounts.get(title) ?? 0) === 1 ? "product" : "products"}`,
+  }));
+
   return (
     <SiteShell>
       {/* ============================================================
@@ -295,9 +294,10 @@ function Index() {
           </div>
 
           <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {productCategories.map((c, i) => (
+            {categoryCards.map((c, i) => (
               <Link
-                to="/shop"
+                to="/category"
+                search={{ gen: "All", cat: c.title, sort: "Featured" }}
                 key={c.title}
                 className={`group relative overflow-hidden rounded-xl bg-surface ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
               >
