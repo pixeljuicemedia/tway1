@@ -168,7 +168,7 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow text-race-red">Shop by Generation</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.generations.map((g) => (
+                  {(genList.length ? genList : loading ? [] : shopMenu.generations.map((g) => ({ ...g }))).map((g) => (
                     <li key={g.hash}>
                       <Link
                         to="/category"
@@ -192,7 +192,7 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow">Categories</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.categories.map((c) => (
+                  {categories.map((c) => (
                     <li key={c}>
                       <Link
                         to="/category"
