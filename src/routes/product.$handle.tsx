@@ -79,6 +79,26 @@ function ProductDetailPage() {
   const thumbs = images.length > 1 ? images : [];
   const gen = detectGeneration(product);
 
+  // Find the base variant — every option set to "None" (the no-add-on baseline).
+  // Used to compute per-add-on price deltas shown on option buttons.
+  const baseVariant =
+    variants.find((v) =>
+      (v.selectedOptions ?? []).every((so) => so.value === "None"),
+    ) ?? variants[0];
+  const basePrice = baseVariant ? parseFloat(baseVariant.price.amount) : 0;
+
+  // For a given option + value, find the variant where this option = val and all
+  // other options are "None", then return its price delta from the base.
+  const addonPriceDelta = (optName: string, val: string): number | null => {
+    const v = variants.find(
+      (vv) =>
+        vv.selectedOptions.some((so) => so.name === optName && so.value === val) &&
+        vv.selectedOptions.every((so) => so.name === optName || so.value === "None"),
+    );
+    if (!v) return null;
+    return parseFloat(v.price.amount) - basePrice;
+  };
+
   const handleAdd = async () => {
     if (!selectedVariant) return;
     await addItem({
@@ -254,11 +274,15 @@ function ProductDetailPage() {
                           }`}
                         >
                           {val}
-                          {match?.price?.amount && (
-                            <span className="ml-2 normal-case tracking-normal text-[10px] opacity-70">
-                              {formatMoney(match.price.amount, match.price.currencyCode)}
-                            </span>
-                          )}
+                          {(() => {
+                            const delta = addonPriceDelta(opt.name, val);
+                            if (delta === null || delta === 0) return null;
+                            return (
+                              <span className="ml-2 normal-case tracking-normal text-[10px] opacity-70">
+                                {delta > 0 ? "+" : "−"}{formatMoney(String(Math.abs(delta)), match?.price?.currencyCode ?? "USD")}
+                              </span>
+                            );
+                          })()}
                         </button>
                       );
                     })}
