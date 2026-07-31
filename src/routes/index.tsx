@@ -60,16 +60,6 @@ const featuredProducts = [
   { name: "Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Exhaust · 304 SS", img: prod4, badge: "Ships Today", rating: 5 },
 ];
 
-const productCategories: { title: string; img: string; count: string }[] = [
-  { title: "Aero",              img: build2,         count: "48 products" },
-  { title: "Suspension",        img: catC7,          count: "62 products" },
-  { title: "Brakes",            img: catC6,          count: "37 products" },
-  { title: "Drivetrain",        img: svcEngine,      count: "54 products" },
-  { title: "Safety",            img: catSafety,      count: "29 products" },
-  { title: "Wheels",            img: prod2,          count: "41 products" },
-  { title: "Engine Performance", img: svcDyno,       count: "76 products" },
-];
-
 const bestSellers = [
   { name: "C8 Cold Air Intake",         price: "$780",   meta: "C8 · Intake",        img: catC8,   rating: 5, badge: "Best Seller" },
   { name: "Track-Ready Corner Package", price: "$8,450", meta: "Suspension · Full",  img: build3,  rating: 5, badge: "Popular" },
