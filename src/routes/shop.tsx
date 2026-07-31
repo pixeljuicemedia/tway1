@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 import { Loader2 } from "lucide-react";
@@ -35,11 +35,20 @@ export const Route = createFileRoute("/shop")({
   component: ShopPage,
 });
 
-// Corvette-first primary navigation
-const generations = ["All Corvettes", "C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
+// Generation tags, in display order — filtered against what the catalog actually has
+const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
+const IGNORED_TAGS = ["corvette"];
+const norm = (s: string) => s.trim().toLowerCase();
 
-// Category (secondary) filters — how Corvette owners actually shop
-const categories = ["Aero", "Suspension", "Brakes", "Wheels", "Interior", "Engine", "Exterior"];
+function productTags(p: ShopifyProduct): string[] {
+  const tags = p.node.tags ?? [];
+  return p.node.productType ? [...tags, p.node.productType] : tags;
+}
+
+function generationsOf(p: ShopifyProduct): string[] {
+  const gens = GEN_TAG_ORDER.filter((g) => productTags(p).some((t) => norm(t) === norm(g)));
+  return gens.length ? gens : ["Universal"];
+}
 
 // Generation hero cards
 const genCards = [
@@ -84,6 +93,28 @@ function ShopPage() {
   }, []);
 
   const productCount = products?.length ?? 0;
+
+  const { genCounts, categories } = useMemo(() => {
+    const counts = new Map<string, number>();
+    const cats = new Map<string, string>();
+    for (const p of products ?? []) {
+      for (const g of generationsOf(p)) counts.set(g, (counts.get(g) ?? 0) + 1);
+      for (const t of productTags(p)) {
+        const n = norm(t);
+        if (IGNORED_TAGS.includes(n)) continue;
+        if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
+        if (!cats.has(n)) cats.set(n, t.trim());
+      }
+    }
+    return {
+      genCounts: counts,
+      categories: Array.from(cats.values()).sort((a, b) => a.localeCompare(b)),
+    };
+  }, [products]);
+
+  const availableGens = GEN_TAG_ORDER.filter((g) => (genCounts.get(g) ?? 0) > 0);
+  const visibleGenCards = genCards.filter((g) => (genCounts.get(g.key) ?? 0) > 0);
+  const generations = ["All Corvettes", ...availableGens];
 
   return (
     <SiteShell>
@@ -137,7 +168,7 @@ function ShopPage() {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {genCards.map((g) => (
+          {visibleGenCards.map((g) => (
             <Link
               key={g.key}
               to="/category"
@@ -164,7 +195,7 @@ function ShopPage() {
                       {g.years}
                     </span>
                     <span className="text-[10px] font-display uppercase tracking-widest text-white/70">
-                      {g.count} parts
+                      {genCounts.get(g.key) ?? 0} parts
                     </span>
                   </div>
                   <div>

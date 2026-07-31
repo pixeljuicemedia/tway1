@@ -8,9 +8,22 @@ import heroCorvette from "@/assets/hero-corvette.jpg";
 
 type SearchState = { gen: string; cat: string; sort: string };
 
-const GENERATIONS = ["All", "C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"] as const;
-const CATEGORIES = ["All", "Aero", "Suspension", "Brakes", "Wheels", "Interior", "Engine", "Exterior"] as const;
+// Generation tags, in display order. Only ones present in the catalog are shown.
+const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
+// Tags that are not filters (brand-wide tags)
+const IGNORED_TAGS = ["corvette"];
 const SORTS = ["Featured", "Price ↑", "Price ↓", "A–Z"] as const;
+
+const norm = (s: string) => s.trim().toLowerCase();
+
+function productTags(p: ShopifyProduct): string[] {
+  const tags = p.node.tags ?? [];
+  return p.node.productType ? [...tags, p.node.productType] : tags;
+}
+
+function hasTag(p: ShopifyProduct, tag: string): boolean {
+  return productTags(p).some((t) => norm(t) === norm(tag));
+}
 
 const GEN_YEARS: Record<string, string> = {
   All: "Every Corvette",
@@ -40,16 +53,9 @@ export const Route = createFileRoute("/category")({
   component: CategoryPage,
 });
 
-function detectGeneration(p: ShopifyProduct): string {
-  const t = p.node.title.toUpperCase();
-  const tags = (p.node.tags ?? []).map((x) => x.toUpperCase());
-  if (t.includes("E-RAY") || tags.includes("E-RAY")) return "E-Ray";
-  if (t.includes("Z06") || tags.includes("Z06")) return "Z06";
-  if (t.includes("C8")) return "C8";
-  if (t.includes("C7")) return "C7";
-  if (t.includes("C6")) return "C6";
-  if (t.includes("C5")) return "C5";
-  return "Universal";
+function generationsOf(p: ShopifyProduct): string[] {
+  const gens = GEN_TAG_ORDER.filter((g) => hasTag(p, g));
+  return gens.length ? gens : ["Universal"];
 }
 
 function CategoryPage() {
@@ -66,8 +72,8 @@ function CategoryPage() {
   const filtered = useMemo(() => {
     if (!products) return null;
     let list = products.slice();
-    if (gen !== "All") list = list.filter((p) => detectGeneration(p) === gen);
-    if (cat !== "All") list = list.filter((p) => (p.node.productType || "").toLowerCase() === cat.toLowerCase());
+    if (gen !== "All") list = list.filter((p) => generationsOf(p).some((g) => norm(g) === norm(gen)));
+    if (cat !== "All") list = list.filter((p) => hasTag(p, cat));
     switch (sort) {
       case "Price ↑":
         list.sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount));
@@ -81,6 +87,25 @@ function CategoryPage() {
     }
     return list;
   }, [products, gen, cat, sort]);
+
+  // Facets built from the live catalog's tags
+  const { genOptions, catOptions } = useMemo(() => {
+    const gens = new Set<string>();
+    const cats = new Map<string, string>();
+    for (const p of products ?? []) {
+      for (const g of generationsOf(p)) gens.add(g);
+      for (const t of productTags(p)) {
+        const n = norm(t);
+        if (IGNORED_TAGS.includes(n)) continue;
+        if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
+        if (!cats.has(n)) cats.set(n, t.trim());
+      }
+    }
+    return {
+      genOptions: ["All", ...GEN_TAG_ORDER.filter((g) => gens.has(g))],
+      catOptions: ["All", ...Array.from(cats.values()).sort((a, b) => a.localeCompare(b))],
+    };
+  }, [products]);
 
   const title = gen === "All" ? "All Corvette Parts" : `${gen} Corvette`;
   const subtitle = cat === "All" ? "Performance parts." : `${cat}.`;
@@ -120,7 +145,7 @@ function CategoryPage() {
         <div className="container-wide py-4 space-y-3">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="shrink-0 eyebrow text-race-red pr-2">Generation</span>
-            {GENERATIONS.map((f) => {
+            {genOptions.map((f) => {
               const active = gen === f;
               return (
                 <button
@@ -142,7 +167,7 @@ function CategoryPage() {
           </div>
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             <span className="shrink-0 eyebrow pr-2">Category</span>
-            {CATEGORIES.map((c) => {
+            {catOptions.map((c) => {
               const active = cat === c;
               return (
                 <button
@@ -215,7 +240,7 @@ function CategoryPage() {
               const node = p.node;
               const img = node.images.edges[0]?.node;
               const variant = node.variants.edges[0]?.node;
-              const g = detectGeneration(p);
+              const g = generationsOf(p).join(" · ");
               return (
                 <div key={node.id} className="group block">
                   <Link to="/product/$handle" params={{ handle: node.handle }}>
