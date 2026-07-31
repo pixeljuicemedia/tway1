@@ -13,6 +13,7 @@ export interface ShopifyImage {
 export interface ShopifyVariant {
   id: string;
   title: string;
+  sku: string | null;
   price: { amount: string; currencyCode: string };
   availableForSale: boolean;
   selectedOptions: Array<{ name: string; value: string }>;
@@ -80,7 +81,7 @@ export const PRODUCTS_QUERY = `
           images(first: 20) { edges { node { url altText } } }
           variants(first: 10) {
             edges { node {
-              id title
+              id title sku
               price { amount currencyCode }
               availableForSale
               selectedOptions { name value }
@@ -103,7 +104,7 @@ export const PRODUCT_BY_HANDLE_QUERY = `
       images(first: 100) { edges { node { url altText } } }
       variants(first: 25) {
         edges { node {
-          id title
+          id title sku
           price { amount currencyCode }
           availableForSale
           selectedOptions { name value }

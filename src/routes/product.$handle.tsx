@@ -184,8 +184,14 @@ function ProductDetailPage() {
             <h1 className="mt-6 font-display text-2xl md:text-3xl font-semibold leading-[1.1]">
               {product.title}
             </h1>
+            {selectedVariant?.sku && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                <span className="eyebrow mr-2 align-middle">Part #:</span>
+                <span className="font-display tracking-wide">{selectedVariant.sku}</span>
+              </p>
+            )}
             {selectedVariant?.selectedOptions?.length ? (
-              <p className="mt-4 text-sm text-muted-foreground">
+              <p className="mt-3 text-sm text-muted-foreground">
                 {selectedVariant.selectedOptions.map((o) => `${o.name}: ${o.value}`).join(" · ")}
               </p>
             ) : null}
