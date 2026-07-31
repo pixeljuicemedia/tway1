@@ -3,6 +3,7 @@ import { useState, type ReactNode } from "react";
 import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
 import { CartDrawer } from "@/components/cart-drawer";
 import { useCartSync } from "@/hooks/use-cart-sync";
+import { useCatalogFacets, GEN_META } from "@/hooks/use-catalog-facets";
 const logo = logoAsset.url;
 
 const nav = [
@@ -134,6 +135,12 @@ export function SiteHeader() {
 
 function ShopMenu() {
   const [open, setOpen] = useState(false);
+  const { generations, categories, loading } = useCatalogFacets();
+  const genList = generations.map((key) => ({
+    hash: key,
+    label: GEN_META[key]?.label ?? key,
+    years: GEN_META[key]?.years ?? "",
+  }));
   return (
     <div
       className="relative"
@@ -161,7 +168,7 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow text-race-red">Shop by Generation</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.generations.map((g) => (
+                  {(genList.length ? genList : loading ? [] : shopMenu.generations.map((g) => ({ ...g }))).map((g) => (
                     <li key={g.hash}>
                       <Link
                         to="/category"
@@ -185,7 +192,7 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow">Categories</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.categories.map((c) => (
+                  {categories.map((c) => (
                     <li key={c}>
                       <Link
                         to="/category"
