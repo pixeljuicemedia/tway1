@@ -77,7 +77,8 @@ function ProductDetailPage() {
   const selectedVariant = variants.find((v) => v.id === selectedVariantId) ?? variants[0];
   const currentImage = images[imageIdx]?.node ?? images[0]?.node;
   const thumbs = images.length > 1 ? images : [];
-  const gen = detectGeneration(product);
+  const gens = detectGenerations(product);
+  const gen = gens.join(" · ");
 
   // Find the base variant — every option set to "None" (the no-add-on baseline).
   // Used to compute per-add-on price deltas shown on option buttons.
@@ -182,7 +183,7 @@ function ProductDetailPage() {
             {/* Spec strip */}
             <div className="col-span-6 mt-4 hairline-t pt-8 grid grid-cols-3 gap-6">
               <div>
-                <div className="font-display text-2xl">{gen || "Corvette"}</div>
+                <div className="font-display text-2xl leading-tight">{gen || "Corvette"}</div>
                 <div className="mt-1 eyebrow">Fitment</div>
               </div>
               <div>
