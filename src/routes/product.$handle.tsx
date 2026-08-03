@@ -10,6 +10,7 @@ import {
   type ShopifyProductNode,
 } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
+import { GEN_TAG_ORDER } from "@/hooks/use-catalog-facets";
 
 export const Route = createFileRoute("/product/$handle")({
   head: ({ params }) => ({
@@ -77,7 +78,8 @@ function ProductDetailPage() {
   const selectedVariant = variants.find((v) => v.id === selectedVariantId) ?? variants[0];
   const currentImage = images[imageIdx]?.node ?? images[0]?.node;
   const thumbs = images.length > 1 ? images : [];
-  const gen = detectGeneration(product);
+  const gens = detectGenerations(product);
+  const gen = gens.join(" · ");
 
   // Find the base variant — every option set to "None" (the no-add-on baseline).
   // Used to compute per-add-on price deltas shown on option buttons.
@@ -182,7 +184,7 @@ function ProductDetailPage() {
             {/* Spec strip */}
             <div className="col-span-6 mt-4 hairline-t pt-8 grid grid-cols-3 gap-6">
               <div>
-                <div className="font-display text-2xl">{gen || "Corvette"}</div>
+                <div className="font-display text-2xl leading-tight">{gen || "Corvette"}</div>
                 <div className="mt-1 eyebrow">Fitment</div>
               </div>
               <div>
@@ -376,8 +378,13 @@ function ProductDetailPage() {
   );
 }
 
-function detectGeneration(p: ShopifyProductNode): string {
-  const hay = `${p.title} ${p.tags.join(" ")}`.toUpperCase();
-  for (const g of ["C8", "C7", "C6", "C5"]) if (hay.includes(g)) return g;
-  return "";
+function detectGenerations(p: ShopifyProductNode): string[] {
+  const tags = [...(p.tags ?? []), p.productType ?? ""].map((t) => t.trim().toLowerCase());
+  const hay = `${p.title} ${(p.tags ?? []).join(" ")}`.toLowerCase();
+  const found = GEN_TAG_ORDER.filter(
+    (g) => tags.includes(g.toLowerCase()) || hay.includes(g.toLowerCase()),
+  );
+  const gens = found.filter((g) => g !== "Universal");
+  if (gens.length) return gens;
+  return found.length ? found : ["Universal"];
 }
