@@ -111,7 +111,7 @@ function CategoryPage() {
   const subtitle = cat === "All" ? "Performance parts." : `${cat}.`;
 
   const setParam = (key: keyof SearchState, value: string) =>
-    navigate({ search: (prev: SearchState) => ({ ...prev, [key]: value }), scroll: false });
+    navigate({ search: (prev: SearchState) => ({ ...prev, [key]: value }), resetScroll: false });
 
   return (
     <SiteShell>
