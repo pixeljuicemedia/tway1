@@ -10,6 +10,7 @@ import {
   type ShopifyProductNode,
 } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
+import { GEN_TAG_ORDER } from "@/hooks/use-catalog-facets";
 
 export const Route = createFileRoute("/product/$handle")({
   head: ({ params }) => ({
@@ -377,8 +378,13 @@ function ProductDetailPage() {
   );
 }
 
-function detectGeneration(p: ShopifyProductNode): string {
-  const hay = `${p.title} ${p.tags.join(" ")}`.toUpperCase();
-  for (const g of ["C8", "C7", "C6", "C5"]) if (hay.includes(g)) return g;
-  return "";
+function detectGenerations(p: ShopifyProductNode): string[] {
+  const tags = [...(p.tags ?? []), p.productType ?? ""].map((t) => t.trim().toLowerCase());
+  const hay = `${p.title} ${(p.tags ?? []).join(" ")}`.toLowerCase();
+  const found = GEN_TAG_ORDER.filter(
+    (g) => tags.includes(g.toLowerCase()) || hay.includes(g.toLowerCase()),
+  );
+  const gens = found.filter((g) => g !== "Universal");
+  if (gens.length) return gens;
+  return found.length ? found : ["Universal"];
 }
