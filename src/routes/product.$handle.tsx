@@ -212,29 +212,24 @@ function ProductDetailPage() {
                 <span className="font-display tracking-wide">{selectedVariant.sku}</span>
               </p>
             )}
+            {product.vendor && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                <span className="eyebrow mr-2 align-middle">Brand:</span>
+                <span className="font-display tracking-wide">{product.vendor}</span>
+              </p>
+            )}
             {(() => {
-              // If the only option is "Default Title" (single-variant product), show
-              // the brand instead of "Title: Default Title". Multi-variant products
-              // display their selected options as before.
+              // Multi-variant products show their selected options here.
+              // Skip "Default Title" (single-variant) — brand is shown above instead.
               const opts = selectedVariant?.selectedOptions ?? [];
               const isDefaultOnly =
                 opts.length === 1 && opts[0].name === "Title" && opts[0].value === "Default Title";
-              if (isDefaultOnly) {
-                return product.vendor ? (
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    <span className="eyebrow mr-2 align-middle">Brand:</span>
-                    <span className="font-display tracking-wide">{product.vendor}</span>
-                  </p>
-                ) : null;
-              }
-              if (opts.length) {
-                return (
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    {opts.map((o) => `${o.name}: ${o.value}`).join(" · ")}
-                  </p>
-                );
-              }
-              return null;
+              if (isDefaultOnly || !opts.length) return null;
+              return (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {opts.map((o) => `${o.name}: ${o.value}`).join(" · ")}
+                </p>
+              );
             })()}
 
             <div className="mt-8 flex items-baseline gap-4">
