@@ -212,11 +212,30 @@ function ProductDetailPage() {
                 <span className="font-display tracking-wide">{selectedVariant.sku}</span>
               </p>
             )}
-            {selectedVariant?.selectedOptions?.length ? (
-              <p className="mt-3 text-sm text-muted-foreground">
-                {selectedVariant.selectedOptions.map((o) => `${o.name}: ${o.value}`).join(" · ")}
-              </p>
-            ) : null}
+            {(() => {
+              // If the only option is "Default Title" (single-variant product), show
+              // the brand instead of "Title: Default Title". Multi-variant products
+              // display their selected options as before.
+              const opts = selectedVariant?.selectedOptions ?? [];
+              const isDefaultOnly =
+                opts.length === 1 && opts[0].name === "Title" && opts[0].value === "Default Title";
+              if (isDefaultOnly) {
+                return product.vendor ? (
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    <span className="eyebrow mr-2 align-middle">Brand:</span>
+                    <span className="font-display tracking-wide">{product.vendor}</span>
+                  </p>
+                ) : null;
+              }
+              if (opts.length) {
+                return (
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {opts.map((o) => `${o.name}: ${o.value}`).join(" · ")}
+                  </p>
+                );
+              }
+              return null;
+            })()}
 
             <div className="mt-8 flex items-baseline gap-4">
               <span className="font-display text-4xl font-semibold">
