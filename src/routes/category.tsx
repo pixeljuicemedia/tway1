@@ -1,12 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import { useEffect, useMemo, useState } from "react";
-import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
+import { fetchProducts, fetchCollectionProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 import { Loader2 } from "lucide-react";
 import heroCorvette from "@/assets/hero-corvette.jpg";
 
-type SearchState = { gen: string; cat: string; sort: string };
+type SearchState = { gen: string; cat: string; sort: string; collection?: string };
 
 // Generation tags, in display order. Only ones present in the catalog are shown.
 const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
@@ -41,6 +41,7 @@ export const Route = createFileRoute("/category")({
     gen: typeof search.gen === "string" ? search.gen : "All",
     cat: typeof search.cat === "string" ? search.cat : "All",
     sort: typeof search.sort === "string" ? search.sort : "Featured",
+    collection: typeof search.collection === "string" && search.collection ? search.collection : undefined,
   }),
   head: ({ loaderData: _l }) => ({
     meta: [
@@ -59,15 +60,34 @@ function generationsOf(p: ShopifyProduct): string[] {
 }
 
 function CategoryPage() {
-  const { gen, cat, sort } = Route.useSearch();
+  const { gen, cat, sort, collection } = Route.useSearch();
   const navigate = useNavigate({ from: "/category" });
   const [products, setProducts] = useState<ShopifyProduct[] | null>(null);
+  const [collectionTitle, setCollectionTitle] = useState<string | null>(null);
   const addItem = useCartStore((s) => s.addItem);
   const cartLoading = useCartStore((s) => s.isLoading);
 
   useEffect(() => {
-    fetchProducts(100).then(setProducts).catch(() => setProducts([]));
-  }, []);
+    let cancelled = false;
+    setProducts(null);
+    if (collection) {
+      fetchCollectionProducts(collection, 100)
+        .then((res) => {
+          if (cancelled) return;
+          setCollectionTitle(res?.collection.title ?? null);
+          setProducts(res?.products ?? []);
+        })
+        .catch(() => !cancelled && setProducts([]));
+    } else {
+      setCollectionTitle(null);
+      fetchProducts(100)
+        .then((p) => !cancelled && setProducts(p))
+        .catch(() => !cancelled && setProducts([]));
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [collection]);
 
   const filtered = useMemo(() => {
     if (!products) return null;
@@ -107,7 +127,7 @@ function CategoryPage() {
     };
   }, [products]);
 
-  const title = gen === "All" ? "All Corvette Parts" : `${gen} Corvette`;
+  const title = collectionTitle ?? (gen === "All" ? "All Corvette Parts" : `${gen} Corvette`);
   const subtitle = cat === "All" ? "Performance parts." : `${cat}.`;
 
   const setParam = (key: keyof SearchState, value: string) =>
