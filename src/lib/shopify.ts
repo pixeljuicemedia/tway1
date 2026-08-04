@@ -320,14 +320,21 @@ export async function fetchCollections(first = 100): Promise<ShopifyCollection[]
 
 /**
  * Collections that should appear in the "Featured" nav column.
- * Convention: a collection is featured as soon as it has a collection image in
- * Shopify — merchandising is fully controlled from the Shopify admin, no code change.
+ * Merchant-managed from Shopify, no code changes needed. A collection is featured if:
+ *   1. it has a collection image, OR
+ *   2. its description contains "#featured"
+ * "All" and "frontpage" are always excluded. If nothing qualifies, every real
+ * collection is shown so the menu is never empty.
  */
 export async function fetchFeaturedCollections(first = 100): Promise<ShopifyCollection[]> {
   const all = await fetchCollections(first);
-  return all.filter(
-    (c) => !!c.image?.url && c.handle !== "frontpage" && !/^all$/i.test(c.title.trim())
+  const real = all.filter(
+    (c) => c.handle !== "frontpage" && c.handle !== "all" && !/^all$/i.test(c.title.trim())
   );
+  const picked = real.filter(
+    (c) => !!c.image?.url || /#featured/i.test(c.description ?? "")
+  );
+  return picked.length ? picked : real;
 }
 
 export async function fetchCollectionProducts(
