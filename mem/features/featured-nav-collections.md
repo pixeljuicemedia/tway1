@@ -1,12 +1,12 @@
 ---
 name: Featured nav collections rule
-description: How the Shop nav "Featured" column picks Shopify collections (image or #featured in description)
+description: Shop nav "Featured" column includes only Shopify collections whose description contains #featured
 type: feature
 ---
 The Shop mega-menu "Featured" column is driven live from Shopify collections
 (`fetchFeaturedCollections` in src/lib/shopify.ts):
-- Included if the collection has a collection image OR its description contains `#featured`.
-- `all` and `frontpage` are always excluded.
-- If nothing qualifies, all real collections are shown so the menu is never empty.
+- Included ONLY if the collection description contains `#featured` (case-insensitive).
+- Collection images are NOT a flag — user explicitly rejected that provision.
+- `all` and `frontpage` are always excluded. No fallback: no tagged collections = empty column.
 Links go to `/category?collection=<handle>`, which fetches that collection's products.
 Goal: merchandising managed entirely from Shopify admin, no code changes.
