@@ -212,15 +212,15 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow">Featured</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.featured.map((f) => (
-                    <li key={f.hash}>
+                  {featuredCollections.map((f) => (
+                    <li key={f.handle}>
                       <Link
                         to="/category"
-                        search={{ gen: "All", cat: "All", sort: "Featured" }}
+                        search={{ gen: "All", cat: "All", sort: "Featured", collection: f.handle }}
                         onClick={() => setOpen(false)}
                         className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >
-                        {f.label}
+                        {f.title}
                       </Link>
                     </li>
                   ))}
