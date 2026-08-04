@@ -4,6 +4,7 @@ import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
 import { CartDrawer } from "@/components/cart-drawer";
 import { useCartSync } from "@/hooks/use-cart-sync";
 import { useCatalogFacets, GEN_META } from "@/hooks/use-catalog-facets";
+import { useFeaturedCollections } from "@/hooks/use-featured-collections";
 const logo = logoAsset.url;
 
 const nav = [
@@ -136,6 +137,7 @@ export function SiteHeader() {
 function ShopMenu() {
   const [open, setOpen] = useState(false);
   const { generations, categories, loading } = useCatalogFacets();
+  const { collections: featuredCollections } = useFeaturedCollections();
   const genList = generations.map((key) => ({
     hash: key,
     label: GEN_META[key]?.label ?? key,
@@ -211,15 +213,15 @@ function ShopMenu() {
               <div>
                 <p className="eyebrow">Featured</p>
                 <ul className="mt-4 space-y-2.5">
-                  {shopMenu.featured.map((f) => (
-                    <li key={f.hash}>
+                  {featuredCollections.map((f) => (
+                    <li key={f.handle}>
                       <Link
                         to="/category"
-                        search={{ gen: "All", cat: "All", sort: "Featured" }}
+                        search={{ gen: "All", cat: "All", sort: "Featured", collection: f.handle }}
                         onClick={() => setOpen(false)}
                         className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
                       >
-                        {f.label}
+                        {f.title}
                       </Link>
                     </li>
                   ))}

@@ -265,3 +265,87 @@ export function formatMoney(amount: string | number, currencyCode: string): stri
     return `${currencyCode} ${n.toFixed(2)}`;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Collections                                                         */
+/* ------------------------------------------------------------------ */
+
+export interface ShopifyCollection {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  image: ShopifyImage | null;
+}
+
+export const COLLECTIONS_QUERY = `
+  query GetCollections($first: Int!) {
+    collections(first: $first) {
+      edges { node { id handle title description image { url altText } } }
+    }
+  }
+`;
+
+export const COLLECTION_PRODUCTS_QUERY = `
+  query GetCollectionProducts($handle: String!, $first: Int!) {
+    collection(handle: $handle) {
+      id handle title description image { url altText }
+      products(first: $first) {
+        edges {
+          node {
+            id title description descriptionHtml handle productType vendor tags
+            priceRange { minVariantPrice { amount currencyCode } }
+            images(first: 20) { edges { node { url altText } } }
+            variants(first: 10) {
+              edges { node {
+                id title sku
+                price { amount currencyCode }
+                availableForSale
+                selectedOptions { name value }
+              } }
+            }
+            options { name values }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/** All collections. */
+export async function fetchCollections(first = 100): Promise<ShopifyCollection[]> {
+  const data = await storefrontApiRequest<any>(COLLECTIONS_QUERY, { first });
+  return (data?.data?.collections?.edges ?? []).map((e: any) => e.node as ShopifyCollection);
+}
+
+/**
+ * Collections that should appear in the "Featured" nav column.
+ * Merchant-managed from Shopify, no code changes needed. A collection is featured if:
+ *   1. it has a collection image, OR
+ *   2. its description contains "#featured"
+ * "All" and "frontpage" are always excluded. If nothing qualifies, every real
+ * collection is shown so the menu is never empty.
+ */
+export async function fetchFeaturedCollections(first = 100): Promise<ShopifyCollection[]> {
+  const all = await fetchCollections(first);
+  const real = all.filter(
+    (c) => c.handle !== "frontpage" && c.handle !== "all" && !/^all$/i.test(c.title.trim())
+  );
+  const picked = real.filter(
+    (c) => !!c.image?.url || /#featured/i.test(c.description ?? "")
+  );
+  return picked.length ? picked : real;
+}
+
+export async function fetchCollectionProducts(
+  handle: string,
+  first = 100
+): Promise<{ collection: ShopifyCollection; products: ShopifyProduct[] } | null> {
+  const data = await storefrontApiRequest<any>(COLLECTION_PRODUCTS_QUERY, { handle, first });
+  const c = data?.data?.collection;
+  if (!c) return null;
+  return {
+    collection: { id: c.id, handle: c.handle, title: c.title, description: c.description, image: c.image ?? null },
+    products: c.products?.edges ?? [],
+  };
+}
