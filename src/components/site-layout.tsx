@@ -137,6 +137,7 @@ export function SiteHeader() {
 function ShopMenu() {
   const [open, setOpen] = useState(false);
   const { generations, categories, loading } = useCatalogFacets();
+  const { collections: featuredCollections } = useFeaturedCollections();
   const genList = generations.map((key) => ({
     hash: key,
     label: GEN_META[key]?.label ?? key,
