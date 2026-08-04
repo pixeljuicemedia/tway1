@@ -4,6 +4,7 @@ import logoAsset from "@/assets/tway-logo-darkbg.png.asset.json";
 import { CartDrawer } from "@/components/cart-drawer";
 import { useCartSync } from "@/hooks/use-cart-sync";
 import { useCatalogFacets, GEN_META } from "@/hooks/use-catalog-facets";
+import { useFeaturedCollections } from "@/hooks/use-featured-collections";
 const logo = logoAsset.url;
 
 const nav = [
