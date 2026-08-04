@@ -150,10 +150,14 @@ function CategoryPage() {
           <div className="flex items-center gap-2 text-[11px] font-display uppercase tracking-widest text-muted-foreground">
             <Link to="/shop" className="hover:text-foreground transition-colors">Shop</Link>
             <span>/</span>
-            <span className="text-foreground">{gen === "All" ? "All Corvettes" : gen}</span>
+            {collectionTitle ? (
+              <span className="text-foreground">{collectionTitle}</span>
+            ) : (
+              <span className="text-foreground">{gen === "All" ? "All Corvettes" : gen}</span>
+            )}
             {cat !== "All" && (<><span>/</span><span className="text-foreground">{cat}</span></>)}
           </div>
-          <Eyebrow accent className="mt-6">{GEN_YEARS[gen] ?? "All Corvettes"}</Eyebrow>
+          <Eyebrow accent className="mt-6">{collectionTitle ? "Featured Collection" : GEN_YEARS[gen] ?? "All Corvettes"}</Eyebrow>
           <h1 className="mt-6 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight max-w-4xl">
             {title}<br /><span className="text-muted-foreground">{subtitle}</span>
           </h1>
