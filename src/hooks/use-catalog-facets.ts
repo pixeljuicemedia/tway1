@@ -20,9 +20,10 @@ export function productTags(p: ShopifyProduct): string[] {
   return p.node.productType ? [...tags, p.node.productType] : tags;
 }
 
-/** Six top-level shopping categories and the tags that roll up into each. */
+/** Top-level shopping categories and the tags that roll up into each. */
 export const MAIN_CATEGORIES = [
   "Engine",
+  "Brakes",
   "Suspension",
   "Exhaust",
   "Interior",
@@ -34,7 +35,8 @@ export const MAIN_CATEGORIES = [
 
 const CATEGORY_KEYWORDS: Record<string, RegExp> = {
   Engine: /(engine|intake|manifold|supercharg|turbo|boost|cooling|radiator|fuel|clutch|transmission|drivetrain|differential|belt|pulley|cam|head gasket)/i,
-  Suspension: /(suspension|coilover|spring|shock|strut|sway|bushing|control arm|alignment|camber|brake|pad|rotor|caliper|wheel|tire|hub|axle)/i,
+  Brakes: /(brake|pad|rotor|caliper|bbk|big brake|abs)/i,
+  Suspension: /(suspension|coilover|spring|shock|strut|sway|bushing|control arm|alignment|camber|wheel|tire|hub|axle)/i,
   Exhaust: /(exhaust|header|muffler|cat[- ]?back|downpipe|midpipe|x-?pipe|resonator|tip)/i,
   Interior: /(interior|seat|harness|belt kit|cage|roll bar|steering wheel|shifter|pedal|carpet|trim|apparel|safety|helmet|fire)/i,
   Exterior: /(exterior|aero|splitter|wing|spoiler|diffuser|body|hood|bumper|fender|rocker|canard|wrap|vinyl|mirror|glass)/i,
@@ -44,9 +46,9 @@ const CATEGORY_KEYWORDS: Record<string, RegExp> = {
 };
 
 /** Categories with the most specific keywords are matched first. */
-const MATCH_PRIORITY = ["Fluids", "Tools", ...MAIN_CATEGORIES.filter((m) => m !== "Fluids" && m !== "Tools")];
+const MATCH_PRIORITY = ["Fluids", "Tools", "Brakes", ...MAIN_CATEGORIES.filter((m) => !["Fluids", "Tools", "Brakes"].includes(m))];
 
-/** Which of the six main categories a tag belongs to (null if unmapped). */
+/** Which main category a tag belongs to (null if unmapped). */
 export function mainCategoryOfTag(tag: string): string | null {
   const t = tag.trim();
   const exact = MAIN_CATEGORIES.find((m) => norm(m) === norm(t));

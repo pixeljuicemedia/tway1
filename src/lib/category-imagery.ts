@@ -16,6 +16,7 @@ import catElectronics from "@/assets/cat-electronics.jpg";
 const RULES: { match: RegExp; img: string }[] = [
   { match: /^fluids?$/i, img: catBrakeFluid },
   { match: /^tools?$/i, img: catTools },
+  { match: /^brakes?$/i, img: prodBrakes },
   { match: /pad/i, img: catBrakePads },
   { match: /(line|hose)/i, img: catBrakeLines },
   { match: /(fluid|oil|coolant|grease|lubricant)/i, img: catBrakeFluid },
