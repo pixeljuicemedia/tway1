@@ -24,6 +24,7 @@ const RULES: { match: RegExp; img: string }[] = [
   { match: /(wheel|tire)/i, img: prodWheels },
   { match: /(interior|seat|harness|cage)/i, img: prodInterior },
   { match: /(engine|intake|exhaust|header|drivetrain|supercharger|cooling)/i, img: prodEngine },
+  { match: /exterior/i, img: prodAero },
   { match: /(safety|helmet|fire)/i, img: catSafety },
   { match: /(electronic|data|gauge|dash)/i, img: catElectronics },
 ];
