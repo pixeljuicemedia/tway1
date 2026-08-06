@@ -14,10 +14,12 @@ import catElectronics from "@/assets/cat-electronics.jpg";
 
 /** Keyword → stock/generated imagery. Never product photography. */
 const RULES: { match: RegExp; img: string }[] = [
+  { match: /^fluids?$/i, img: catBrakeFluid },
+  { match: /^tools?$/i, img: catTools },
   { match: /pad/i, img: catBrakePads },
   { match: /(line|hose)/i, img: catBrakeLines },
-  { match: /fluid/i, img: catBrakeFluid },
-  { match: /(tool|kit tool|wrench)/i, img: catTools },
+  { match: /(fluid|oil|coolant|grease|lubricant)/i, img: catBrakeFluid },
+  { match: /(tool|wrench|spreader|socket|jack)/i, img: catTools },
   { match: /(brake|caliper|rotor)/i, img: prodBrakes },
   { match: /(aero|splitter|wing|diffuser|spoiler)/i, img: prodAero },
   { match: /(suspension|coilover|sway|shock|spring)/i, img: prodSuspension },
