@@ -11,8 +11,6 @@ type SearchState = { gen: string; cat: string; sub?: string; sort: string; colle
 
 // Generation tags, in display order. Only ones present in the catalog are shown.
 const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
-// Tags that are not filters (brand-wide tags)
-const IGNORED_TAGS = ["corvette"];
 const SORTS = ["Featured", "Price ↑", "Price ↓", "A–Z"] as const;
 
 const norm = (s: string) => s.trim().toLowerCase();

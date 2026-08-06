@@ -38,7 +38,6 @@ export const Route = createFileRoute("/shop")({
 
 // Generation tags, in display order — filtered against what the catalog actually has
 const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
-const IGNORED_TAGS = ["corvette"];
 const norm = (s: string) => s.trim().toLowerCase();
 
 function productTags(p: ShopifyProduct): string[] {
