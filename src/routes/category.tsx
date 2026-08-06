@@ -4,14 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchProducts, fetchCollectionProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 import { Loader2 } from "lucide-react";
+import { MAIN_CATEGORIES, mainCategoriesOf, subCategoriesOf } from "@/hooks/use-catalog-facets";
 import heroCorvette from "@/assets/hero-corvette.jpg";
 
-type SearchState = { gen: string; cat: string; sort: string; collection?: string };
+type SearchState = { gen: string; cat: string; sub?: string; sort: string; collection?: string };
 
 // Generation tags, in display order. Only ones present in the catalog are shown.
 const GEN_TAG_ORDER = ["C5", "C6", "C7", "C8", "Z06", "E-Ray", "Universal"];
-// Tags that are not filters (brand-wide tags)
-const IGNORED_TAGS = ["corvette"];
 const SORTS = ["Featured", "Price ↑", "Price ↓", "A–Z"] as const;
 
 const norm = (s: string) => s.trim().toLowerCase();
@@ -40,6 +39,7 @@ export const Route = createFileRoute("/category")({
   validateSearch: (search: Record<string, unknown>): SearchState => ({
     gen: typeof search.gen === "string" ? search.gen : "All",
     cat: typeof search.cat === "string" ? search.cat : "All",
+    sub: typeof search.sub === "string" && search.sub && search.sub !== "All" ? search.sub : undefined,
     sort: typeof search.sort === "string" ? search.sort : "Featured",
     collection: typeof search.collection === "string" && search.collection ? search.collection : undefined,
   }),
@@ -60,7 +60,7 @@ function generationsOf(p: ShopifyProduct): string[] {
 }
 
 function CategoryPage() {
-  const { gen, cat, sort, collection } = Route.useSearch();
+  const { gen, cat, sub, sort, collection } = Route.useSearch();
   const navigate = useNavigate({ from: "/category" });
   const [products, setProducts] = useState<ShopifyProduct[] | null>(null);
   const [collectionTitle, setCollectionTitle] = useState<string | null>(null);
@@ -93,7 +93,8 @@ function CategoryPage() {
     if (!products) return null;
     let list = products.slice();
     if (gen !== "All") list = list.filter((p) => generationsOf(p).some((g) => norm(g) === norm(gen)));
-    if (cat !== "All") list = list.filter((p) => hasTag(p, cat));
+    if (cat !== "All") list = list.filter((p) => mainCategoriesOf(p).some((m) => norm(m) === norm(cat)));
+    if (sub) list = list.filter((p) => hasTag(p, sub));
     switch (sort) {
       case "Price ↑":
         list.sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount));
@@ -106,32 +107,35 @@ function CategoryPage() {
         break;
     }
     return list;
-  }, [products, gen, cat, sort]);
+  }, [products, gen, cat, sub, sort]);
 
   // Facets built from the live catalog's tags
-  const { genOptions, catOptions } = useMemo(() => {
+  const { genOptions, catOptions, subOptions } = useMemo(() => {
     const gens = new Set<string>();
-    const cats = new Map<string, string>();
+    const cats = new Set<string>();
+    const subs = new Map<string, string>();
     for (const p of products ?? []) {
       for (const g of generationsOf(p)) gens.add(g);
-      for (const t of productTags(p)) {
-        const n = norm(t);
-        if (IGNORED_TAGS.includes(n)) continue;
-        if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
-        if (!cats.has(n)) cats.set(n, t.trim());
+      for (const m of mainCategoriesOf(p)) cats.add(m);
+      if (cat !== "All" && mainCategoriesOf(p).some((m) => norm(m) === norm(cat))) {
+        for (const s of subCategoriesOf(p, cat)) if (!subs.has(norm(s))) subs.set(norm(s), s);
       }
     }
     return {
       genOptions: ["All", ...GEN_TAG_ORDER.filter((g) => gens.has(g))],
-      catOptions: ["All", ...Array.from(cats.values()).sort((a, b) => a.localeCompare(b))],
+      catOptions: ["All", ...MAIN_CATEGORIES.filter((m) => cats.has(m))],
+      subOptions: Array.from(subs.values()).sort((a, b) => a.localeCompare(b)),
     };
-  }, [products]);
+  }, [products, cat]);
 
   const title = collectionTitle ?? (gen === "All" ? "All Corvette Parts" : `${gen} Corvette`);
   const subtitle = cat === "All" ? "Performance parts." : `${cat}.`;
 
   const setParam = (key: keyof SearchState, value: string) =>
     navigate({ search: (prev: SearchState) => ({ ...prev, [key]: value }), resetScroll: false });
+
+  const setCat = (value: string) =>
+    navigate({ search: (prev: SearchState) => ({ ...prev, cat: value, sub: undefined }), resetScroll: false });
 
   return (
     <SiteShell>
@@ -156,6 +160,7 @@ function CategoryPage() {
               <span className="text-foreground">{gen === "All" ? "All Corvettes" : gen}</span>
             )}
             {cat !== "All" && (<><span>/</span><span className="text-foreground">{cat}</span></>)}
+            {sub && (<><span>/</span><span className="text-foreground">{sub}</span></>)}
           </div>
           <Eyebrow accent className="mt-6">{collectionTitle ? "Featured Collection" : GEN_YEARS[gen] ?? "All Corvettes"}</Eyebrow>
           <h1 className="mt-6 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight max-w-4xl">
@@ -196,7 +201,7 @@ function CategoryPage() {
               return (
                 <button
                   key={c}
-                  onClick={() => setParam("cat", c)}
+                  onClick={() => setCat(c)}
                   className={`shrink-0 rounded-full px-3.5 py-1.5 text-[11px] font-display uppercase tracking-widest border transition-colors ${
                     active
                       ? "bg-foreground text-background border-foreground"
@@ -208,6 +213,30 @@ function CategoryPage() {
               );
             })}
           </div>
+          {cat !== "All" && subOptions.length > 0 && (
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <span className="shrink-0 eyebrow pr-2">{cat}</span>
+              <button
+                onClick={() => setParam("sub", "All")}
+                className={`shrink-0 rounded-full px-3 py-1 text-[10px] font-display uppercase tracking-widest border transition-colors ${
+                  !sub ? "border-foreground text-foreground" : "border-border/40 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                All {cat}
+              </button>
+              {subOptions.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setParam("sub", s)}
+                  className={`shrink-0 rounded-full px-3 py-1 text-[10px] font-display uppercase tracking-widest border transition-colors ${
+                    sub === s ? "border-foreground text-foreground" : "border-border/40 text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -20,6 +20,60 @@ export function productTags(p: ShopifyProduct): string[] {
   return p.node.productType ? [...tags, p.node.productType] : tags;
 }
 
+/** Six top-level shopping categories and the tags that roll up into each. */
+export const MAIN_CATEGORIES = [
+  "Engine",
+  "Suspension",
+  "Exhaust",
+  "Interior",
+  "Exterior",
+  "Electronics",
+] as const;
+
+const CATEGORY_KEYWORDS: Record<string, RegExp> = {
+  Engine: /(engine|intake|manifold|supercharg|turbo|boost|cooling|radiator|oil|fluid|fuel|clutch|transmission|drivetrain|differential|belt|pulley|cam|head gasket)/i,
+  Suspension: /(suspension|coilover|spring|shock|strut|sway|bushing|control arm|alignment|camber|brake|pad|rotor|caliper|wheel|tire|hub|axle)/i,
+  Exhaust: /(exhaust|header|muffler|cat[- ]?back|downpipe|midpipe|x-?pipe|resonator|tip)/i,
+  Interior: /(interior|seat|harness|belt kit|cage|roll bar|steering wheel|shifter|pedal|carpet|trim|apparel|safety|helmet|fire)/i,
+  Exterior: /(exterior|aero|splitter|wing|spoiler|diffuser|body|hood|bumper|fender|rocker|canard|wrap|vinyl|mirror|glass)/i,
+  Electronics: /(electronic|tune|tuning|ecu|gauge|dash|data|sensor|camera|wiring|light|led|switch|display)/i,
+};
+
+/** Which of the six main categories a tag belongs to (null if unmapped). */
+export function mainCategoryOfTag(tag: string): string | null {
+  const t = tag.trim();
+  const exact = MAIN_CATEGORIES.find((m) => norm(m) === norm(t));
+  if (exact) return exact;
+  for (const m of MAIN_CATEGORIES) {
+    if (CATEGORY_KEYWORDS[m].test(t)) return m;
+  }
+  return null;
+}
+
+/** Main categories a product belongs to. */
+export function mainCategoriesOf(p: ShopifyProduct): string[] {
+  const out = new Set<string>();
+  for (const t of productTags(p)) {
+    if (GEN_TAG_ORDER.some((g) => norm(g) === norm(t))) continue;
+    const m = mainCategoryOfTag(t);
+    if (m) out.add(m);
+  }
+  return Array.from(out);
+}
+
+/** Sub-category tags of a product that live under a given main category. */
+export function subCategoriesOf(p: ShopifyProduct, main: string): string[] {
+  return productTags(p)
+    .map((t) => t.trim())
+    .filter(
+      (t) =>
+        !IGNORED_TAGS.includes(norm(t)) &&
+        !GEN_TAG_ORDER.some((g) => norm(g) === norm(t)) &&
+        norm(t) !== norm(main) &&
+        mainCategoryOfTag(t) === main
+    );
+}
+
 export function generationsOf(p: ShopifyProduct): string[] {
   const gens = GEN_TAG_ORDER.filter((g) => productTags(p).some((t) => norm(t) === norm(g)));
   return gens.length ? gens : ["Universal"];
@@ -45,24 +99,24 @@ export function useCatalogFacets() {
 
   return useMemo(() => {
     const counts = new Map<string, number>();
-    const cats = new Map<string, string>();
     const catCounts = new Map<string, number>();
+    const subs = new Map<string, Map<string, number>>();
     for (const p of products ?? []) {
       for (const g of generationsOf(p)) counts.set(g, (counts.get(g) ?? 0) + 1);
-      for (const t of productTags(p)) {
-        const n = norm(t);
-        if (IGNORED_TAGS.includes(n)) continue;
-        if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
-        if (!cats.has(n)) cats.set(n, t.trim());
-        catCounts.set(t.trim(), (catCounts.get(t.trim()) ?? 0) + 1);
+      for (const m of mainCategoriesOf(p)) {
+        catCounts.set(m, (catCounts.get(m) ?? 0) + 1);
+        const bucket = subs.get(m) ?? new Map<string, number>();
+        for (const s of subCategoriesOf(p, m)) bucket.set(s, (bucket.get(s) ?? 0) + 1);
+        subs.set(m, bucket);
       }
     }
     return {
       loading: products === null,
       genCounts: counts,
       catCounts,
+      subCategories: subs,
       generations: GEN_TAG_ORDER.filter((g) => (counts.get(g) ?? 0) > 0),
-      categories: Array.from(cats.values()).sort((a, b) => a.localeCompare(b)),
+      categories: MAIN_CATEGORIES.filter((m) => (catCounts.get(m) ?? 0) > 0) as string[],
     };
   }, [products]);
 }
