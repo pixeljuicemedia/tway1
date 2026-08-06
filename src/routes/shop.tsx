@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 import { Loader2 } from "lucide-react";
+import { MAIN_CATEGORIES, mainCategoriesOf } from "@/hooks/use-catalog-facets";
 import catC8 from "@/assets/cat-c8.jpg";
 import catC7 from "@/assets/cat-c7.jpg";
 import catC6 from "@/assets/cat-c6.jpg";
@@ -96,19 +97,14 @@ function ShopPage() {
 
   const { genCounts, categories } = useMemo(() => {
     const counts = new Map<string, number>();
-    const cats = new Map<string, string>();
+    const cats = new Set<string>();
     for (const p of products ?? []) {
       for (const g of generationsOf(p)) counts.set(g, (counts.get(g) ?? 0) + 1);
-      for (const t of productTags(p)) {
-        const n = norm(t);
-        if (IGNORED_TAGS.includes(n)) continue;
-        if (GEN_TAG_ORDER.some((g) => norm(g) === n)) continue;
-        if (!cats.has(n)) cats.set(n, t.trim());
-      }
+      for (const m of mainCategoriesOf(p)) cats.add(m);
     }
     return {
       genCounts: counts,
-      categories: Array.from(cats.values()).sort((a, b) => a.localeCompare(b)),
+      categories: MAIN_CATEGORIES.filter((m) => cats.has(m)) as string[],
     };
   }, [products]);
 
