@@ -200,7 +200,7 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: "All", cat: c, sort: "Featured" }}
                         onClick={() => setOpen(false)}
-                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
                       >
                         {c}
                       </Link>
