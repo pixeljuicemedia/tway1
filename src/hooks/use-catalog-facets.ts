@@ -36,23 +36,33 @@ export const MAIN_CATEGORIES = [
 const CATEGORY_KEYWORDS: Record<string, RegExp> = {
   Engine: /(engine|intake|manifold|supercharg|turbo|boost|cooling|radiator|fuel|clutch|transmission|drivetrain|differential|belt|pulley|cam|head gasket)/i,
   Brakes: /(brake|pad|rotor|caliper|bbk|big brake|abs)/i,
-  Suspension: /(suspension|coilover|spring|shock|strut|sway|bushing|control arm|alignment|camber|wheel|tire|hub|axle)/i,
+  Suspension: /(suspension|coilover|spring|shock|strut|sway|bushing|control arm|alignment|camber|racing wheel|wheel|tire|rim|hub|axle)/i,
   Exhaust: /(exhaust|header|muffler|cat[- ]?back|downpipe|midpipe|x-?pipe|resonator|tip)/i,
   Interior: /(interior|seat|harness|belt kit|cage|roll bar|steering wheel|shifter|pedal|carpet|trim|apparel|safety|helmet|fire)/i,
-  Exterior: /(exterior|aero|splitter|wing|spoiler|diffuser|body|hood|bumper|fender|rocker|canard|wrap|vinyl|mirror|glass)/i,
+  Exterior: /(exterior|aero|splitter|wing|rear wing|spoiler|ducktail|diffuser|body|hood|bumper|fender|rocker|canard|wrap|vinyl|mirror|glass)/i,
   Electronics: /(electronic|tune|tuning|ecu|gauge|dash|data|sensor|camera|wiring|light|led|switch|display)/i,
   Tools: /(tool|wrench|socket|spreader|jack|stand|pliers|torque|bleeder|gauge tool|equipment)/i,
   Fluids: /(fluid|oil|coolant|antifreeze|lubricant|grease|additive|chemical)/i,
 };
 
-/** Categories with the most specific keywords are matched first. */
-const MATCH_PRIORITY = ["Fluids", "Tools", "Brakes", ...MAIN_CATEGORIES.filter((m) => !["Fluids", "Tools", "Brakes"].includes(m))];
+/** Categories with the most specific keywords are matched first; Suspension precedes Exterior so wheels never land in Exterior. */
+const MATCH_PRIORITY = [
+  "Fluids",
+  "Tools",
+  "Brakes",
+  "Suspension",
+  ...MAIN_CATEGORIES.filter((m) => !["Fluids", "Tools", "Brakes", "Suspension"].includes(m)),
+];
+
+/** Wheel/tire language always belongs to Suspension (racing wheels), never Exterior. */
+const WHEEL_TAGS = /(wheel|tire|tyre|rim)/i;
 
 /** Which main category a tag belongs to (null if unmapped). */
 export function mainCategoryOfTag(tag: string): string | null {
   const t = tag.trim();
   const exact = MAIN_CATEGORIES.find((m) => norm(m) === norm(t));
   if (exact) return exact;
+  if (WHEEL_TAGS.test(t)) return "Suspension";
   for (const m of MATCH_PRIORITY) {
     if (CATEGORY_KEYWORDS[m].test(t)) return m;
   }
