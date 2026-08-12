@@ -105,7 +105,7 @@ export function useCatalogFacets() {
 
   useEffect(() => {
     if (cache) return;
-    inflight = inflight ?? fetchProducts(100);
+    inflight = inflight ?? fetchProducts(250);
     inflight
       .then((p) => {
         cache = p;

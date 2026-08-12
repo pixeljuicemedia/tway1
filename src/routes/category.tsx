@@ -80,7 +80,7 @@ function CategoryPage() {
         .catch(() => !cancelled && setProducts([]));
     } else {
       setCollectionTitle(null);
-      fetchProducts(100)
+      fetchProducts(250)
         .then((p) => !cancelled && setProducts(p))
         .catch(() => !cancelled && setProducts([]));
     }
