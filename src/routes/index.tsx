@@ -211,33 +211,36 @@ const brandLogos: { name: string; domain: string }[] = [
 
 function BrandStrip() {
   const token = import.meta.env.VITE_LOVABLE_CONNECTOR_LOGO_DEV_API_KEY as string | undefined;
+  const items = [...brandLogos, ...brandLogos];
   return (
     <section className="hairline-b bg-background">
-      <div className="container-wide py-8 md:py-10">
+      <div className="container-wide pt-4 md:pt-5 pb-8 md:pb-10">
         <p className="eyebrow text-center text-muted-foreground/80">Brands We Install · Track-Proven</p>
-        <div className="mt-6 flex flex-nowrap items-center justify-between gap-x-4 md:gap-x-6 overflow-x-auto no-scrollbar">
-          {brandLogos.map((b) => (
-            <a
-              key={b.name}
-              href="/shop"
-              aria-label={`Shop ${b.name}`}
-              className="group opacity-80 hover:opacity-100 transition-opacity shrink-0"
-              title={b.name}
-            >
-              {token ? (
-                <img
-                  src={`https://img.logo.dev/${b.domain}?token=${token}&format=png&size=400&retina=true`}
-                  alt={`${b.name} logo`}
-                  loading="lazy"
-                  className="h-16 md:h-20 w-auto object-contain"
-                />
-              ) : (
-                <span className="font-display text-sm md:text-base font-semibold tracking-tight text-white/85">
-                  {b.name}
-                </span>
-              )}
-            </a>
-          ))}
+        <div className="mt-4 overflow-hidden">
+          <div className="brand-carousel-track flex flex-nowrap items-center gap-x-8 md:gap-x-14">
+            {items.map((b, i) => (
+              <a
+                key={`${b.name}-${i}`}
+                href="/shop"
+                aria-label={`Shop ${b.name}`}
+                className="group opacity-80 hover:opacity-100 transition-opacity shrink-0"
+                title={b.name}
+              >
+                {token ? (
+                  <img
+                    src={`https://img.logo.dev/${b.domain}?token=${token}&format=png&size=400&retina=true`}
+                    alt={`${b.name} logo`}
+                    loading="lazy"
+                    className="h-20 md:h-28 w-auto object-contain"
+                  />
+                ) : (
+                  <span className="font-display text-base md:text-xl font-semibold tracking-tight text-white/85">
+                    {b.name}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
