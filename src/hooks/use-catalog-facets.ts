@@ -28,7 +28,6 @@ export const MAIN_CATEGORIES = [
   "Exhaust",
   "Interior",
   "Exterior",
-  "Electronics",
   "Tools",
   "Fluids",
 ] as const;
@@ -40,7 +39,6 @@ const CATEGORY_KEYWORDS: Record<string, RegExp> = {
   Exhaust: /(exhaust|header|muffler|cat[- ]?back|downpipe|midpipe|x-?pipe|resonator|tip)/i,
   Interior: /(interior|seat|harness|belt kit|cage|roll bar|steering wheel|shifter|pedal|carpet|trim|apparel|safety|helmet|fire)/i,
   Exterior: /(exterior|aero|splitter|wing|rear wing|spoiler|ducktail|diffuser|body|hood|bumper|fender|rocker|canard|wrap|vinyl|mirror|glass)/i,
-  Electronics: /(electronic|tune|tuning|ecu|gauge|dash|data|sensor|camera|wiring|light|led|switch|display)/i,
   Tools: /(tool|wrench|socket|spreader|jack|stand|pliers|torque|bleeder|gauge tool|equipment)/i,
   Fluids: /(fluid|oil|coolant|antifreeze|lubricant|grease|additive|chemical)/i,
 };
