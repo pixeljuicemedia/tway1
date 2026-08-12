@@ -176,12 +176,12 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: g.hash, cat: "All", sort: "Featured" }}
                         onClick={() => setOpen(false)}
-                        className="group flex items-baseline justify-between gap-3"
+                        className="group flex flex-col items-start"
                       >
-                        <span className="font-display text-[15px] font-semibold text-white group-hover:text-race-red transition-colors">
+                        <span className="font-display text-[15px] font-bold text-white group-hover:text-race-red transition-colors">
                           {g.label}
                         </span>
-                        <span className="text-[10px] font-display uppercase tracking-widest text-muted-foreground">
+                        <span className="text-xs font-display uppercase tracking-widest text-white/90">
                           {g.years}
                         </span>
                       </Link>
