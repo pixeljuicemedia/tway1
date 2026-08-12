@@ -151,7 +151,7 @@ function ShopMenu() {
     >
       <Link
         to="/shop"
-        className="font-display text-[15px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
+        className="font-display text-[15px] font-bold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
         activeProps={{ className: "text-white" }}
       >
         Shop
