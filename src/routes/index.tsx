@@ -246,6 +246,8 @@ function BrandStrip() {
 
 function Index() {
   const { categories, catCounts } = useCatalogFacets();
+  const featured = useCollectionProducts("track-essentials", 4);
+  const bestSellers = useCollectionProducts("best-sellers", 4);
   const categoryCards = categories.map((title) => ({
     title,
     img: categoryImageWhite(title),
