@@ -114,6 +114,88 @@ function Badge({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Live Shopify product card used by Featured Products and Best Sellers. */
+function ShopProductCard({ p, badge }: { p: ShopifyProduct; badge?: string }) {
+  const node = p.node;
+  const addItem = useCartStore((s) => s.addItem);
+  const cartLoading = useCartStore((s) => s.isLoading);
+  const variant = node.variants.edges[0]?.node;
+  const img = node.images.edges[0]?.node;
+  const meta = [node.vendor, node.productType].filter(Boolean).join(" · ");
+
+  return (
+    <div className="group flex flex-col">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface">
+        <Link to="/product/$handle" params={{ handle: node.handle }} className="absolute inset-0 block" aria-label={node.title}>
+          {img ? (
+            <img src={img.url} alt={img.altText ?? node.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy" />
+          ) : (
+            <div className="h-full w-full grid place-items-center text-xs text-muted-foreground">No image</div>
+          )}
+        </Link>
+        {badge && <span className="absolute top-4 left-4 pointer-events-none"><Badge>{badge}</Badge></span>}
+        <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={!variant || cartLoading || !variant.availableForSale}
+              onClick={() => {
+                if (!variant) return;
+                addItem({
+                  product: p,
+                  variantId: variant.id,
+                  variantTitle: variant.title,
+                  price: variant.price,
+                  quantity: 1,
+                  selectedOptions: variant.selectedOptions ?? [],
+                });
+                window.dispatchEvent(new Event("cart:open"));
+              }}
+              className="flex-1 h-10 rounded-md bg-foreground text-background font-display text-[11px] uppercase tracking-[0.18em] hover:bg-race-red hover:text-foreground transition-colors disabled:opacity-50"
+            >
+              {variant?.availableForSale ? "Quick Add" : "Sold Out"}
+            </button>
+            <Link to="/product/$handle" params={{ handle: node.handle }} className="h-10 px-3 grid place-items-center rounded-md border border-white/20 bg-background/70 backdrop-blur font-display text-[11px] uppercase tracking-[0.18em] text-white hover:border-race-red transition-colors">View</Link>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4">
+        {meta && <p className="eyebrow">{meta}</p>}
+        <div className="mt-2 flex items-start justify-between gap-3">
+          <Link to="/product/$handle" params={{ handle: node.handle }} className="font-display text-base font-medium leading-snug hover:text-race-red transition-colors">
+            {node.title}
+          </Link>
+          <span className="font-display text-sm text-muted-foreground shrink-0">
+            {formatMoney(node.priceRange.minVariantPrice.amount, node.priceRange.minVariantPrice.currencyCode)}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductGrid({ products, loading, badge }: { products: ShopifyProduct[]; loading: boolean; badge?: string }) {
+  if (loading) {
+    return (
+      <div className="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="aspect-[4/5] rounded-xl bg-surface animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+  if (!products.length) {
+    return <p className="mt-14 text-sm text-muted-foreground">No products found.</p>;
+  }
+  return (
+    <div className="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {products.map((p) => (
+        <ShopProductCard key={p.node.id} p={p} badge={badge} />
+      ))}
+    </div>
+  );
+}
+
 const brandLogos: { name: string; domain: string }[] = [
   { name: "Brembo",      domain: "brembo.com" },
   { name: "Sparco",      domain: "sparco.com" },
