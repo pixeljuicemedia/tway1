@@ -349,12 +349,13 @@ function Index() {
                 className={`group relative overflow-hidden rounded-xl bg-white ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
               >
                 <img src={c.img} alt={c.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/85 to-transparent" />
-                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
-                  <p className="eyebrow">{c.count}</p>
-                  <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold leading-tight text-neutral-900">{c.title}</h3>
-                  <div className="mt-3 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-neutral-600 group-hover:text-race-red transition-colors">
-                    Shop {c.title} <span aria-hidden>→</span>
+                <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+                  <div className="self-end bg-black/75 rounded-2xl px-4 py-3 md:px-5 md:py-4 backdrop-blur-sm">
+                    <p className="eyebrow leading-none">{c.count}</p>
+                    <h3 className="mt-1 font-display text-2xl md:text-3xl font-semibold leading-tight text-foreground">{c.title}</h3>
+                    <div className="mt-1 flex items-center gap-2 text-xs font-display font-bold uppercase tracking-widest text-race-red group-hover:text-foreground transition-colors">
+                      Shop {c.title} <span aria-hidden>→</span>
+                    </div>
                   </div>
                 </div>
               </Link>
