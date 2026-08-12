@@ -70,7 +70,7 @@ function SearchPage() {
       .then((list) => {
         // Fallback: if Shopify returns nothing, do a client-side title match on all products
         if (list.length === 0) {
-          fetchProducts(100)
+          fetchProducts(250)
             .then((all) => {
               const lower = term.toLowerCase();
               setResults(
