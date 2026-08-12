@@ -219,7 +219,7 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: "All", cat: "All", sort: "Featured", collection: f.handle }}
                         onClick={() => setOpen(false)}
-                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
                       >
                         {f.title}
                       </Link>
@@ -230,7 +230,7 @@ function ShopMenu() {
                   <Link
                     to="/shop"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-white hover:text-race-red transition-colors"
+                    className="inline-flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-widest text-white hover:text-race-red transition-colors"
                   >
                     View All Parts
                     <span aria-hidden>→</span>
