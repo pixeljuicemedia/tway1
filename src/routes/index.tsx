@@ -302,7 +302,7 @@ function Index() {
                 className={`group relative overflow-hidden rounded-xl bg-white ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
               >
                 <img src={c.img} alt={c.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white via-white/85 to-transparent" />
                 <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                   <p className="eyebrow">{c.count}</p>
                   <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold leading-tight text-neutral-900">{c.title}</h3>
