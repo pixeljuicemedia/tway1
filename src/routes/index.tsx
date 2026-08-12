@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import { useCatalogFacets } from "@/hooks/use-catalog-facets";
-import { categoryImage } from "@/lib/category-imagery";
+import { categoryImageWhite } from "@/lib/category-imagery";
 import burnout1 from "@/assets/c8hero1.jpg.asset.json";
 import burnout2 from "@/assets/c8hero2.jpg.asset.json";
 import burnout3 from "@/assets/c8hero3.jpg.asset.json";
@@ -178,7 +178,7 @@ function Index() {
   const { categories, catCounts } = useCatalogFacets();
   const categoryCards = categories.map((title) => ({
     title,
-    img: categoryImage(title),
+    img: categoryImageWhite(title),
     count: `${catCounts.get(title) ?? 0} ${(catCounts.get(title) ?? 0) === 1 ? "product" : "products"}`,
   }));
 
@@ -299,14 +299,14 @@ function Index() {
                 to="/category"
                 search={{ gen: "All", cat: c.title, sort: "Featured" }}
                 key={c.title}
-                className={`group relative overflow-hidden rounded-xl bg-surface ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
+                className={`group relative overflow-hidden rounded-xl bg-white ${i === 0 ? "col-span-2 row-span-2 aspect-[4/5] md:aspect-auto" : "aspect-[3/4]"} transition-transform duration-500 hover:scale-[1.015]`}
               >
                 <img src={c.img} alt={c.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent" />
                 <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                   <p className="eyebrow">{c.count}</p>
-                  <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold leading-tight">{c.title}</h3>
-                  <div className="mt-3 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-muted-foreground group-hover:text-race-red transition-colors">
+                  <h3 className="mt-2 font-display text-2xl md:text-3xl font-semibold leading-tight text-neutral-900">{c.title}</h3>
+                  <div className="mt-3 flex items-center gap-2 text-xs font-display uppercase tracking-widest text-neutral-600 group-hover:text-race-red transition-colors">
                     Shop {c.title} <span aria-hidden>→</span>
                   </div>
                 </div>
