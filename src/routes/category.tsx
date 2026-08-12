@@ -306,7 +306,7 @@ function CategoryPage() {
                           loading="lazy"
                         />
                       )}
-                      <span className="absolute top-4 left-4 rounded-full bg-race-red/90 text-background backdrop-blur px-3 py-1 text-[20px] font-bold font-display uppercase tracking-widest">
+                      <span className="absolute top-4 left-4 rounded-full bg-race-red/90 text-background backdrop-blur px-3 py-1 text-[16px] font-bold font-display uppercase tracking-widest">
                         {g}
                       </span>
                       {node.productType && (
