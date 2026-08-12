@@ -2,6 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import { useCatalogFacets } from "@/hooks/use-catalog-facets";
+import { useCollectionProducts } from "@/hooks/use-collection-products";
+import { useCartStore } from "@/stores/cart-store";
+import { formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { categoryImageWhite } from "@/lib/category-imagery";
 import burnout1 from "@/assets/c8hero1.jpg.asset.json";
 import burnout2 from "@/assets/c8hero2.jpg.asset.json";
@@ -54,21 +57,6 @@ export const Route = createFileRoute("/")({
 // -----------------------------------------------------------------------------
 // Data — conversion-focused homepage. Content lives here so the JSX stays clean.
 // -----------------------------------------------------------------------------
-
-const featuredProducts = [
-  { name: "Track-Spec Intake Manifold", price: "$1,895", meta: "Intake · LT4 / LT2", img: prod1, badge: "Best Seller", rating: 5 },
-  { name: "Forged Race Wheel 18×11", price: "$1,240", meta: "Wheel · Forged", img: prod2, badge: "In Stock", rating: 5 },
-  { name: "Carbon Front Splitter — C7", price: "$2,450", meta: "Aero · Carbon", img: prod3, badge: "New Arrival", rating: 5 },
-  { name: "Long-Tube Headers 1⅞\"", price: "$1,780", meta: "Exhaust · 304 SS", img: prod4, badge: "Ships Today", rating: 5 },
-];
-
-const bestSellers = [
-  { name: "C8 Cold Air Intake",         price: "$780",   meta: "C8 · Intake",        img: catC8,   rating: 5, badge: "Best Seller" },
-  { name: "Track-Ready Corner Package", price: "$8,450", meta: "Suspension · Full",  img: build3,  rating: 5, badge: "Popular" },
-  { name: "MoTeC C127 Dash Logger",     price: "$4,995", meta: "Electronics · Data", img: catElectronics, rating: 5, badge: "Pro" },
-  { name: "Stilo ST5F Carbon Helmet",   price: "$1,899", meta: "Safety · SA2020",    img: catSafety, rating: 5, badge: "Popular" },
-];
-
 
 const whyCards = [
   { big: "20+", label: "Years Experience" },
