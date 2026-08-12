@@ -122,7 +122,7 @@ export function SiteHeader() {
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="font-display text-sm font-semibold tracking-[0.18em] uppercase text-white"
+                className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
               >
                 {n.label}
               </Link>
