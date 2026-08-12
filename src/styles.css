@@ -303,3 +303,18 @@
   animation: hero-crossfade 9s linear infinite;
   will-change: opacity;
 }
+
+/* Brand logo marquee — continuous, seamless loop */
+@keyframes brand-carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.brand-carousel-track {
+  animation: brand-carousel 30s linear infinite;
+  will-change: transform;
+}
+
+.brand-carousel-track:hover {
+  animation-play-state: paused;
+}
