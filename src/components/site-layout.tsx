@@ -60,7 +60,7 @@ export function SiteHeader() {
                 <Link
                   key={n.to}
                   to={n.to}
-                  className="font-display text-[15px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors"
+                  className="font-display text-[15px] font-bold tracking-wide text-white/90 hover:text-white transition-colors"
                   activeProps={{ className: "text-white" }}
                 >
                   {n.label}
@@ -122,7 +122,7 @@ export function SiteHeader() {
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="font-display text-sm font-semibold tracking-[0.18em] uppercase text-white"
+                className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
               >
                 {n.label}
               </Link>
@@ -151,7 +151,7 @@ function ShopMenu() {
     >
       <Link
         to="/shop"
-        className="font-display text-[15px] font-semibold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
+        className="font-display text-[15px] font-bold tracking-wide text-white/90 hover:text-white transition-colors inline-flex items-center gap-1.5"
         activeProps={{ className: "text-white" }}
       >
         Shop
@@ -176,12 +176,12 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: g.hash, cat: "All", sort: "Featured" }}
                         onClick={() => setOpen(false)}
-                        className="group flex items-baseline justify-between gap-3"
+                        className="group flex flex-col items-start"
                       >
-                        <span className="font-display text-[15px] font-semibold text-white group-hover:text-race-red transition-colors">
+                        <span className="font-display text-[15px] font-bold text-white group-hover:text-race-red transition-colors">
                           {g.label}
                         </span>
-                        <span className="text-[10px] font-display uppercase tracking-widest text-muted-foreground">
+                        <span className="text-xs font-display uppercase tracking-widest text-white/90">
                           {g.years}
                         </span>
                       </Link>
@@ -200,7 +200,7 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: "All", cat: c, sort: "Featured" }}
                         onClick={() => setOpen(false)}
-                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
                       >
                         {c}
                       </Link>
@@ -219,7 +219,7 @@ function ShopMenu() {
                         to="/category"
                         search={{ gen: "All", cat: "All", sort: "Featured", collection: f.handle }}
                         onClick={() => setOpen(false)}
-                        className="font-display text-[15px] font-semibold text-white/85 hover:text-race-red transition-colors"
+                        className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
                       >
                         {f.title}
                       </Link>
@@ -230,7 +230,7 @@ function ShopMenu() {
                   <Link
                     to="/shop"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-white hover:text-race-red transition-colors"
+                    className="inline-flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-widest text-white hover:text-race-red transition-colors"
                   >
                     View All Parts
                     <span aria-hidden>→</span>
