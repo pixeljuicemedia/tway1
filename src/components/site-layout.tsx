@@ -167,9 +167,9 @@ function ShopMenu() {
       {open && (
         <>
           {/* Bridge so hover doesn't drop between trigger and panel */}
-          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-[640px]" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[640px] rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/40 p-6 animate-fade-in">
-            <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-8">
+          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-[840px]" />
+          <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[840px] rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 border-t-4 border-t-race-red shadow-2xl shadow-black/40 p-6 animate-fade-in overflow-hidden">
+            <div className="grid grid-cols-[1.1fr_0.9fr_0.9fr_1.1fr] gap-6">
               {/* Generations */}
               <div>
                 <p className="eyebrow text-race-red">Shop by Generation</p>
@@ -240,6 +240,35 @@ function ShopMenu() {
                     <span aria-hidden>→</span>
                   </Link>
                 </div>
+              </div>
+
+              {/* Visual promo cards */}
+              <div className="flex flex-col gap-3">
+                <Link
+                  to="/category"
+                  search={{ gen: "C8", cat: "All", sort: "Featured" }}
+                  onClick={() => setOpen(false)}
+                  className="group relative h-[88px] rounded-lg overflow-hidden border border-white/10"
+                >
+                  <img src={c8Hero} alt="C8 Corvette" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-3">
+                    <p className="font-display text-[13px] font-bold text-white">C8 Stingray</p>
+                    <p className="text-[10px] text-white/80 uppercase tracking-wider">Shop Platform →</p>
+                  </div>
+                </Link>
+                <Link
+                  to="/shop"
+                  onClick={() => setOpen(false)}
+                  className="group relative h-[88px] rounded-lg overflow-hidden border border-white/10"
+                >
+                  <img src={shopHero} alt="Shop all parts" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-3">
+                    <p className="font-display text-[13px] font-bold text-white">Track Builds</p>
+                    <p className="text-[10px] text-white/80 uppercase tracking-wider">Shop All Parts →</p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
