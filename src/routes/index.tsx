@@ -30,6 +30,7 @@ import prod2 from "@/assets/prod-2.jpg";
 import prod3 from "@/assets/prod-3.jpg";
 import prod4 from "@/assets/prod-4.jpg";
 import whyTrack from "@/assets/why-track.jpg";
+import whyBg from "@/assets/tway-racecar-bg.jpg.asset.json";
 import userShop from "@/assets/tway-user-photo.jpg";
 import social1 from "@/assets/social-1.jpg";
 import social2 from "@/assets/social-2.jpg";
