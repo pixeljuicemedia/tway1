@@ -388,8 +388,11 @@ function Index() {
       {/* ============================================================
           6 · WHY TWAY — scannable trust icon cards
          ============================================================ */}
-      <section className="hairline-t">
-        <div className="container-wide py-24 md:py-32">
+      <section
+        className="hairline-t relative bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{ backgroundImage: `linear-gradient(180deg, oklch(0.14 0.005 260 / 0.72) 0%, oklch(0.14 0.005 260 / 0.55) 100%), url(${whyBg.url})` }}
+      >
+        <div className="container-wide py-24 md:py-32 relative z-10">
           <div className="text-center max-w-2xl mx-auto">
             <Eyebrow accent className="justify-center">Why Tway</Eyebrow>
             <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">Built by racers. Trusted by builders.</h2>
