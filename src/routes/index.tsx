@@ -545,8 +545,8 @@ function Index() {
           11 · FINAL CTA — shopping-focused
          ============================================================ */}
       <section className="relative overflow-hidden">
-        <img src={build3} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
+        <img src={build3} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/80" />
         <div className="relative container-wide py-28 md:py-40 text-center">
           <Eyebrow accent className="justify-center">Ready?</Eyebrow>
           <h2 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] max-w-4xl mx-auto">
