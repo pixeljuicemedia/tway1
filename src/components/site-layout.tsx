@@ -167,9 +167,9 @@ function ShopMenu() {
       {open && (
         <>
           {/* Bridge so hover doesn't drop between trigger and panel */}
-          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-[840px]" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[840px] rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 border-t-4 border-t-race-red shadow-2xl shadow-black/40 p-6 animate-fade-in overflow-hidden">
-            <div className="grid grid-cols-[1.1fr_0.9fr_0.9fr_1.1fr] gap-6">
+          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-full h-4 w-[920px]" />
+          <div className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[920px] rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 border-t-4 border-t-race-red shadow-2xl shadow-black/40 p-6 animate-fade-in overflow-hidden">
+            <div className="grid grid-cols-[1.3fr_0.85fr_0.85fr_1fr] gap-6">
               {/* Generations */}
               <div>
                 <p className="eyebrow text-race-red">Shop by Generation</p>
@@ -182,7 +182,7 @@ function ShopMenu() {
                         onClick={() => setOpen(false)}
                         className="group flex flex-col items-start"
                       >
-                        <span className="font-display text-[15px] font-bold text-white group-hover:text-race-red transition-colors">
+                        <span className="font-display text-[15px] font-bold text-white group-hover:text-race-red transition-colors whitespace-nowrap">
                           {g.label}
                         </span>
                         <span className="text-xs font-display uppercase tracking-widest text-white/90">
