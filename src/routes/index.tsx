@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
 import { useCatalogFacets } from "@/hooks/use-catalog-facets";
 import { useCollectionProducts } from "@/hooks/use-collection-products";
+import { useParallax } from "@/hooks/use-parallax";
 import { useCartStore } from "@/stores/cart-store";
 import { formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { categoryImageWhite } from "@/lib/category-imagery";
