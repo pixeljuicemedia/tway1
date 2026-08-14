@@ -253,6 +253,7 @@ function Index() {
   const { categories, catCounts } = useCatalogFacets();
   const featured = useCollectionProducts("track-essentials", 4);
   const bestSellers = useCollectionProducts("best-sellers", 4);
+  const { ref: whyRef, offset: whyOffset } = useParallax(0.18);
   const categoryCards = categories.map((title) => ({
     title,
     img: categoryImageWhite(title),
