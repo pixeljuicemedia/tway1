@@ -46,22 +46,40 @@ function AboutPage() {
     <SiteShell>
       {/* HERO */}
       <section className="container-wide pt-20 md:pt-32 pb-20 md:pb-24">
-        <Eyebrow accent>Est. 1999 · Charlotte, NC</Eyebrow>
-        <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight max-w-5xl">
+        <Eyebrow accent>Est. 2015 · Orange, CA</Eyebrow>
+        <h1 className="mt-8 font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight max-w-5xl text-white">
           A family. A shop.<br />
-          <span className="text-muted-foreground">A quarter-century of laps.</span>
+          <span className="text-race-red">A decade of podium finishes.</span>
         </h1>
         <div className="mt-16 grid gap-12 lg:grid-cols-[1.4fr_1fr] items-start">
           <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
             <img src={aboutTeam} alt="Tway family team" className="h-full w-full object-cover" loading="lazy" />
           </div>
-          <div className="max-w-md">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Tway started as a father-and-son project in a two-bay garage. Twenty-five years later, it's a full-service race shop that still runs like a family.
-            </p>
-            <p className="mt-6 text-muted-foreground leading-relaxed">
-              We don't hire clock-punchers. Every technician on the floor has raced, fabricated, tuned or engineered — usually all four. That's why the paddock trusts us.
-            </p>
+          <div className="max-w-md space-y-8 text-white">
+            <div>
+              <h2 classFounding</h2>
+              <p className="mt-3 leading-relaxed">
+                Jim Tway founded and incorporated Tway Motorsports in 2015 while working as an aerospace engineer in Southern California. After a modest start, Tway Motorsports grew from a side gig in the garage to a full-time venture in 2022.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display text-xl font-semibold text-race-red">Early Days</h2>
+              <p className="mt-3 leading-relaxed">
+                Tway Motorsports began offering a product line of aerodynamic parts for late-model Corvettes, all designed in-house. Shortly thereafter, trackside tuning and support of Corvettes became a major growth opportunity.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display text-xl font-semibold text-race-red">Current Offerings</h2>
+              <p className="mt-3 leading-relaxed">
+                Tway Motorsports offers a full complement of automotive racing services and parts. We offer custom-designed parts and the best racing retail parts from around the world, engineering and driver development solutions for amateur enthusiasts and pro racing drivers, installation services, and trackside mechanical and engineering support including technical inspection. We also bring an expansive knowledge base of modern racing electrical systems and software, providing parts, programming and tuning.
+              </p>
+            </div>
+            <div>
+              <h2 className="font-display text-xl font-semibold text-race-red">Position</h2>
+              <p className="mt-3 leading-relaxed">
+                Tway Motorsports leverages a 15-year career in advanced vehicle systems including programs such as the Boeing 787, Minuteman III ICBM, and numerous Phantom Works prototype unmanned planes and helicopters. Combined with Jim's 20-year racing career in SCCA Road Racing, NASA Pro Racing and a collegiate Formula SAE race team, this has uniquely positioned Tway Motorsports as a leading race shop operating in SoCal.
+              </p>
+            </div>
           </div>
         </div>
       </section>
