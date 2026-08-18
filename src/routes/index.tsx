@@ -461,36 +461,42 @@ function Index() {
       </section>
 
       {/* ============================================================
-          8 · SERVICES — teaser strip
+          8 · TRACKSIDE SUPPORT
          ============================================================ */}
       <section className="hairline-t">
-        <div className="container-wide py-20 md:py-28 grid gap-10 lg:grid-cols-[1fr_1.2fr] items-center">
-          <div>
-            <Eyebrow accent>Professional Installation</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] max-w-lg">
-              Don't just buy the part. <span className="text-muted-foreground">Have it installed right.</span>
-            </h2>
-            <p className="mt-6 max-w-md text-muted-foreground leading-relaxed">
-              Fabrication, dyno tuning, engine builds and trackside support — all done in-house by the team that races your platform.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow accent>Trackside Support</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] max-w-2xl">
+                We don't just build cars. <span className="text-muted-foreground">We race with you.</span>
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
               <Link to="/services" className="btn-primary">Book Services</Link>
               <Link to="/contact" className="btn-ghost">Request a Quote →</Link>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3 md:gap-4">
-            {[
-              { img: svcFab,    label: "Fabrication" },
-              { img: svcDyno,   label: "Dyno Tuning" },
-              { img: svcEngine, label: "Engine Builds" },
-            ].map((s) => (
-              <Link key={s.label} to="/services" className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-surface">
-                <img src={s.img} alt={s.label} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <div className="font-display text-sm md:text-base font-semibold">{s.label}</div>
+
+          <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-3">
+            {tracksideServices.map((s, i) => (
+              <article key={s.title} className="group overflow-hidden rounded-xl border border-hairline bg-surface flex flex-col">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img src={s.img} alt={s.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  <span className="absolute top-4 left-4 font-display text-race-red text-[11px] tracking-[0.3em]">
+                    {String(i + 1).padStart(2, "0")} / 03
+                  </span>
                 </div>
-              </Link>
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <h3 className="font-display text-xl md:text-2xl font-semibold leading-tight">{s.title}</h3>
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed flex-1">{s.body}</p>
+                  <Link to="/contact" className="mt-6 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest group-hover:text-race-red transition-colors">
+                    Get Started
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>
