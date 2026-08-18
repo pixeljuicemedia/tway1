@@ -162,15 +162,15 @@ function ShopPage() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {visibleGenCards.map((g) => (
             <Link
               key={g.key}
               to="/category"
               search={{ gen: g.key, cat: "All", sort: "Featured" }}
-              className={`group relative block overflow-hidden rounded-2xl border border-border ${g.featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
+              className="group relative block overflow-hidden rounded-2xl border border-border"
             >
-              <div className={`relative ${g.featured ? "aspect-[4/5] lg:aspect-[3/4]" : "aspect-[5/6]"} overflow-hidden bg-surface`}>
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                 <img
                   src={g.img}
                   alt={g.title}
@@ -181,25 +181,25 @@ function ShopPage() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(to top, oklch(0.14 0.005 260) 0%, oklch(0.14 0.005 260 / 0.35) 45%, transparent 75%)",
+                      "linear-gradient(to top, oklch(1 0 0 / 0.92) 0%, oklch(1 0 0 / 0.55) 35%, transparent 65%)",
                   }}
                 />
-                <div className="absolute inset-0 p-6 md:p-7 flex flex-col justify-between">
+                <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-background/70 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
+                    <span className="rounded-full bg-black/80 text-white backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
                       {g.years}
                     </span>
-                    <span className="text-[10px] font-display uppercase tracking-widest text-white/70">
+                    <span className="text-[10px] font-display uppercase tracking-widest text-black/70">
                       {genCounts.get(g.key) ?? 0} parts
                     </span>
                   </div>
                   <div>
                     <p className="eyebrow text-race-red">Generation · {g.key}</p>
-                    <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold leading-tight">
+                    <h3 className="mt-3 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
                       {g.title}
                     </h3>
-                    <p className="mt-2 text-sm text-white/70 leading-snug">{g.blurb}</p>
-                    <div className="mt-5 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-white group-hover:text-race-red transition-colors">
+                    <p className="mt-2 text-sm text-black/70 leading-snug">{g.blurb}</p>
+                    <div className="mt-5 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
                       Shop {g.key}
                       <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                     </div>
