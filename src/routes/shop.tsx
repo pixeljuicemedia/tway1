@@ -168,7 +168,7 @@ function ShopPage() {
               key={g.key}
               to="/category"
               search={{ gen: g.key, cat: "All", sort: "Featured" }}
-              className="group relative block overflow-hidden rounded-2xl border border-border"
+              className="group block overflow-hidden rounded-2xl border border-border bg-white"
             >
               <div className="relative aspect-[4/5] overflow-hidden bg-white">
                 <img
@@ -185,16 +185,16 @@ function ShopPage() {
                     {genCounts.get(g.key) ?? 0} parts
                   </span>
                 </div>
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-white/95 backdrop-blur-sm border-t border-border/50">
-                  <p className="eyebrow text-race-red">Generation · {g.key}</p>
-                  <h3 className="mt-2 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
-                    {g.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-black/70 leading-snug">{g.blurb}</p>
-                  <div className="mt-4 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
-                    Shop {g.key}
-                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                  </div>
+              </div>
+              <div className="p-5 md:p-6 border-t border-border/50">
+                <p className="eyebrow text-race-red">Generation · {g.key}</p>
+                <h3 className="mt-2 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
+                  {g.title}
+                </h3>
+                <p className="mt-1.5 text-sm text-black/70 leading-snug">{g.blurb}</p>
+                <div className="mt-4 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
+                  Shop {g.key}
+                  <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
             </Link>
