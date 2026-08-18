@@ -28,12 +28,12 @@ export const Route = createFileRoute("/services")({
 
 const services = [
   { n: "01", t: "Custom Fabrication", d: "TIG-welded stainless headers, roll cages, splitters, brackets — one-off race components engineered around your platform.", img: svcFab },
-  { n: "02", t: "Engine Building", d: "Blueprinted LT and LS assemblies. Balanced rotating assemblies, CNC-ported heads, race-spec valvetrains.", img: svcEngine },
-  { n: "03", t: "Dyno Tuning", d: "In-house Mustang chassis dyno. Every calibration is validated with data, not guessed at.", img: svcDyno },
-  { n: "04", t: "Race Prep", d: "Corner weights, alignment, brake bleeds, tire prep. We ship your car race-ready — every session.", img: racePrep.url },
-  { n: "05", t: "Trackside Support", d: "Full pit-lane presence. Diagnostics, setup changes, fabrication repairs — we don't leave until you finish.", img: trackside.url },
-  { n: "06", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: engineering.url },
-  { n: "07", t: "Driver Development", d: "Coaching, data review, sim programs. From HPDE novice to championship contender.", img: userShop },
+  { n: "02", t: "Race Prep", d: "Corner weights, alignment, brake bleeds, tire prep. We ship your car race-ready — every session.", img: racePrep.url },
+  { n: "03", t: "Trackside Support", d: "Full pit-lane presence. Diagnostics, setup changes, fabrication repairs — we don't leave until you finish.", img: trackside.url },
+  { n: "04", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: engineering.url },
+  { n: "05", t: "Driver Development", d: "Coaching, data review, sim programs. From HPDE novice to championship contender.", img: userShop },
+  { n: "06", t: "Engine Building", d: "Blueprinted LT and LS assemblies. Balanced rotating assemblies, CNC-ported heads, race-spec valvetrains.", img: svcEngine },
+  { n: "07", t: "Dyno Tuning", d: "In-house Mustang chassis dyno. Every calibration is validated with data, not guessed at.", img: svcDyno, comingSoon: true },
 ];
 
 function ServicesPage() {
