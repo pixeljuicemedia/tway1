@@ -72,16 +72,25 @@ function ServicesPage() {
             <div className="max-w-lg">
               <Eyebrow>Service · {s.n}</Eyebrow>
               <h2 className="mt-6 font-display text-3xl md:text-5xl font-semibold leading-[1.02]">{s.t}</h2>
-              <p className="mt-6 text-muted-foreground leading-relaxed">{s.d}</p>
-              <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-muted-foreground">
-                {["Consultation", "Design", "Fabrication", "Validation"].map((x) => (
-                  <li key={x} className="flex items-center gap-2">
-                    <span className="h-1 w-1 rounded-full bg-race-red" />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="mt-10 inline-flex btn-ghost">Request a Quote →</Link>
+              {s.comingSoon ? (
+                <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-race-red/10 px-4 py-2 text-sm font-semibold text-race-red">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-race-red" />
+                  Coming Soon
+                </p>
+              ) : (
+                <>
+                  <p className="mt-6 text-muted-foreground leading-relaxed">{s.d}</p>
+                  <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-muted-foreground">
+                    {["Consultation", "Design", "Fabrication", "Validation"].map((x) => (
+                      <li key={x} className="flex items-center gap-2">
+                        <span className="h-1 w-1 rounded-full bg-race-red" />
+                        {x}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/contact" className="mt-10 inline-flex btn-ghost">Request a Quote →</Link>
+                </>
+              )}
             </div>
           </article>
         ))}
