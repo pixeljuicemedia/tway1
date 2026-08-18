@@ -15,6 +15,7 @@ import build3 from "@/assets/build-3.jpg";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
 import heroCorvette from "@/assets/hero-corvette-white.jpg";
+import shopHero from "@/assets/shop-hero-corvette.jpg.asset.json";
 import corvetteSide from "@/assets/corvette-side-white.jpg.asset.json";
 import trackside from "@/assets/trackside.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
@@ -117,7 +118,7 @@ function ShopPage() {
       <section className="relative hairline-b overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroCorvette})` }}
+          style={{ backgroundImage: `url(${shopHero.url})` }}
           aria-hidden
         />
         <div
