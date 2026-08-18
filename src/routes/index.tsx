@@ -20,9 +20,9 @@ import catC6 from "@/assets/cat-c6.jpg";
 import catC5 from "@/assets/cat-c5.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
 import catElectronics from "@/assets/cat-electronics.jpg";
-import svcFab from "@/assets/svc-fab.jpg";
-import svcDyno from "@/assets/svc-dyno.jpg";
-import svcEngine from "@/assets/svc-engine.jpg";
+import ts1 from "@/assets/ts1.jpg.asset.json";
+import ts2 from "@/assets/ts2.jpg.asset.json";
+import ts3 from "@/assets/ts3.jpg.asset.json";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
@@ -74,6 +74,24 @@ const recentBuilds = [
   { title: "GR Corolla · Suspension Overhaul",  tag: "Suspension",     img: build3 },
   { title: "Civic Type R · Brake Upgrade",      tag: "Brakes",         img: userShop },
   { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
+];
+
+const tracksideServices = [
+  {
+    title: "Driver Coaching",
+    img: ts1.url,
+    body: "With over 20 years racing experience, Tway Motorsports offers driver coaching for all levels of drivers, first timer to seasoned racers looking for an edge. We use video & data acquisition systems to analyze driver performance. We can provide ride-alongs in customer vehicles, and also provide lead-follow sessions on track.",
+  },
+  {
+    title: "Performance Tuning",
+    img: ts2.url,
+    body: "Today, modern day race cars have 10x more computers and mechanical adjustments than just 20 years ago. Tway Motorsports offers suspension and chassis tuning services to dial in the handling at the track. We also can install and provide data acquisition systems and provide real time analysis of the car's performance on track.",
+  },
+  {
+    title: "Arrive and Drive",
+    img: ts3.url,
+    body: "We offer customers a turnkey racing experience where they can arrive to the track, hop into a Tway Motorsports prepared Corvette race car and spend the day focusing on driving only. We handle all preparation and maintenance required, including transporting the car to and from the track. We offer this service for customers with their own cars as well.",
+  },
 ];
 
 const testimonials = [
@@ -461,36 +479,42 @@ function Index() {
       </section>
 
       {/* ============================================================
-          8 · SERVICES — teaser strip
+          8 · TRACKSIDE SUPPORT
          ============================================================ */}
       <section className="hairline-t">
-        <div className="container-wide py-20 md:py-28 grid gap-10 lg:grid-cols-[1fr_1.2fr] items-center">
-          <div>
-            <Eyebrow accent>Professional Installation</Eyebrow>
-            <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] max-w-lg">
-              Don't just buy the part. <span className="text-muted-foreground">Have it installed right.</span>
-            </h2>
-            <p className="mt-6 max-w-md text-muted-foreground leading-relaxed">
-              Fabrication, dyno tuning, engine builds and trackside support — all done in-house by the team that races your platform.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] items-end">
+            <div>
+              <Eyebrow accent>Trackside Support</Eyebrow>
+              <h2 className="mt-6 font-display text-4xl md:text-5xl font-semibold leading-[1.05] max-w-2xl">
+                We don't just build cars. <span className="text-muted-foreground">We race with you.</span>
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
               <Link to="/services" className="btn-primary">Book Services</Link>
               <Link to="/contact" className="btn-ghost">Request a Quote →</Link>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3 md:gap-4">
-            {[
-              { img: svcFab,    label: "Fabrication" },
-              { img: svcDyno,   label: "Dyno Tuning" },
-              { img: svcEngine, label: "Engine Builds" },
-            ].map((s) => (
-              <Link key={s.label} to="/services" className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-surface">
-                <img src={s.img} alt={s.label} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <div className="font-display text-sm md:text-base font-semibold">{s.label}</div>
+
+          <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-3">
+            {tracksideServices.map((s, i) => (
+              <article key={s.title} className="group overflow-hidden rounded-xl border border-hairline bg-surface flex flex-col">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img src={s.img} alt={s.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  <span className="absolute top-4 left-4 font-display text-race-red text-[11px] tracking-[0.3em]">
+                    {String(i + 1).padStart(2, "0")} / 03
+                  </span>
                 </div>
-              </Link>
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <h3 className="font-display text-xl md:text-2xl font-semibold leading-tight">{s.title}</h3>
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed flex-1">{s.body}</p>
+                  <Link to="/contact" className="mt-6 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest group-hover:text-race-red transition-colors">
+                    Get Started
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>
