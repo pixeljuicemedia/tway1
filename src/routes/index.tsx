@@ -76,7 +76,6 @@ const recentBuilds = [
   { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
 ];
 
-const testimonials = [
 const tracksideServices = [
   {
     title: "Driver Coaching",
