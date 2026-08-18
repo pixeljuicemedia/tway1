@@ -57,7 +57,7 @@ function AboutPage() {
           </div>
           <div className="max-w-md space-y-8 text-white">
             <div>
-              <h2 classFounding</h2>
+              <h2 className="font-display text-xl font-semibold text-race-red">Founding</h2>
               <p className="mt-3 leading-relaxed">
                 Jim Tway founded and incorporated Tway Motorsports in 2015 while working as an aerospace engineer in Southern California. After a modest start, Tway Motorsports grew from a side gig in the garage to a full-time venture in 2022.
               </p>
