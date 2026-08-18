@@ -318,3 +318,12 @@
 .brand-carousel-track:hover {
   animation-play-state: paused;
 }
+
+/* Image fade-in on first load — global, applies to every <img> */
+img {
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+img.img-loaded {
+  opacity: 1;
+}
