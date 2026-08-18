@@ -181,7 +181,7 @@ function ShopPage() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(to top, oklch(1 0 0 / 0.92) 0%, oklch(1 0 0 / 0.55) 35%, transparent 65%)",
+                      "linear-gradient(to top, oklch(1 0 0 / 0.98) 0%, oklch(1 0 0 / 0.92) 22%, oklch(1 0 0 / 0.65) 45%, transparent 72%)",
                   }}
                 />
                 <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
