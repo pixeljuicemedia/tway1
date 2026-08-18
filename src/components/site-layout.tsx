@@ -119,22 +119,117 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <div className="md:hidden mt-3 mx-4 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/10">
+        <div className="md:hidden mt-3 mx-4 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/10 max-h-[80vh] overflow-y-auto">
           <div className="p-6 flex flex-col gap-4">
-            {nav.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n) =>
+              n.to === "/shop" ? (
+                <MobileShopSubmenu key={n.to} onClose={() => setOpen(false)} />
+              ) : (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  onClick={() => setOpen(false)}
+                  className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
+                >
+                  {n.label}
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}
     </header>
+  );
+}
+
+function MobileShopSubmenu({ onClose }: { onClose: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const { generations, categories, loading } = useCatalogFacets();
+  const { collections: featuredCollections } = useFeaturedCollections();
+  const genList = generations.map((key) => ({
+    hash: key,
+    label: GEN_META[key]?.label ?? key,
+    years: GEN_META[key]?.years ?? "",
+  }));
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setExpanded((e) => !e)}
+        className="w-full flex items-center justify-between font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
+      >
+        Shop
+        <svg aria-hidden viewBox="0 0 24 24" className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {expanded && (
+        <div className="mt-4 pl-4 border-l-2 border-race-red/40 space-y-6">
+          <div>
+            <p className="eyebrow text-race-red">Shop by Generation</p>
+            <ul className="mt-3 space-y-2.5">
+              {(genList.length ? genList : loading ? [] : shopMenu.generations.map((g) => ({ ...g }))).map((g) => (
+                <li key={g.hash}>
+                  <Link
+                    to="/category"
+                    search={{ gen: g.hash, cat: "All", sort: "Featured" }}
+                    onClick={onClose}
+                    className="group flex flex-col items-start"
+                  >
+                    <span className="font-display text-[15px] font-bold text-white group-hover:text-race-red transition-colors">
+                      {g.label}
+                    </span>
+                    <span className="text-xs font-display uppercase tracking-widest text-white/80">{g.years}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="eyebrow">Categories</p>
+            <ul className="mt-3 space-y-2.5">
+              {categories.map((c) => (
+                <li key={c}>
+                  <Link
+                    to="/category"
+                    search={{ gen: "All", cat: c, sort: "Featured" }}
+                    onClick={onClose}
+                    className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
+                  >
+                    {c}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="eyebrow">Featured</p>
+            <ul className="mt-3 space-y-2.5">
+              {featuredCollections.map((f) => (
+                <li key={f.handle}>
+                  <Link
+                    to="/category"
+                    search={{ gen: "All", cat: "All", sort: "Featured", collection: f.handle }}
+                    onClick={onClose}
+                    className="font-display text-[15px] font-bold text-white/85 hover:text-race-red transition-colors"
+                  >
+                    {f.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Link
+            to="/shop"
+            onClick={onClose}
+            className="inline-flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-widest text-white hover:text-race-red transition-colors"
+          >
+            View All Parts
+            <span aria-hidden>→</span>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }
 
