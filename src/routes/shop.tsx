@@ -118,7 +118,7 @@ function ShopPage() {
       <section className="relative hairline-b overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroCorvette})` }}
+          style={{ backgroundImage: `url(${shopHero.url})` }}
           aria-hidden
         />
         <div
