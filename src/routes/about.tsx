@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell, Eyebrow } from "@/components/site-layout";
-import aboutTeamAsset from "@/assets/about-team-family.jpg.asset.json";
-const aboutTeam = aboutTeamAsset.url;
+import aboutTeam from "@/assets/about-team-family.jpg";
 import build3 from "@/assets/build-3.jpg";
 import insideShop1 from "@/assets/inside-shop-1.png.asset.json";
 import insideShop2 from "@/assets/inside-shop-2.png.asset.json";
