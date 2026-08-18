@@ -5,20 +5,20 @@ import { fetchProducts, formatMoney, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cart-store";
 import { Loader2 } from "lucide-react";
 import { MAIN_CATEGORIES, mainCategoriesOf } from "@/hooks/use-catalog-facets";
-import catC8 from "@/assets/cat-c8.jpg";
-import catC7 from "@/assets/cat-c7.jpg";
-import catC6 from "@/assets/cat-c6.jpg";
-import catC5 from "@/assets/cat-c5.jpg";
+import catC8 from "@/assets/cat-c8-white.jpg";
+import catC7 from "@/assets/cat-c7-white.jpg";
+import catC6 from "@/assets/cat-c6-white.jpg";
+import catC5 from "@/assets/cat-c5-white.jpg";
 import catElectronics from "@/assets/cat-electronics.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
 import build3 from "@/assets/build-3.jpg";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
-import heroCorvette from "@/assets/hero-corvette.jpg";
-import corvetteSide from "@/assets/corvette-side.png.asset.json";
+import heroCorvette from "@/assets/hero-corvette-white.jpg";
+import corvetteSide from "@/assets/corvette-side-white.jpg.asset.json";
 import trackside from "@/assets/trackside.jpg.asset.json";
 import racePrep from "@/assets/race-prep.jpg.asset.json";
-import engineering from "@/assets/engineering.jpg.asset.json";
+import engineering from "@/assets/engineering-white.jpg.asset.json";
 import burnout1 from "@/assets/burnout1.jpg.asset.json";
 import burnout5 from "@/assets/burnout5.jpg.asset.json";
 import insideShop2 from "@/assets/inside-shop-2.png.asset.json";
@@ -50,15 +50,15 @@ function generationsOf(p: ShopifyProduct): string[] {
   return gens.length ? gens : ["Universal"];
 }
 
-// Generation hero cards
+// Generation hero cards (white-background studio imagery)
 const genCards = [
-  { key: "C5", years: "1997 – 2004", title: "C5 Corvette", blurb: "LS1 / LS6 · The proven platform.", img: catC5, count: 42 },
-  { key: "C6", years: "2005 – 2013", title: "C6 Corvette", blurb: "LS2 / LS3 / LS7 · Track-day favorite.", img: catC6, count: 68 },
-  { key: "C7", years: "2014 – 2019", title: "C7 Corvette", blurb: "LT1 / LT4 · Grand Sport & Z06.", img: catC7, count: 94 },
-  { key: "C8", years: "2020 – Present", title: "C8 Stingray", blurb: "LT2 · Mid-engine, dialed in.", img: catC8, count: 112, featured: true },
-  { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette, count: 47, featured: true },
-  { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url, count: 28 },
-  { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url, count: 56 },
+  { key: "C5", years: "1997 – 2004", title: "C5 Corvette", blurb: "LS1 / LS6 · The proven platform.", img: catC5 },
+  { key: "C6", years: "2005 – 2013", title: "C6 Corvette", blurb: "LS2 / LS3 / LS7 · Track-day favorite.", img: catC6 },
+  { key: "C7", years: "2014 – 2019", title: "C7 Corvette", blurb: "LT1 / LT4 · Grand Sport & Z06.", img: catC7 },
+  { key: "C8", years: "2020 – Present", title: "C8 Stingray", blurb: "LT2 · Mid-engine, dialed in.", img: catC8 },
+  { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette },
+  { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url },
+  { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url },
 ];
 
 // Curated Corvette collections
@@ -162,47 +162,38 @@ function ShopPage() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {visibleGenCards.map((g) => (
             <Link
               key={g.key}
               to="/category"
               search={{ gen: g.key, cat: "All", sort: "Featured" }}
-              className={`group relative block overflow-hidden rounded-2xl border border-border ${g.featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2" : ""}`}
+              className="group relative block overflow-hidden rounded-2xl border border-border"
             >
-              <div className={`relative ${g.featured ? "aspect-[4/5] lg:aspect-[3/4]" : "aspect-[5/6]"} overflow-hidden bg-surface`}>
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                 <img
                   src={g.img}
                   alt={g.title}
                   className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                   loading="lazy"
                 />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, oklch(0.14 0.005 260) 0%, oklch(0.14 0.005 260 / 0.35) 45%, transparent 75%)",
-                  }}
-                />
-                <div className="absolute inset-0 p-6 md:p-7 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-background/70 backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                      {g.years}
-                    </span>
-                    <span className="text-[10px] font-display uppercase tracking-widest text-white/70">
-                      {genCounts.get(g.key) ?? 0} parts
-                    </span>
-                  </div>
-                  <div>
-                    <p className="eyebrow text-race-red">Generation · {g.key}</p>
-                    <h3 className="mt-3 font-display text-2xl md:text-3xl font-semibold leading-tight">
-                      {g.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-white/70 leading-snug">{g.blurb}</p>
-                    <div className="mt-5 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-white group-hover:text-race-red transition-colors">
-                      Shop {g.key}
-                      <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span className="rounded-full bg-black/80 text-white backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
+                    {g.years}
+                  </span>
+                  <span className="text-[10px] font-display uppercase tracking-widest text-black/70">
+                    {genCounts.get(g.key) ?? 0} parts
+                  </span>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-white/95 backdrop-blur-sm border-t border-border/50">
+                  <p className="eyebrow text-race-red">Generation · {g.key}</p>
+                  <h3 className="mt-2 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
+                    {g.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-black/70 leading-snug">{g.blurb}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
+                    Shop {g.key}
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
