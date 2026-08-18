@@ -109,25 +109,36 @@ function AboutPage() {
       </section>
 
       {/* TIMELINE */}
-      <section className="container-wide py-24 md:py-32">
-        <Eyebrow>Timeline</Eyebrow>
-        <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">The long way to the podium.</h2>
-        <div className="mt-16 grid gap-x-10 md:grid-cols-[auto_1fr]">
-          {[
-            ["1999", "The First Bay", "Two lifts, one Corvette, a father-son handshake."],
-            ["2006", "First Championship", "SCCA T1 class title — car built and driven in-house."],
-            ["2012", "The Race Shop", "Ground-up move to a purpose-built 20,000 sq ft facility."],
-            ["2018", "Engineering Division", "Full-time vehicle dynamics and aero programs added."],
-            ["2024", "Third Generation", "The next kids in the family now on the tools."],
-          ].map(([y, t, d]) => (
-            <div key={y} className="contents">
-              <div className="hairline-t md:hairline-t py-8 md:py-10 md:pr-8 font-display text-2xl md:text-4xl font-semibold text-race-red">{y}</div>
-              <div className="hairline-t py-8 md:py-10 md:pl-8">
-                <h3 className="font-display text-xl md:text-2xl font-semibold">{t}</h3>
-                <p className="mt-3 text-muted-foreground max-w-lg leading-relaxed">{d}</p>
-              </div>
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
+          style={{ backgroundImage: `url(${timelineBg.url})` }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/75 to-black/60" aria-hidden="true" />
+        <div className="container-wide relative z-10 py-24 md:py-32">
+          <div className="max-w-3xl">
+            <Eyebrow>Timeline</Eyebrow>
+            <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">The long way to the podium.</h2>
+          </div>
+          <div className="mt-14 md:mt-18 max-w-3xl">
+            <div className="relative border-l-2 border-race-red/40 pl-8 md:pl-12 space-y-10 md:space-y-14">
+              {[
+                ["1999", "The First Bay", "Two lifts, one Corvette, a father-son handshake."],
+                ["2006", "First Championship", "SCCA T1 class title — car built and driven in-house."],
+                ["2012", "The Race Shop", "Ground-up move to a purpose-built 20,000 sq ft facility."],
+                ["2018", "Engineering Division", "Full-time vehicle dynamics and aero programs added."],
+                ["2024", "Third Generation", "The next kids in the family now on the tools."],
+              ].map(([y, t, d]) => (
+                <div key={y} className="relative">
+                  <span className="absolute -left-[calc(2rem+1px)] md:-left-[calc(3rem+1px)] top-1.5 h-4 w-4 rounded-full bg-race-red ring-4 ring-black/50" />
+                  <div className="font-display text-2xl md:text-3xl font-semibold text-race-red">{y}</div>
+                  <h3 className="mt-1 font-display text-xl md:text-2xl font-semibold text-white">{t}</h3>
+                  <p className="mt-2 text-white/80 max-w-xl leading-relaxed">{d}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
