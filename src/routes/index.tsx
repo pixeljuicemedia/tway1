@@ -20,9 +20,9 @@ import catC6 from "@/assets/cat-c6.jpg";
 import catC5 from "@/assets/cat-c5.jpg";
 import catSafety from "@/assets/cat-safety.jpg";
 import catElectronics from "@/assets/cat-electronics.jpg";
-import svcFab from "@/assets/svc-fab.jpg";
-import svcDyno from "@/assets/svc-dyno.jpg";
-import svcEngine from "@/assets/svc-engine.jpg";
+import ts1 from "@/assets/ts1.jpg.asset.json";
+import ts2 from "@/assets/ts2.jpg.asset.json";
+import ts3 from "@/assets/ts3.jpg.asset.json";
 import build1 from "@/assets/build-1.jpg";
 import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
@@ -74,6 +74,25 @@ const recentBuilds = [
   { title: "GR Corolla · Suspension Overhaul",  tag: "Suspension",     img: build3 },
   { title: "Civic Type R · Brake Upgrade",      tag: "Brakes",         img: userShop },
   { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
+];
+
+const testimonials = [
+const tracksideServices = [
+  {
+    title: "Driver Coaching",
+    img: ts1.url,
+    body: "With over 20 years racing experience, Tway Motorsports offers driver coaching for all levels of drivers, first timer to seasoned racers looking for an edge. We use video & data acquisition systems to analyze driver performance. We can provide ride-alongs in customer vehicles, and also provide lead-follow sessions on track.",
+  },
+  {
+    title: "Performance Tuning",
+    img: ts2.url,
+    body: "Today, modern day race cars have 10x more computers and mechanical adjustments than just 20 years ago. Tway Motorsports offers suspension and chassis tuning services to dial in the handling at the track. We also can install and provide data acquisition systems and provide real time analysis of the car's performance on track.",
+  },
+  {
+    title: "Arrive and Drive",
+    img: ts3.url,
+    body: "We offer customers a turnkey racing experience where they can arrive to the track, hop into a Tway Motorsports prepared Corvette race car and spend the day focusing on driving only. We handle all preparation and maintenance required, including transporting the car to and from the track. We offer this service for customers with their own cars as well.",
+  },
 ];
 
 const testimonials = [
