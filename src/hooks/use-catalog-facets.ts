@@ -9,7 +9,7 @@ export const GEN_META: Record<string, { label: string; years: string }> = {
   C5: { label: "C5 Corvette", years: "1997 – 2004" },
   C6: { label: "C6 Corvette", years: "2005 – 2013" },
   C7: { label: "C7 Corvette", years: "2014 – 2019" },
-  C8: { label: "C8 Stingray", years: "2020 – Present" },
+  C8: { label: "C8 Corvette", years: "2020 – Present" },
   Z06: { label: "C8 Z06", years: "2023 – Present" },
   "E-Ray": { label: "C8 E-Ray", years: "2024 – Present" },
   Universal: { label: "Universal", years: "All Generations" },
