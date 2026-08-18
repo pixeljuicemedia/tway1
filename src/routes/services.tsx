@@ -28,12 +28,12 @@ export const Route = createFileRoute("/services")({
 
 const services = [
   { n: "01", t: "Custom Fabrication", d: "TIG-welded stainless headers, roll cages, splitters, brackets — one-off race components engineered around your platform.", img: svcFab },
-  { n: "02", t: "Engine Building", d: "Blueprinted LT and LS assemblies. Balanced rotating assemblies, CNC-ported heads, race-spec valvetrains.", img: svcEngine },
-  { n: "03", t: "Dyno Tuning", d: "In-house Mustang chassis dyno. Every calibration is validated with data, not guessed at.", img: svcDyno },
-  { n: "04", t: "Race Prep", d: "Corner weights, alignment, brake bleeds, tire prep. We ship your car race-ready — every session.", img: racePrep.url },
-  { n: "05", t: "Trackside Support", d: "Full pit-lane presence. Diagnostics, setup changes, fabrication repairs — we don't leave until you finish.", img: trackside.url },
-  { n: "06", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: engineering.url },
-  { n: "07", t: "Driver Development", d: "Coaching, data review, sim programs. From HPDE novice to championship contender.", img: userShop },
+  { n: "02", t: "Race Prep", d: "Corner weights, alignment, brake bleeds, tire prep. We ship your car race-ready — every session.", img: racePrep.url },
+  { n: "03", t: "Trackside Support", d: "Full pit-lane presence. Diagnostics, setup changes, fabrication repairs — we don't leave until you finish.", img: trackside.url },
+  { n: "04", t: "Engineering", d: "Vehicle dynamics, aero simulation, damper development. Engineering-backed decisions, not opinions.", img: engineering.url },
+  { n: "05", t: "Driver Development", d: "Coaching, data review, sim programs. From HPDE novice to championship contender.", img: userShop },
+  { n: "06", t: "Engine Building", d: "Blueprinted LT and LS assemblies. Balanced rotating assemblies, CNC-ported heads, race-spec valvetrains.", img: svcEngine },
+  { n: "07", t: "Dyno Tuning", d: "In-house Mustang chassis dyno. Every calibration is validated with data, not guessed at.", img: svcDyno, comingSoon: true },
 ];
 
 function ServicesPage() {
@@ -72,16 +72,25 @@ function ServicesPage() {
             <div className="max-w-lg">
               <Eyebrow>Service · {s.n}</Eyebrow>
               <h2 className="mt-6 font-display text-3xl md:text-5xl font-semibold leading-[1.02]">{s.t}</h2>
-              <p className="mt-6 text-muted-foreground leading-relaxed">{s.d}</p>
-              <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-muted-foreground">
-                {["Consultation", "Design", "Fabrication", "Validation"].map((x) => (
-                  <li key={x} className="flex items-center gap-2">
-                    <span className="h-1 w-1 rounded-full bg-race-red" />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="mt-10 inline-flex btn-ghost">Request a Quote →</Link>
+              {s.comingSoon ? (
+                <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-race-red/10 px-4 py-2 text-sm font-semibold text-race-red">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-race-red" />
+                  Coming Soon
+                </p>
+              ) : (
+                <>
+                  <p className="mt-6 text-muted-foreground leading-relaxed">{s.d}</p>
+                  <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-muted-foreground">
+                    {["Consultation", "Design", "Fabrication", "Validation"].map((x) => (
+                      <li key={x} className="flex items-center gap-2">
+                        <span className="h-1 w-1 rounded-full bg-race-red" />
+                        {x}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/contact" className="mt-10 inline-flex btn-ghost">Request a Quote →</Link>
+                </>
+              )}
             </div>
           </article>
         ))}
