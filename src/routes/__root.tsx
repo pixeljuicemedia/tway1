@@ -124,8 +124,46 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function useImageFadeIn() {
+  useEffect(() => {
+    const mark = (img: HTMLImageElement) => {
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add("img-loaded");
+      }
+    };
+
+    const onLoad = (e: Event) => {
+      const img = e.target as HTMLImageElement;
+      img.classList.add("img-loaded");
+    };
+
+    document.querySelectorAll("img").forEach(mark);
+    document.addEventListener("load", onLoad, true);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof HTMLImageElement) {
+            mark(node);
+          } else if (node instanceof HTMLElement) {
+            node.querySelectorAll("img").forEach(mark);
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      document.removeEventListener("load", onLoad, true);
+      observer.disconnect();
+    };
+  }, []);
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useImageFadeIn();
 
   return (
     <QueryClientProvider client={queryClient}>
