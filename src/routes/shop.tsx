@@ -177,32 +177,23 @@ function ShopPage() {
                   className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                   loading="lazy"
                 />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, oklch(1 0 0 / 0.98) 0%, oklch(1 0 0 / 0.92) 22%, oklch(1 0 0 / 0.65) 45%, transparent 72%)",
-                  }}
-                />
-                <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-black/80 text-white backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
-                      {g.years}
-                    </span>
-                    <span className="text-[10px] font-display uppercase tracking-widest text-black/70">
-                      {genCounts.get(g.key) ?? 0} parts
-                    </span>
-                  </div>
-                  <div>
-                    <p className="eyebrow text-race-red">Generation · {g.key}</p>
-                    <h3 className="mt-3 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
-                      {g.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-black/70 leading-snug">{g.blurb}</p>
-                    <div className="mt-5 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
-                      Shop {g.key}
-                      <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span className="rounded-full bg-black/80 text-white backdrop-blur px-3 py-1 text-[10px] font-display uppercase tracking-widest">
+                    {g.years}
+                  </span>
+                  <span className="text-[10px] font-display uppercase tracking-widest text-black/70">
+                    {genCounts.get(g.key) ?? 0} parts
+                  </span>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-white/95 backdrop-blur-sm border-t border-border/50">
+                  <p className="eyebrow text-race-red">Generation · {g.key}</p>
+                  <h3 className="mt-2 font-display text-xl md:text-2xl font-semibold leading-tight text-black">
+                    {g.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-black/70 leading-snug">{g.blurb}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 font-display text-[11px] uppercase tracking-widest text-black group-hover:text-race-red transition-colors">
+                    Shop {g.key}
+                    <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
