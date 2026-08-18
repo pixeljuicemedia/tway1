@@ -119,18 +119,22 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <div className="md:hidden mt-3 mx-4 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/10">
+        <div className="md:hidden mt-3 mx-4 rounded-2xl bg-background/90 backdrop-blur-xl border border-white/10 max-h-[80vh] overflow-y-auto">
           <div className="p-6 flex flex-col gap-4">
-            {nav.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n) =>
+              n.to === "/shop" ? (
+                <MobileShopSubmenu key={n.to} onClose={() => setOpen(false)} />
+              ) : (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  onClick={() => setOpen(false)}
+                  className="font-display text-sm font-bold tracking-[0.18em] uppercase text-white"
+                >
+                  {n.label}
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}
