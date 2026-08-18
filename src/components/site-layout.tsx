@@ -24,7 +24,7 @@ const shopMenu = {
     { label: "C5 Corvette", years: "1997 – 2004", hash: "C5" },
     { label: "C6 Corvette", years: "2005 – 2013", hash: "C6" },
     { label: "C7 Corvette", years: "2014 – 2019", hash: "C7" },
-    { label: "C8 Stingray", years: "2020 – Present", hash: "C8" },
+    { label: "C8 Corvette", years: "2020 – Present", hash: "C8" },
     { label: "C8 Z06", years: "2023 – Present", hash: "Z06" },
     { label: "C8 E-Ray", years: "2024 – Present", hash: "E-Ray" },
   ],
@@ -253,7 +253,7 @@ function ShopMenu() {
                   <img src={c8Hero} alt="C8 Corvette" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-3">
-                    <p className="font-display text-[13px] font-bold text-white">C8 Stingray</p>
+                    <p className="font-display text-[13px] font-bold text-white">C8 Corvette</p>
                     <p className="text-[10px] text-white/80 uppercase tracking-wider">Shop Platform →</p>
                   </div>
                 </Link>

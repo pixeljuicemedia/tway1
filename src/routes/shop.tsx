@@ -28,7 +28,7 @@ export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
       { title: "Shop Your Corvette — C5, C6, C7, C8, Z06, E-Ray · Tway Motorsports" },
-      { name: "description", content: "The premier destination for Corvette performance. Shop track-tested parts by generation — C5, C6, C7, C8 Stingray, Z06 and E-Ray." },
+      { name: "description", content: "The premier destination for Corvette performance. Shop track-tested parts by generation — C5, C6, C7, C8 Corvette, Z06 and E-Ray." },
       { property: "og:title", content: "Shop Your Corvette — Tway Motorsports" },
       { property: "og:description", content: "Track-tested Corvette parts by generation. C5 through C8 Z06 and E-Ray. Installed and validated in-house." },
     ],
@@ -55,7 +55,7 @@ const genCards = [
   { key: "C5", years: "1997 – 2004", title: "C5 Corvette", blurb: "LS1 / LS6 · The proven platform.", img: catC5 },
   { key: "C6", years: "2005 – 2013", title: "C6 Corvette", blurb: "LS2 / LS3 / LS7 · Track-day favorite.", img: catC6 },
   { key: "C7", years: "2014 – 2019", title: "C7 Corvette", blurb: "LT1 / LT4 · Grand Sport & Z06.", img: catC7 },
-  { key: "C8", years: "2020 – Present", title: "C8 Stingray", blurb: "LT2 · Mid-engine, dialed in.", img: catC8 },
+  { key: "C8", years: "2020 – Present", title: "C8 Corvette", blurb: "LT2 · Mid-engine, dialed in.", img: catC8 },
   { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette },
   { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url },
   { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url },
