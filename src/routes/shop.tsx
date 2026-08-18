@@ -50,15 +50,15 @@ function generationsOf(p: ShopifyProduct): string[] {
   return gens.length ? gens : ["Universal"];
 }
 
-// Generation hero cards
+// Generation hero cards (white-background studio imagery)
 const genCards = [
-  { key: "C5", years: "1997 – 2004", title: "C5 Corvette", blurb: "LS1 / LS6 · The proven platform.", img: catC5, count: 42 },
-  { key: "C6", years: "2005 – 2013", title: "C6 Corvette", blurb: "LS2 / LS3 / LS7 · Track-day favorite.", img: catC6, count: 68 },
-  { key: "C7", years: "2014 – 2019", title: "C7 Corvette", blurb: "LT1 / LT4 · Grand Sport & Z06.", img: catC7, count: 94 },
-  { key: "C8", years: "2020 – Present", title: "C8 Stingray", blurb: "LT2 · Mid-engine, dialed in.", img: catC8, count: 112, featured: true },
-  { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette, count: 47, featured: true },
-  { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url, count: 28 },
-  { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url, count: 56 },
+  { key: "C5", years: "1997 – 2004", title: "C5 Corvette", blurb: "LS1 / LS6 · The proven platform.", img: catC5 },
+  { key: "C6", years: "2005 – 2013", title: "C6 Corvette", blurb: "LS2 / LS3 / LS7 · Track-day favorite.", img: catC6 },
+  { key: "C7", years: "2014 – 2019", title: "C7 Corvette", blurb: "LT1 / LT4 · Grand Sport & Z06.", img: catC7 },
+  { key: "C8", years: "2020 – Present", title: "C8 Stingray", blurb: "LT2 · Mid-engine, dialed in.", img: catC8 },
+  { key: "Z06", years: "2023 – Present", title: "C8 Z06", blurb: "LT6 flat-plane · 670 hp weapon.", img: heroCorvette },
+  { key: "E-Ray", years: "2024 – Present", title: "C8 E-Ray", blurb: "Hybrid AWD · eAWD performance.", img: corvetteSide.url },
+  { key: "Universal", years: "All Generations", title: "Universal Corvette", blurb: "Tools, safety & apparel.", img: engineering.url },
 ];
 
 // Curated Corvette collections
