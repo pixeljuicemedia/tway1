@@ -170,11 +170,11 @@ function ShopPage() {
               search={{ gen: g.key, cat: "All", sort: "Featured" }}
               className="group relative block overflow-hidden rounded-2xl border border-border"
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+              <div className="relative aspect-[4/5] overflow-hidden bg-white">
                 <img
                   src={g.img}
                   alt={g.title}
-                  className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                  className="h-full w-full object-contain object-center transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                   loading="lazy"
                 />
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
