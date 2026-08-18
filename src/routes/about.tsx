@@ -53,8 +53,13 @@ function AboutPage() {
           <span className="text-race-red">A decade of podium finishes.</span>
         </h1>
         <div className="mt-16 grid gap-12 lg:grid-cols-[1.4fr_1fr] items-start">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
-            <img src={aboutTeam} alt="Tway family team" className="h-full w-full object-cover" loading="lazy" />
+          <div className="space-y-6">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+              <img src={aboutTeam} alt="Tway family team" className="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+              <img src={racertsAsset.url} alt="Tway Motorsports race team and Corvettes on track" className="h-full w-full object-cover" loading="lazy" />
+            </div>
           </div>
           <div className="max-w-md space-y-8 text-white">
             <div>
