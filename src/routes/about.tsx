@@ -195,14 +195,22 @@ function AboutPage() {
       </Dialog>
 
       {/* CTA */}
-      <section className="container-wide py-24 md:py-32 text-center hairline-t">
-        <Eyebrow accent>Come by the shop</Eyebrow>
-        <h2 className="mt-8 font-display text-4xl md:text-6xl font-semibold leading-[1] max-w-3xl mx-auto">
-          Meet the team. See the builds.
-        </h2>
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Link to="/contact" className="btn-primary">Book a Visit</Link>
-          <Link to="/services" className="btn-ghost">Our Services</Link>
+      <section className="relative overflow-hidden py-24 md:py-32 text-center hairline-t">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${aboutShopCtaBg.url})` }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
+        <div className="container-wide relative z-10">
+          <Eyebrow accent>Come by the shop</Eyebrow>
+          <h2 className="mt-8 font-display text-4xl md:text-6xl font-semibold leading-[1] max-w-3xl mx-auto">
+            Meet the team. See the builds.
+          </h2>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link to="/contact" className="btn-primary">Book a Visit</Link>
+            <Link to="/services" className="btn-ghost">Our Services</Link>
+          </div>
         </div>
       </section>
 
