@@ -27,7 +27,6 @@ import buildC8Gt3 from "@/assets/build-c8gt3-9406.jpg.asset.json";
 import buildC5_55 from "@/assets/build-img-2939-2.jpg.asset.json";
 import buildC5_05 from "@/assets/blue05-img_0605.jpg.asset.json";
 import buildC5Silver from "@/assets/newbuild-img_8557.jpg.asset.json";
-import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
 import prod1 from "@/assets/prod-1.jpg";
 import prod2 from "@/assets/prod-2.jpg";
