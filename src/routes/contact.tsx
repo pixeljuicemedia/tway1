@@ -45,7 +45,7 @@ function ContactPage() {
               Talk to a racer.<br /><span className="text-muted-foreground">Not a call center.</span>
             </h1>
           </div>
-          <p className="max-w-md text-muted-foreground leading-relaxed">
+          <p className="max-w-md text-white font-bold text-lg leading-relaxed">
             Every message goes to a technician who has actually built cars — not a sales queue. We reply inside one business day.
           </p>
         </div>
