@@ -23,7 +23,6 @@ import catElectronics from "@/assets/cat-electronics.jpg";
 import ts1 from "@/assets/ts1.jpg.asset.json";
 import ts2 from "@/assets/ts2.jpg.asset.json";
 import ts3 from "@/assets/ts3.jpg.asset.json";
-import build1 from "@/assets/build-1.jpg";
 import buildC8Gt3 from "@/assets/build-c8gt3-9406.jpg.asset.json";
 import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
