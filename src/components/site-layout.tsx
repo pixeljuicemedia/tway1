@@ -420,7 +420,7 @@ export function SiteFooter() {
             </address>
             <p className="eyebrow mt-8">Hours</p>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              Mon – Fri · 8:00 – 18:00<br />
+              Mon – Fri · 9am – 5pm<br />
               Sat · By appointment<br />
               Sun · Closed
             </p>
