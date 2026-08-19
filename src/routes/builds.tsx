@@ -18,6 +18,12 @@ import g1858 from "@/assets/build-img-1858.jpg.asset.json";
 import g1452 from "@/assets/build-img-1452.jpg.asset.json";
 import g3906 from "@/assets/build-img-3906.jpg.asset.json";
 import g3930 from "@/assets/build-img-3930.jpg.asset.json";
+import k0605 from "@/assets/blue05-img_0605.jpg.asset.json";
+import k6707 from "@/assets/blue05-img_6707.jpg.asset.json";
+import k6708 from "@/assets/blue05-img_6708.jpg.asset.json";
+import k9348 from "@/assets/blue05-img_9348.jpg.asset.json";
+import k9366 from "@/assets/blue05-img_9366.jpg.asset.json";
+import k2915 from "@/assets/blue05-img_2915.jpg.asset.json";
 
 export const Route = createFileRoute("/builds")({
   head: () => ({
@@ -72,6 +78,19 @@ const buildSets: BuildSet[] = [
     photos: [
       { img: g3930.url, alt: "Green and black #07 C5 Corvette race car in the paddock" },
       { img: g3906.url, alt: "Crew working on the #07 C5 Corvette on jack stands at the track" },
+    ],
+  },
+  {
+    title: "#05 C5 Corvette · K Racing ST1",
+    tag: "Race Prep · Trackside",
+    blurb: "The blue K Racing 'Total Kontrol' #05 C5 — an ST1-spec Corvette we prep, service and support at the track, from aero and cooling to full trackside engineering.",
+    photos: [
+      { img: k0605.url, alt: "Blue #05 K Racing C5 Corvette at speed on a desert circuit" },
+      { img: k6707.url, alt: "Front clip removed on the blue #05 C5 Corvette during trackside service" },
+      { img: k6708.url, alt: "Crew working on the blue #05 C5 Corvette in the paddock" },
+      { img: k9348.url, alt: "Blue #05 K Racing C5 Corvette prepped at the track" },
+      { img: k9366.url, alt: "Blue #05 K Racing C5 Corvette during a race weekend" },
+      { img: k2915.url, alt: "Detail of the blue #05 C5 Corvette race car" },
     ],
   },
 ];
