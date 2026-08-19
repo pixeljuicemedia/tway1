@@ -26,6 +26,7 @@ import ts3 from "@/assets/ts3.jpg.asset.json";
 import buildC8Gt3 from "@/assets/build-c8gt3-9406.jpg.asset.json";
 import buildC5_55 from "@/assets/build-img-2939-2.jpg.asset.json";
 import buildC5_05 from "@/assets/blue05-img_0605.jpg.asset.json";
+import buildC5Silver from "@/assets/newbuild-img_8557.jpg.asset.json";
 import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
 import prod1 from "@/assets/prod-1.jpg";
@@ -74,7 +75,7 @@ const recentBuilds = [
   { title: "C8 Z06 GT3.R · Race Prep",          tag: "Race Prep",      img: buildC8Gt3.url },
   { title: "#55 C5 Corvette · Full Build",      tag: "Race Prep",      img: buildC5_55.url },
   { title: "#05 C5 Corvette · ST1 Build",       tag: "Race Prep",      img: buildC5_05.url },
-  { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
+  { title: "Silver #55 C5 Z06 · Track Build",   tag: "Race Prep",      img: buildC5Silver.url },
 ];
 
 const tracksideServices = [
