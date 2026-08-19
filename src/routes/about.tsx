@@ -70,31 +70,31 @@ function AboutPage() {
             <div>
               <h2 className="font-display text-xl font-semibold text-race-red">Founding</h2>
               <p className="mt-3 leading-relaxed">
-                Jim Tway founded and incorporated Tway Motorsports in 2015 while working as an aerospace engineer in Southern California. After a modest start, Tway Motorsports grew from a side gig in the garage to a full-time venture in 2022.
+                Jim Tway founded the company in 2015 while working as an aerospace engineer in Southern California. What began as a side project in the garage steadily outgrew the weekends, and by 2022 it had become a full-time venture built around the cars he loved.
               </p>
             </div>
             <div>
               <h2 className="font-display text-xl font-semibold text-race-red">Early Days</h2>
               <p className="mt-3 leading-relaxed">
-                Tway Motorsports began offering a product line of aerodynamic parts for late-model Corvettes, all designed in-house. Shortly thereafter, trackside tuning and support of Corvettes became a major growth opportunity.
+                The first products were a line of in-house aerodynamic parts for late-model Corvettes, designed, tested, and refined on track. That work quickly opened the door to trackside tuning and support, which became the real engine of growth.
               </p>
             </div>
             <div>
               <h2 className="font-display text-xl font-semibold text-race-red">Current Offerings</h2>
               <p className="mt-3 leading-relaxed">
-                Tway Motorsports offers a full complement of automotive racing services and parts. We offer custom-designed parts and the best racing retail parts from around the world, engineering and driver development solutions for amateur enthusiasts and pro racing drivers, installation services, and trackside mechanical and engineering support including technical inspection. We also bring an expansive knowledge base of modern racing electrical systems and software, providing parts, programming and tuning.
+                Today the shop offers a complete range of racing services and performance parts. That includes custom-designed components, curated retail parts from top manufacturers, driver development and engineering support for amateur and professional racers, installation services, trackside mechanical and technical inspection, and deep expertise in modern racing electrical systems, software, and tuning.
               </p>
             </div>
             <div>
               <h2 className="font-display text-xl font-semibold text-race-red">Position</h2>
               <p className="mt-3 leading-relaxed">
-                Tway Motorsports leverages a 15-year career in advanced vehicle systems including programs such as the Boeing 787, Minuteman III ICBM, and numerous Phantom Works prototype unmanned planes and helicopters. Combined with Jim's 20-year racing career in SCCA Road Racing, NASA Pro Racing and a collegiate Formula SAE race team, this has uniquely positioned Tway Motorsports as a leading race shop operating in SoCal.
+                That breadth comes from experience. Jim spent 15 years in advanced vehicle systems, contributing to programs like the Boeing 787, Minuteman III ICBM, and Phantom Works prototype unmanned aircraft and helicopters. Combined with more than two decades of racing in SCCA Road Racing, NASA Pro Racing, and collegiate Formula SAE, that background gives the shop a rare combination of engineering discipline and seat-time intuition.
               </p>
             </div>
             <div>
               <h2 className="font-display text-xl font-semibold text-race-red">Family Driven</h2>
               <p className="mt-3 leading-relaxed">
-                Tway Motorsports is truly a family-driven operation. Jim leads the vision and technical direction of the shop, while Erin manages the business operations and plays an active role in trackside support. Their sons, Adam and Wyatt, grew up immersed in racing and now compete in the Speed Ventures Corvette Challenge, continuing the family legacy. Adam works in the shop while attending Cypress College, and Wyatt contributes whenever he's home from San Diego State University.
+                Behind the work is a family fully invested in racing. Jim sets the technical direction, Erin runs operations and joins trackside support, and their sons Adam and Wyatt—both competing in the Speed Ventures Corvette Challenge—handle shop work around school at Cypress College and San Diego State University.
               </p>
             </div>
           </div>
