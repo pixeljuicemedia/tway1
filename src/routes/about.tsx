@@ -87,6 +87,12 @@ function AboutPage() {
                 Tway Motorsports leverages a 15-year career in advanced vehicle systems including programs such as the Boeing 787, Minuteman III ICBM, and numerous Phantom Works prototype unmanned planes and helicopters. Combined with Jim's 20-year racing career in SCCA Road Racing, NASA Pro Racing and a collegiate Formula SAE race team, this has uniquely positioned Tway Motorsports as a leading race shop operating in SoCal.
               </p>
             </div>
+            <div>
+              <h2 className="font-display text-xl font-semibold text-race-red">Family Driven</h2>
+              <p className="mt-3 leading-relaxed">
+                Tway Motorsports is truly a family-driven operation. Jim leads the vision and technical direction of the shop, while Erin manages the business operations and plays an active role in trackside support. Their sons, Adam and Wyatt, grew up immersed in racing and now compete in the Speed Ventures Corvette Challenge, continuing the family legacy. Adam works in the shop while attending Cypress College, and Wyatt contributes whenever he's home from San Diego State University.
+              </p>
+            </div>
           </div>
         </div>
       </section>
