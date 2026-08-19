@@ -24,6 +24,7 @@ import ts1 from "@/assets/ts1.jpg.asset.json";
 import ts2 from "@/assets/ts2.jpg.asset.json";
 import ts3 from "@/assets/ts3.jpg.asset.json";
 import build1 from "@/assets/build-1.jpg";
+import buildC8Gt3 from "@/assets/build-c8gt3-9406.jpg.asset.json";
 import build2 from "@/assets/build-2.jpg";
 import build3 from "@/assets/build-3.jpg";
 import prod1 from "@/assets/prod-1.jpg";
@@ -70,7 +71,7 @@ const whyCards = [
 ];
 
 const recentBuilds = [
-  { title: "Porsche GT3 · Roll Cage",           tag: "Fabrication",    img: build1 },
+  { title: "C8 Z06 GT3.R · Race Prep",          tag: "Race Prep",      img: buildC8Gt3.url },
   { title: "GR Corolla · Suspension Overhaul",  tag: "Suspension",     img: build3 },
   { title: "Civic Type R · Brake Upgrade",      tag: "Brakes",         img: userShop },
   { title: "BMW G87 · Aero Package",            tag: "Aero",           img: build2 },
@@ -460,12 +461,12 @@ function Index() {
               <Eyebrow>Recent Builds</Eyebrow>
               <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02] max-w-2xl">Real cars. Real customers. Real results.</h2>
             </div>
-            <Link to="/about" className="btn-ghost">See the Shop →</Link>
+            <Link to="/builds" className="btn-ghost">View All Builds →</Link>
           </div>
 
           <div className="mt-14 grid gap-6 md:gap-8 md:grid-cols-2">
             {recentBuilds.map((b) => (
-              <Link key={b.title} to="/shop" className="group relative overflow-hidden rounded-xl bg-surface aspect-[16/10]">
+              <Link key={b.title} to="/builds" className="group relative overflow-hidden rounded-xl bg-surface aspect-[16/10]">
                 <img src={b.img} alt={b.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
