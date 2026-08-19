@@ -62,6 +62,9 @@ function AboutPage() {
             <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
               <img src={racertsAsset.url} alt="Tway Motorsports race team and Corvettes on track" className="h-full w-full object-cover" loading="lazy" />
             </div>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+              <img src={aboutFamily3.url} alt="Tway Motorsports family at the track" className="h-full w-full object-cover" loading="lazy" />
+            </div>
           </div>
           <div className="max-w-md space-y-8 text-white">
             <div>
