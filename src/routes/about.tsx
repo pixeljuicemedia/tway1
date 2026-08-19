@@ -203,7 +203,7 @@ function AboutPage() {
         />
         <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
         <div className="container-wide relative z-10">
-          <Eyebrow accent>Come by the shop</Eyebrow>
+          <Eyebrow accent className="justify-center">Come by the shop</Eyebrow>
           <h2 className="mt-8 font-display text-4xl md:text-6xl font-semibold leading-[1] max-w-3xl mx-auto">
             Meet the team. See the builds.
           </h2>
