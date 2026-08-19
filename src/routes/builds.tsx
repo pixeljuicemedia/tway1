@@ -24,6 +24,13 @@ import k6708 from "@/assets/blue05-img_6708.jpg.asset.json";
 import k9348 from "@/assets/blue05-img_9348.jpg.asset.json";
 import k9366 from "@/assets/blue05-img_9366.jpg.asset.json";
 import k2915 from "@/assets/blue05-img_2915.jpg.asset.json";
+import s8557 from "@/assets/newbuild-img_8557.jpg.asset.json";
+import s8558 from "@/assets/newbuild-img_8558.jpg.asset.json";
+import s8559 from "@/assets/newbuild-img_8559.jpg.asset.json";
+import s8586 from "@/assets/newbuild-img_8586.jpg.asset.json";
+import s8595 from "@/assets/newbuild-img_8595.jpg.asset.json";
+import s8545 from "@/assets/newbuild-img_8545.jpg.asset.json";
+import s7958 from "@/assets/newbuild-img_7958.jpg.asset.json";
 
 export const Route = createFileRoute("/builds")({
   head: () => ({
@@ -91,6 +98,20 @@ const buildSets: BuildSet[] = [
       { img: k9348.url, alt: "Blue #05 K Racing C5 Corvette prepped at the track" },
       { img: k9366.url, alt: "Blue #05 K Racing C5 Corvette during a race weekend" },
       { img: k2915.url, alt: "Detail of the blue #05 C5 Corvette race car" },
+    ],
+  },
+  {
+    title: "Silver #55 C5 Z06 · Track Build",
+    tag: "Track Build · Trackside",
+    blurb: "The silver #55 C5 Z06 — a track-prepped Corvette running Tway suspension, brake and cooling setup, serviced by our crew at the track.",
+    photos: [
+      { img: s8557.url, alt: "Silver #55 C5 Corvette Z06 in the paddock beside the Tway tent" },
+      { img: s8558.url, alt: "Silver #55 C5 Corvette Z06 at a race weekend" },
+      { img: s8559.url, alt: "Silver #55 C5 Corvette Z06 parked in the paddock" },
+      { img: s8586.url, alt: "Silver #55 C5 Corvette Z06 at the track" },
+      { img: s8595.url, alt: "Silver #55 C5 Corvette Z06 during a track session" },
+      { img: s8545.url, alt: "Silver #55 C5 Corvette Z06 prepped for a session" },
+      { img: s7958.url, alt: "Silver #55 C5 Corvette Z06 track build detail" },
     ],
   },
 ];
