@@ -127,11 +127,11 @@ function AboutPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/75 to-black/60" aria-hidden="true" />
         <div className="container-wide relative z-10 py-24 md:py-32">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto text-center">
             <Eyebrow>Timeline</Eyebrow>
             <h2 className="mt-6 font-display text-4xl md:text-6xl font-semibold leading-[1.02]">The long way to the podium.</h2>
           </div>
-          <div className="mt-14 md:mt-18 max-w-3xl">
+          <div className="mt-14 md:mt-18 max-w-3xl mx-auto">
             <div className="relative border-l-2 border-race-red/40 pl-8 md:pl-12 space-y-10 md:space-y-14">
               {[
                 ["1999", "The First Bay", "Two lifts, one Corvette, a father-son handshake."],
