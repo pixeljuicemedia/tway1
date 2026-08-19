@@ -15,6 +15,7 @@ const nav = [
   { to: "/", label: "Home" },
   { to: "/shop", label: "Shop" },
   { to: "/services", label: "Services" },
+  { to: "/builds", label: "Builds" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -401,6 +402,7 @@ export function SiteFooter() {
             ["C8 Corvette", "/shop"],
             ["C7 Corvette", "/shop"],
             ["Services", "/services"],
+            ["Builds", "/builds"],
             ["Race Builds", "/about"],
           ]} />
           <FooterCol title="Company" links={[
